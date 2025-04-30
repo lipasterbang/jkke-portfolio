@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate JKKE Table</title>
+    <style>
+        /* CSS styles remain the same as before */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #2c1e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            flex-direction: column;
+            padding: 20px;
+        }
+        section {
+            width: 50%;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #cbecf5;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #bdc3c7;
+        }
+        .panel {
+            background-color: #fff;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .description-field {
+            height: 100px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #bdc3c7;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        td#description {
+            word-wrap: break-word;
+            white-space: normal;
+            vertical-align: top;
+            padding: 8px;
+        }
+        th {
+            background-color: #2c1e50;
+            color: #fff;
+        }
+        .right-align {
+            text-align: right;
+        }
+        .left-align {
+            text-align: left;
+        }
+        .go-back-btn {
+            padding: 10px 20px;
+            background-color: #008000;
+			margin-top: 5px;
+			margin-bottom: 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+			box-shadow: 0 9px #999;
+            font-size: 16px;
+        }
+        .go-back-btn:hover {
+            background-color: #e60000;
+        }
+		.go-back-btn:active {
+			background-color: #3e8e41;
+			box-shadow: 0 5px #666;
+			transform: translateY(4px);
+		}
+        .clear-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+        .clear-btn:hover {
+            background-color: #e60000;
+        }
+        .download-buttons {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        }
+
+        .download-buttons button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease-in-out;
+        }
+
+        .download-buttons button:hover {
+        background-color: #2980b9;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .instructions {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .instructions ul {
+            padding-left: 20px;
+        }
+        .instructions ul li {
+            margin-bottom: 5px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+        }
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #3498db;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script
+
+
+</head>
+<body>
+    <header>
+        <h1>Generate LAMPIRAN C</h1>
+        <button class="go-back-btn" onclick="goBackHome()">Go Back Home</button>
+    </header>
+    <main>
+        <section>
+            <nav>
+                <h3>Instructions</h3>
+                <ul>
+                    <li>Fill in the required details.</li>
+                    <li>Click "Save Data" to save the current entry.</li>
+                    <li>Use "Add New Data" to reset the form for a new entry.</li>
+                    <li>Click "Download as Excell" to convert the table data to an Excel file.</li>
+                    <li>Click "Download CSV" to download the data in CSV format.</li>
+                    <li>Click "Generate PDF" to generate a PDF of the entered data.</li>
+                    <li>Click "Clear" to reset all fields and table data.</li>
+                </ul>
+            </nav>
+        </section>
+        <div class="panel">
+            <h2>Masukkan Maklumat Berdasarkan Jadual Kadar Kerja Elektrik</h2>
+            <div id="input-form">
+                <div class="input-group">
+                    <label for="projek">Projek</label>
+                    <input type="text" id="projek" required>
+                </div>
+                <div class="input-group">
+                    <label for="jarak">Jarak</label>
+                    <input type="text" id="jarak" required>
+                </div>
+                <div class="input-group">
+                    <label for="code">Code</label>
+                    <input type="text" id="code" required>
+                </div>
+                <div class="input-group">
+                    <label for="description">Keterangan</label>
+                    <input type="text" id="description" class="description-field" required>
+                </div>
+                <div class="input-group">
+                    <label for="bahagianJKKE">Bahagian JKKE (Optional)</label>
+                    <input type="text" id="bahagianJKKE">
+                </div>
+                <div class="input-group">
+                    <label for="bilanganJKKE">Bilangan JKKE (Optional)</label>
+                    <input type="number" id="bilanganJKKE">
+                </div>
+                <div class="input-group">
+                    <label for="priceJKKE">Harga JKKE</label>
+                    <input type="number" id="priceJKKE" required>
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Kuantiti</label>
+                    <input type="number" id="quantity" min="0" required>
+                </div>
+                <button onclick="saveData()">Save Data</button>
+                <button onclick="addNewData()">Add New Data</button>
+            </div>
+            <button onclick="downloadAsExcel()">Download as Excel</button>
+            <button onclick="downloadCSV()">Download CSV</button>
+            <button onclick="generatePDF()">Generate PDF</button>
+            <button class="clear-btn" onclick="clearAll()">Clear</button>
+            <div id="output"></div>
+        </div>
+        <div class="loading-spinner" id="loadingSpinner"></div>
+    </main>
+    <footer>
+        <p>
+            <nav>
+                <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank">JKKE 2023 (PDF)</a> |
+                <a href="https://jkrelektrik.terengganu.gov.my" target="_top">CKE WEBSITE</a>
+            </nav>
+        </p>
+        &copy; 2024 Projek JKKE. All rights reserved.
+    </footer>
+    <script>
+        let savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+        let currentProjek = localStorage.getItem('currentProjek') || '';
+        let currentJarak = localStorage.getItem('currentJarak') || '';
+        let totalSum = 0;
+
+        document.getElementById('projek').value = currentProjek;
+        document.getElementById('jarak').value = currentJarak;
+
+        // Disable Projek and Jarak fields if already set
+        if (currentProjek && currentJarak) {
+            document.getElementById('projek').disabled = true;
+            document.getElementById('jarak').disabled = true;
+        }
+
+        function saveData() {
+            let projek = document.getElementById('projek').value.trim();
+            let jarak = document.getElementById('jarak').value.trim();
+            const code = document.getElementById('code').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const bahagianJKKE = document.getElementById('bahagianJKKE').value.trim();
+            const bilanganJKKE = parseInt(document.getElementById('bilanganJKKE').value.trim()) || null;
+            const priceJKKE = parseFloat(document.getElementById('priceJKKE').value.trim());
+            const quantity = parseInt(document.getElementById('quantity').value.trim());
+
+            if (!projek || !jarak || !code || !description || isNaN(priceJKKE) || isNaN(quantity)) {
+                alert('Please fill in all required fields correctly.');
+                return;
+            }
+
+            if (!currentProjek || !currentJarak) {
+                currentProjek = projek;
+                currentJarak = jarak;
+                localStorage.setItem('currentProjek', currentProjek);
+                localStorage.setItem('currentJarak', currentJarak);
+                document.getElementById('projek').disabled = true;
+                document.getElementById('jarak').disabled = true;
+            }
+
+            const totalPrice = priceJKKE * quantity;
+            let additionalCharge = 0;
+
+            // Calculate additional charge based on Jadual 1
+            if (totalSum + totalPrice > 1000) {
+                const jarakKM = parseFloat(jarak);
+                if (jarakKM <= 16) {
+                    additionalCharge = totalPrice * 0.04;
+                } else if (jarakKM > 16 && jarakKM <= 32) {
+                    additionalCharge = totalPrice * 0.09;
+                } else if (jarakKM > 32 && jarakKM <= 48) {
+                    additionalCharge = totalPrice * 0.12;
+                } else {
+                    additionalCharge = totalPrice * 0.14;
+                }
+            }
+
+            const totalWithCharge = totalPrice + additionalCharge;
+            totalSum += totalWithCharge;
+
+            const dataRow = {
+                projek: currentProjek,
+                jarak: currentJarak,
+                code,
+                description,
+                bahagianJKKE,
+                bilanganJKKE,
+                priceJKKE,
+                quantity,
+                totalPrice,
+                additionalCharge,
+                totalWithCharge
+            };
+
+            savedData.push(dataRow);
+            localStorage.setItem('savedData', JSON.stringify(savedData));
+            updateTablePreview();
+            alert('Data saved successfully.');
+        }
+
+        function updateTablePreview() {
+            const table = document.createElement('table');
+            table.innerHTML = `
+		    <table>
+            <thead>
+                <tr>
+                <th rowspan="2" class="text-center">No</th>
+                <th rowspan="2" class="text-center">Keterangan</th>
+                <th colspan="3" class="text-center">JKKE</th>
+                <th rowspan="2" class="text-center">Kuantiti</th>
+                <th rowspan="2" class="text-center">Harga (RM)</th>
+            </tr>
+            <tr>
+                <th class="text-center">Bhg.</th>
+                <th class="text-center">Bil.</th>
+                <th class="text-center">RM</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+            <tfoot>
+                <tr id="additional-charge-row" style="display:none;">
+                    <td colspan="6" class="right-align">Additional Charge Applied (Jadual 1): RM</td>
+                    <td id="additional-charge" class="right-align"></td>
+            </tr>
+                <tr>
+                    <td colspan="6" class="right-align">Jumlah Nilai Kerja (NK): RM</td>
+                    <td id="total-price" class="right-align"></td>
+                </tr>
+            </tfoot>
+            </table>
+   
+     `;
+
+        document.getElementById('output').innerHTML = '';
+        document.getElementById('output').appendChild(table);
+
+        let totalSum = 0;
+        let totalAdditionalCharge = 0;
+
+			savedData.forEach((row, index) => {
+			// Calculate total price
+			const totalPrice = row.priceJKKE * row.quantity;
+
+			// Calculate additional charge based on 'jarak' and NK > 1000
+			let additionalCharge = 0;
+			if (totalPrice > 1000) {
+				additionalCharge = calculateAdditionalCharge(row.jarak, totalPrice);
+			}
+
+			const totalWithCharge = totalPrice + additionalCharge;
+
+			const tr = document.createElement('tr');
+			tr.innerHTML = `
+				<td>${row.code}</td>
+				<td>${row.description}</td>
+				<td>${row.bahagianJKKE || '-'}</td>
+				<td>${row.bilanganJKKE || '-'}</td>
+				<td>${row.priceJKKE.toFixed(2)}</td>
+				<td>${row.quantity}</td>
+				<td>${totalPrice.toFixed(2)}</td>
+			`;
+			document.getElementById('table-body').appendChild(tr);
+
+			totalSum += totalWithCharge;
+			totalAdditionalCharge += additionalCharge;
+		});
+
+			document.getElementById('total-price').textContent = totalSum.toFixed(2);
+
+			// Display the additional charge in the footer if applicable
+			if (totalAdditionalCharge > 0) {
+				document.getElementById('additional-charge').textContent = totalAdditionalCharge.toFixed(2);
+				document.getElementById('additional-charge-row').style.display = '';
+		}
+	}
+
+			// Assuming you have a function like this to calculate the additional charge
+			function calculateAdditionalCharge(jarak, totalPrice) {
+				let percent = 0;
+			// Determine the percentage based on 'jarak'
+				if (jarak <= 10) {
+				percent = 0.05; // 5%
+			} else if (jarak <= 20) {
+				percent = 0.1; // 10%
+			} else {
+				percent = 0.15; // 15%
+			}
+
+			return totalPrice * percent;
+	}
+
+			window.addEventListener('load', () => {
+			updateTablePreview();
+		});
+			
+			// Function to handle adding new data
+			function addNewData() {
+				document.getElementById('code').value = '';
+				document.getElementById('description').value = '';
+				document.getElementById('bahagianJKKE').value = '';
+				document.getElementById('bilanganJKKE').value = '';
+				document.getElementById('priceJKKE').value = '';
+				document.getElementById('quantity').value = '';
+			}
+		
+		
+			function downloadAsExcel() {
+			// Get 'Projek' and 'Jarak' from the input elements in generateJKKE.html
+			const currentProjek = document.getElementById("projek").value || "Projek";
+			const currentJarak = document.getElementById("jarak").value || "Jarak";
+
+			const workbook = XLSX.utils.book_new(); // Create a new workbook
+			const data = [];
+
+			// Add the Project and Distance as header rows with bold font and large size
+			data.push([{ v: `Projek: ${currentProjek}`, s: { font: { bold: true, sz: 14 } } }]);
+			data.push([{ v: `Jarak: ${currentJarak} daripada JKR Elektrik Negeri (Pejabat Pengeluar Inden)`, s: { font: { bold: true, sz: 14 } } }]);
+			data.push([]); // Empty row for spacing
+
+			// Add table headers, including merged headers for 'JKKE'
+			data.push([
+				{ v: 'No', s: { font: { bold: true } } },
+				{ v: 'Keterangan', s: { font: { bold: true } } },
+				{ v: 'JKKE - Bhg.', s: { font: { bold: true } } },
+				{ v: 'JKKE - Bil.', s: { font: { bold: true } } },
+				{ v: 'JKKE - RM', s: { font: { bold: true } } },
+				{ v: 'Kuantiti', s: { font: { bold: true } } },
+				{ v: 'Harga (RM)', s: { font: { bold: true } } }
+			]);
+
+			// Fill table rows from savedData, including calculations for total prices and additional charges
+			savedData.forEach((row, index) => {
+				data.push([
+					(index + 1).toString(),
+					row.description,
+					row.bahagianJKKE || '-',
+					row.bilanganJKKE?.toString() || '-',
+					parseFloat(row.priceJKKE).toFixed(2),
+					row.quantity.toString(),
+					parseFloat(row.totalPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+				]);
+			});
+
+			// Calculate total price and additional charge
+			const totalPrice = savedData.reduce((sum, row) => sum + row.totalPrice, 0).toFixed(2);
+			const additionalCharge = (totalPrice * 0.13).toFixed(2);
+
+			// Add rows for Additional Charge and Total Price
+			data.push([]);
+			data.push([{ v: 'Additional Charge (Jadual 1): RM', s: { font: { bold: true } }, colSpan: 6 }, {}, {}, {}, {}, {}, additionalCharge]);
+			data.push([{ v: 'Jumlah Nilai Kerja (NK): RM', s: { font: { bold: true } }, colSpan: 6 }, {}, {}, {}, {}, {}, totalPrice]);
+
+			// Convert data array to a worksheet
+			const worksheet = XLSX.utils.aoa_to_sheet(data);
+
+			// Set column widths for a cleaner format
+			const columnWidths = [
+				{ wch: 5 },   // No
+				{ wch: 30 },  // Keterangan
+				{ wch: 10 },  // JKKE - Bhg.
+				{ wch: 10 },  // JKKE - Bil.
+				{ wch: 10 },  // JKKE - RM
+				{ wch: 10 },  // Kuantiti
+				{ wch: 15 }   // Harga (RM)
+			];
+			worksheet['!cols'] = columnWidths;
+
+			// Merge cells for 'JKKE' header
+			worksheet['!merges'] = [
+				{ s: { r: 3, c: 2 }, e: { r: 3, c: 4 } }  // Merge cells C4 to E4 for 'JKKE'
+			];
+
+			// Append the worksheet to the workbook
+			XLSX.utils.book_append_sheet(workbook, worksheet, 'JKKE Data');
+
+			// Export the workbook
+			XLSX.writeFile(workbook, 'JKKE_Data.xlsx');
+		}
+
+
+        // Function to clear all data
+        function clearAll() {
+            localStorage.removeItem('savedData');
+            localStorage.removeItem('currentProjek');
+            localStorage.removeItem('currentJarak');
+            savedData = [];
+            currentProjek = '';
+            currentJarak = '';
+            document.getElementById('projek').value = '';
+            document.getElementById('jarak').value = '';
+            document.getElementById('projek').disabled = false;
+            document.getElementById('jarak').disabled = false;
+            document.getElementById('output').innerHTML = '';
+            alert('All data cleared.');
+        }
+
+        // Load saved data and update table preview on page load
+            window.addEventListener('load', () => {
+            getLocationCharge();
+            updateTablePreview();
+        });
+
+        // Function to get user's location and determine additional charge
+        function getLocationCharge() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const userLat = position.coords.latitude;
+                    const userLon = position.coords.longitude;
+                    const refLat = 5.3296; // Example: Latitude of Kuala Terengganu
+                    const refLon = 103.1370; // Example: Longitude of Kuala Terengganu
+
+                    const distance = calculateDistance(userLat, userLon, refLat, refLon);
+
+                    if (distance <= 16) {
+                        locationCharge = 4;
+                    } else if (distance > 16 && distance <= 32) {
+                        locationCharge = 9;
+                    } else if (distance > 32 && distance <= 48) {
+                        locationCharge = 12;
+                    } else {
+                        locationCharge = 14;
+                    }
+                }, () => {
+                    alert('Unable to retrieve your location. Additional charges may not be accurate.');
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+
+        // Function to calculate the distance between two coordinates (Haversine formula)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in kilometers
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c;
+            return distance; // Distance in kilometers
+        }
+
+        // Function to generate CSV file
+			function downloadCSV() {
+				let csvContent = "data:text/csv;charset=utf-8,";
+				csvContent += "No,Code,Description,Bahagian JKKE,Bilangan JKKE,Harga JKKE (RM),Quantity,Total Price (RM)\n";
+
+				savedData.forEach((row, index) => {
+				const dataRow = [
+					index + 1,
+					row.code,
+					row.description,
+					row.bahagianJKKE || '-',
+					row.bilanganJKKE || '-',
+					row.priceJKKE.toFixed(2),
+					row.quantity,
+					row.totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+				];
+				csvContent += dataRow.join(",") + "\n";
+				});
+
+				const encodedUri = encodeURI(csvContent);
+				const link = document.createElement("a");
+				link.setAttribute("href", encodedUri);
+				link.setAttribute("download", "JKKE_data.csv");
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+				}
+
+
+			// Function to generate PDF file
+			function generatePDF() {
+			document.getElementById('loadingSpinner').style.display = 'inline-block';
+
+			// Create the table body content from savedData
+					const tableBody = savedData.map((row, index) => [
+				{ text: (index + 1).toString(), alignment: 'center' },
+				{ text: row.description, alignment: 'left' },
+				{ text: row.bahagianJKKE || '-', alignment: 'center' },
+				{ text: row.bilanganJKKE?.toString() || '-', alignment: 'center' },
+				{ text: parseFloat(row.priceJKKE).toFixed(2), alignment: 'right' },
+				{ text: row.quantity.toString(), alignment: 'center' },
+				{ text: parseFloat(row.totalPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), alignment: 'right' }
+			]);
+
+			// Calculate total price and additional charge
+			const totalPrice = savedData.reduce((sum, row) => sum + row.totalPrice, 0).toFixed(2);
+			const additionalCharge = (totalPrice * 0.13).toFixed(2);  // Example additional charge calculation
+
+			const docDefinition = {
+				content: [
+					{ text: `Projek: ${currentProjek}`, style: 'header' },
+					{ text: `Jarak: ${currentJarak} daripada JKR Elektrik Negeri (Pejabat Pengeluar Inden)`, style: 'header' },
+					{
+						table: {
+							headerRows: 2,
+							widths: ['auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto'],
+							body: [
+								// First header row
+								[
+									{ text: 'No', style: 'tableHeader', rowSpan: 2, alignment: 'center' },
+									{ text: 'Keterangan', style: 'tableHeader', rowSpan: 2, alignment: 'center' },
+									{ text: 'JKKE', style: 'tableHeader', colSpan: 3, alignment: 'center' },
+									{}, {},  // Empty cells for colSpan
+									{ text: 'Kuantiti', style: 'tableHeader', rowSpan: 2, alignment: 'center' },
+									{ text: 'Harga (RM)', style: 'tableHeader', rowSpan: 2, alignment: 'center' }
+								],
+								// Second header row
+								[
+									{}, {},  // Empty cells under No and Keterangan
+									{ text: 'Bhg.', style: 'tableHeader', alignment: 'center' },
+									{ text: 'Bil.', style: 'tableHeader', alignment: 'center' },
+									{ text: 'RM', style: 'tableHeader', alignment: 'center' },
+									{}, {}  // Empty cells under Kuantiti and Harga
+								],
+								// Table body
+								...tableBody,
+								// Additional charge and total price rows
+								[
+									{ text: 'Additional Charge Applied (Jadual 1): RM', colSpan: 6, alignment: 'right', bold: true },
+									{}, {}, {}, {}, {},
+									{ text: additionalCharge, alignment: 'right' }
+								],
+								[
+									{ text: 'Jumlah Nilai Kerja (NK): RM', colSpan: 6, alignment: 'right', bold: true },
+									{}, {}, {}, {}, {},
+									{ text: totalPrice, alignment: 'right' }
+								]
+							]
+						},
+						layout: {
+							hLineWidth: function(i, node) {
+								return (i === 0 || i === node.table.body.length) ? 1 : 0.5;
+							},
+							vLineWidth: function(i) {
+								return 0.5;
+							},
+							hLineColor: function(i) {
+								return '#000000';
+							},
+							vLineColor: function(i) {
+								return '#000000';
+							},
+							paddingLeft: function(i) {
+								return i === 0 ? 8 : 4;
+							},
+							paddingRight: function(i, node) {
+								return (i === node.table.widths.length - 1) ? 8 : 4;
+							}
+						}
+					}
+				],
+				styles: {
+					header: {
+						fontSize: 16,
+						bold: true,
+						margin: [0, 10, 0, 10]
+					},
+					tableHeader: {
+						bold: true,
+						fontSize: 12,
+						color: 'black'
+					}
+				}
+			};
+
+			pdfMake.createPdf(docDefinition).download('JKKE_Data.pdf');
+			document.getElementById('loadingSpinner').style.display = 'none';
+		}
+
+
+        // Function to navigate back to home page
+    function goBackHome() {
+            window.location.href = 'jkke.html';
+        }
+
+        document.getElementById('code').addEventListener('input', function() {
+            const code = this.value.trim();
+            if (code) {
+                fetch('bqData.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data[code]) {
+                            document.getElementById('description').value = data[code].description;
+                            document.getElementById('priceJKKE').value = data[code].price.toFixed(2);
+                        } else {
+                            document.getElementById('description').value = '';
+                            document.getElementById('priceJKKE').value = '';
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+        });
+        // Other functions like downloadAsExcel, downloadCSV, generatePDF, clearAll remain unchanged
+
+    </script>
+</body>
+</html>

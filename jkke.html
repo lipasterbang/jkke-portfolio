@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEM CARIAN JADUAL KADAR KERJA ELEKTRIK</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #2c1e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .panel {
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            width: calc(100% - 24px);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10px;
+            width: calc(100% - 5px);
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+		button:active {
+			background-color: #3e8e41;
+			box-shadow: 0 5px #666;
+			transform: translateY(4px);
+		}
+			
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #3498db;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        output {
+            display: block;
+            padding: 15px;
+            margin-top: 10px;
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        .content {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            background-image: url("wire.gif");
+        }
+        .instructions {
+            text-align: left;
+            background-color: #dfe6e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+		/* Fixed Pagination Buttons */
+		.pagination-buttons {
+			position: fixed;
+			bottom: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			justify-content: space-between;
+			width: 200px;
+			padding: 10px;
+			background-color: #fefefe;
+			border-radius: 5px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+
+		.pagination-buttons button {
+			padding: 8px 16px;
+			background-color: #3498db;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		.pagination-buttons button:hover {
+			background-color: #2980b9;
+		}
+
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: left;
+            max-height: 80vh;
+            overflow-y: auto; /* Scrollable content */
+        }
+        .modal-header {
+            font-size: 1.5rem;
+            margin: 5% auto;
+            text-align: left;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .modal-text {
+            font-size: 1rem;
+            margin: 10% auto;
+            text-align: left;
+            line-height: 1.5;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SISTEM CARIAN JADUAL KADAR KERJA ELEKTRIK</h1>
+    </header>
+    <main>
+        <div class="instructions">
+            <nav>
+                <input type="text" id="navSearchInput" placeholder="Search...">
+                <button onclick="navSearch()">Search</button>
+            </nav>
+            <h2>Instructions:</h2>
+            <p>1. Use the search bar to find JKKE Codes and their descriptions.</p>
+            <p>2. Enter the JKKE Code in the input field and click 'Carian' to search for the item.</p>
+            <p>3. Click 'Harga Per Unit' to view the unit price of the item.</p>
+            <p>4. Use the buttons below to navigate to the Bill of Quantities (BQ) or Lampiran C pages.</p>
+        </div>
+        <div class="panel">
+            <h2>Sila Masukkan Kod Bilangan JKKE</h2>
+            <label for="searchInput">Contoh: 1A1, 1A25, 2C2, 3E14</label>
+            <input type="text" id="searchInput">
+            <output id="searchOutput"></output>
+            <output id="priceOutput"></output>
+            <button onclick="searchItem()">Carian</button>
+            <button onclick="showPrice()">Harga Per Unit</button>
+        </div>
+        <div class="panel">
+            <h2>Output Bill of Quantities (BQ)</h2>
+            <button onclick="generateBQ()">Semua Keterangan JKKE</button>
+			<button onclick="goToSemuaJKKE()">View Semua Keterangan JKKE</button>
+            <button onclick="goToBQPage()">Go to BQ Page</button>
+			<button onclick="generateC()">Go to Lampiran C</button>
+        </div>
+        <div class="content">
+            <h2>KEHENDAK AM DAN SYARAT</h2>
+            <ol>
+                <li>Semua bahan dan peralatan elektrik yang digunakan hendaklah yang baru (belum terpakai) dan sesuai kepada sistem bekalan tempatan.</li>
+                <li>Hanya jenama, jenis dan model yang telah diluluskan oleh Electrical Material Approval List (EMAL) JKR akan diterima.</li>
+                <li>Bagi bahan dan peralatan elektrik di mana tiada jenama, jenis atau model yang telah diluluskan oleh JKR, maka pertimbangan untuk pengggunaan barang-barang ini boleh dirujuk kepada pejabat Ketua Jurutera Elektrik berkenaan.</li>
+                <li>Kerja-kerja elektrik yang dijalankan hendaklah mematuhi Undang-Undang, Peraturan dan Pekeliling.</li>
+                <li>Kerja-kerja elektrik yang hendak dilaksanakan wajib mematuhi garis panduan semasa.</li>
+            </ol>
+        </div>
+        <div class="content">
+            <h2>ISI KANDUNGAN JADUAL KADAR KERJA ELEKTRIK</h2>
+            <ol>
+                <li>BAHAGIAN I: PENDAWAIAN</li>
+                <li>BAHAGIAN II: PAPAN AGIHAN, PEMUTUS LITAR DAN PERALATAN PERLINDUNGAN</li>
+                <li>BAHAGIAN III: ALAT-ALAT LENGKAP PENDAWAIAN ELEKTRIK</li>
+                <li>BAHAGIAN IV: LENGKAPAN PENCAHAYAAN, LAMPU, KOMPONEN LAMPU DAN KIPAS</li>
+                <li>BAHAGIAN V: PEMASANGAN LUAR-LAMPU JALAN, LAMPU ISYARAT DAN LAMPU KAWASAN</li>
+                <li>BAHAGIAN VI: KABEL BAWAH TANAH DAN AKSESORI</li>
+                <li>BAHAGIAN VII: PELBAGAI</li>
+            </ol>
+        </div>
+        <div class="content">
+            <h2>JABATAN KERJA RAYA</h2>
+            <h3>Cawangan Kejuruteraan Elektrik Negeri Terengganu</h3>
+            <p>Jalan Bukit Kecil, 21080 Kuala Terengganu, Terengganu Darul Iman</p>
+            <p>Tel: 09-6225155/57 Emel: elektriktrg@jkr.gov.my</p>
+            <p>Faks: 09-6220023 </p>
+        </div>
+        <div class="loading-spinner" id="loadingSpinner"></div>
+    </main>
+    <footer>
+        <p>
+            <nav>
+                <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank">JKKE 2023 (PDF)</a> |
+                <a href="https://jkrelektrik.terengganu.gov.my" target="_top">CKE WEBSITE</a>
+            </nav>
+        </p>
+        &copy; 2024 Projek JKKE. All rights reserved.
+    </footer>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modalText"></p>
+        </div>
+    </div>
+    
+    <script>
+        let bqData = {};  // This will hold the JKKE data.
+        let currentPage = 1;
+        const resultsPerPage = 7;
+        let searchResults = [];
+
+        // Fetch bqData from the JSON file
+        fetch('bqData.json')
+            .then(response => response.json())
+            .then(data => {
+                bqData = data;
+            })
+            .catch(error => console.error('Error loading bqData:', error));
+
+        // Live search with pagination
+        function navSearch() {
+            const searchInput = document.getElementById('navSearchInput').value.toLowerCase();
+            searchResults = Object.entries(bqData).filter(([key, value]) =>
+                value.description.toLowerCase().includes(searchInput)
+            );
+            currentPage = 1; // Reset to the first page on a new search
+            displayResults();
+        }
+
+        // Function to display results with pagination
+        function displayResults() {
+            const totalPages = Math.ceil(searchResults.length / resultsPerPage);
+            const startIndex = (currentPage - 1) * resultsPerPage;
+            const endIndex = startIndex + resultsPerPage;
+            const paginatedResults = searchResults.slice(startIndex, endIndex);
+
+            let output = `<h3>Search Results (Page ${currentPage} of ${totalPages})</h3>`;
+            if (paginatedResults.length > 0) {
+                paginatedResults.forEach(([key, value]) => {
+                    output += `<p><strong>Code:</strong> ${key} | <strong>Description:</strong> ${value.description}</p>`;
+                });
+            } else {
+                output += `<p>No results found</p>`;
+            }
+            output += generatePaginationButtons(totalPages);
+
+            showModal(output); // Display results in the modal
+        }
+
+        // Function to generate pagination buttons
+        function generatePaginationButtons(totalPages) {
+            let buttons = `<div class="pagination-buttons">`;
+
+            // Previous button
+            if (currentPage > 1) {
+                buttons += `<button onclick="goToPage(${currentPage - 1})">Previous</button>`;
+            } else {
+                buttons += `<button disabled>Previous</button>`;
+            }
+
+            // Next button
+            if (currentPage < totalPages) {
+                buttons += `<button onclick="goToPage(${currentPage + 1})">Next</button>`;
+            } else {
+                buttons += `<button disabled>Next</button>`;
+            }
+
+            buttons += `</div>`;
+            return buttons;
+        }
+
+        // Function to change the page
+        function goToPage(page) {
+            currentPage = page;
+            displayResults();
+        }
+
+        // Function to show the modal
+        function showModal(content) {
+            const modal = document.getElementById('myModal');
+            const modalText = document.getElementById('modalText');
+            modalText.innerHTML = content;
+            modal.style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+		
+        function searchItem() {
+            const searchInput = document.getElementById('searchInput').value;
+            const output = document.getElementById('searchOutput');
+            if (bqData[searchInput]) {
+                output.innerText = 'Keterangan: ' + bqData[searchInput].description;
+            } else {
+                output.innerText = 'Item not found';
+            }
+        }
+
+        function showPrice() {
+            const searchInput = document.getElementById('searchInput').value;
+            const priceOutput = document.getElementById('priceOutput');
+            if (bqData[searchInput]) {
+                priceOutput.innerText = 'Harga Per Unit: RM' + Number(bqData[searchInput].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            } else {
+                priceOutput.innerText = 'Harga Tidak Tersedia';
+            }
+        }
+
+        function generateBQ() {
+            let bqOutput = 'Bill of Quantities (BQ):\n';
+            for (const [id, data] of Object.entries(bqData)) {
+                bqOutput += `Kod: ${id}, Description: ${data.description}, Price: RM${Number(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}\n`;
+            }
+            showModal(bqOutput);
+        }
+
+        function goToBQPage() {
+            localStorage.setItem('bqData', JSON.stringify(bqData));
+            window.location.href = 'bq.html';
+        }
+		
+		function generateC() {
+            localStorage.setItem('bqData', JSON.stringify(bqData));
+            window.location.href = 'generateJKKE.html';
+        }
+
+        function saveSearch(searchTerm) {
+            let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+            if (!recentSearches.includes(searchTerm)) {
+                recentSearches.push(searchTerm);
+            if (recentSearches.length > 6) {
+            recentSearches.shift(); // Remove the oldest search
+            }
+                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+            }
+        }
+
+        function loadRecentSearches() {
+            let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+            return recentSearches.map(search => `<li>${search}</li>`).join('');
+        }
+		
+		function goToSemuaJKKE() {
+        window.location.href = 'semuajkke.html';
+		}
+
+        function liveSearch() {
+            const searchInput = document.getElementById('navSearchInput').value.toLowerCase();
+            const searchResults = Object.entries(bqData).filter(([key, value]) =>
+            value.description.toLowerCase().includes(searchInput)
+            );
+            let searchOutput2 = 'Search Results:\n';
+            searchResults.forEach(([key, value]) => {
+            searchOutput2 += `Code: ${key}, Description: ${value.description}\n`;
+            });
+            document.getElementById('searchOutput2').innerText = searchOutput2;
+        }
+            document.getElementById('navSearchInput').addEventListener('input', liveSearch);
+
+    </script>
+</body>
+</html>

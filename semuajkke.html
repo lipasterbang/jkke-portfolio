@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semua Keterangan JKKE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2980b9; /* Blue theme */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            text-align: center;
+            background-color: #2c1e50;
+            color: #fff;
+            padding: 20px;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #008000;
+			margin-top: 5px;
+			margin-bottom: 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+			box-shadow: 0 9px #999;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e60000;
+		}
+		button:active {
+			background-color: #3e8e41;
+			box-shadow: 0 5px #666;
+			transform: translateY(4px);
+		}
+		
+        .scrollable-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+			justify-content: center;
+			margin: 20px;
+            background-color: #fff;
+			margin: 20px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        .scrollable-list p {
+            cursor: pointer;
+            padding: 2px;
+			align-items: center;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+        }
+        .scrollable-list p:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+        /* Modal popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            color: #333;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .bill-of-quantities {
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            color: #333;
+            border-radius: 10px;
+        }
+        .bill-of-quantities table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .bill-of-quantities th, .bill-of-quantities td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .bill-of-quantities th {
+            background-color: #3498db;
+            color: #fff;
+        }
+        .bill-of-quantities th, .bill-of-quantities td {
+            text-align: left;
+        }
+    </style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.18/jspdf.plugin.autotable.min.js"></script>
+    
+</head>
+<body>
+    <header>
+        <h1>Semua Keterangan JKKE</h1>
+        <div class="button-container">
+        <button onclick="goToHome()">Go to Home Page</button>
+        </div>
+    </header>
+
+    <main>
+    <div class="scrollable-list" id="jkkeList">
+    <!-- JKKE codes from bqData.json will be dynamically inserted here -->
+    </div>
+    <!-- Modal for displaying sub-topics -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalText"></div>
+        </div>
+    </div>
+
+    <h2>Bill of Quantities</h2>
+    <div class="bill-of-quantities">
+        <table>
+        <thead>
+            <tr>
+                <th rowspan="2" class="text-center">No</th>
+                <th rowspan="2" class="text-center">Keterangan</th>
+                <th colspan="3" class="text-center">JKKE</th>
+                <th rowspan="2" class="text-center">Kuantiti</th>
+                <th rowspan="2" class="text-center">Harga (RM)</th>
+				<th rowspan="2" class="text-center"></th>
+            </tr>
+            <tr>
+                <th class="text-center">Bhg.</th>
+                <th class="text-center">Bil.</th>
+                <th class="text-center">RM</th>
+            </tr>
+        </thead>
+        <tbody id="bqTableBody">
+            <!-- Bill of Quantities will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <div class="button-container">
+        <button onclick="saveAsPDF()">Save as PDF</button>
+    </div>
+</main>
+	
+	<footer>
+        <p>
+            <nav>
+                <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank">JKKE 2023 (PDF)</a> |
+                <a href="https://jkrelektrik.terengganu.gov.my" target="_top">CKE WEBSITE</a>
+            </nav>
+        </p>
+        &copy; 2024 Projek JKKE. All rights reserved.
+    </footer>
+
+<script>
+
+		let bqData = {};  // This will hold the JKKE data
+		let billOfQuantities = [];  // Array to store selected items for Bill of Quantities
+		
+		fetch('bqData.json')
+			.then(response => response.json())
+			.then(data => {
+			bqData = data;
+			displayJKKEList();  // Call to display JKKE list based on chapters
+		})
+		.catch(error => console.error('Error loading bqData:', error));
+
+		// Function to filter and display JKKE codes by chapter
+		function displayJKKEList() {
+			const jkkeList = document.getElementById('jkkeList');
+			jkkeList.innerHTML = '';  // Clear any existing content
+
+			const chapters = {
+        1: { title: 'BAHAGIAN I: PENDAWAIAN', items: [] },
+        2: { title: 'BAHAGIAN II: PAPAN AGIHAN, PEMUTUS LITAR DAN PERALATAN PERLINDUNGAN', items: [] },
+        3: { title: 'BAHAGIAN III: ALAT-ALAT LENGKAP PENDAWAIAN ELEKTRIK', items: [] },
+        4: { title: 'BAHAGIAN IV: LENGKAPAN PENCAHAYAAN, LAMPU, KOMPONEN LAMPU DAN KIPAS', items: [] },
+        5: { title: 'BAHAGIAN V: PEMASANGAN LUAR-LAMPU JALAN, LAMPU ISYARAT DAN LAMPU KAWASAN', items: [] },
+        6: { title: 'BAHAGIAN VI: KABEL BAWAH TANAH DAN AKSESORI', items: [] },
+        7: { title: 'BAHAGIAN VII: PELBAGAI', items: [] }
+    };
+
+    // Sort codes into chapters based on the first digit
+    Object.entries(bqData).forEach(([key, value]) => {
+        const chapter = key.charAt(0);  // First digit is the chapter
+        if (chapters[chapter]) {
+            chapters[chapter].items.push({ code: key, description: value.description });
+        }
+    });
+
+    // Display chapters in columns
+    Object.values(chapters).forEach(chapter => {
+        if (chapter.items.length > 0) {
+            const chapterDiv = document.createElement('div');
+            chapterDiv.className = 'chapter';
+            chapterDiv.innerHTML = `<h3>${chapter.title}</h3>`;
+            chapter.items.forEach(item => {
+                const p = document.createElement('p');
+                p.textContent = `${item.code}: ${item.description}`;
+                p.onclick = () => showModal(item.code);
+                chapterDiv.appendChild(p);
+            });
+            jkkeList.appendChild(chapterDiv);
+        }
+    });
+}
+
+// Show modal for selected chapter and subtopics
+function showModal(code) {
+    const modal = document.getElementById('myModal');
+    const modalText = document.getElementById('modalText');
+    const subtopics = bqData[code];  // Get subtopics from bqData
+
+    modalText.innerHTML = `
+        <h3>Kod: ${code}</h3>
+        <p><strong>Description:</strong> ${subtopics.description}</p>
+        <button onclick="addToBOQ('${code}')">Add to Bill of Quantities</button>
+    `;
+    modal.style.display = "block";
+}
+
+// Close modal
+function closeModal() {
+    const modal = document.getElementById('myModal');
+    modal.style.display = "none";
+}
+
+// Add item to Bill of Quantities
+function addToBOQ(code) {
+    const item = bqData[code];
+    if (item) {
+        const existingItem = billOfQuantities.find(bq => bq.code === code);
+        if (existingItem) {
+            existingItem.quantity += 1;
+            existingItem.totalPrice = existingItem.price * existingItem.quantity;
+        } else {
+            billOfQuantities.push({
+                code: code,
+                description: item.description,
+                quantity: 1,
+                price: parseFloat(item.price),
+                totalPrice: parseFloat(item.price)
+            });
+        }
+        updateBOQTable();
+        closeModal();  // Close the modal after adding the item
+    }
+}
+
+// Update the Bill of Quantities table
+function updateBOQTable() {
+    const bqTableBody = document.getElementById('bqTableBody');
+    bqTableBody.innerHTML = '';  // Clear existing table rows
+
+    billOfQuantities.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td class="text-left">${item.description}</td>
+            <td class="text-center">I</td> <!-- Bhg placeholder -->
+            <td class="text-center">B${index + 1}</td> <!-- Bil placeholder -->
+            <td class="text-right">RM${item.price.toFixed(2)}</td>
+            <td><input type="number" value="${item.quantity}" min="1" onchange="updateQuantity('${item.code}', this.value)"></td>
+            <td class="text-right">RM${item.totalPrice.toFixed(2)}</td>
+            <td><button onclick="removeFromBOQ('${item.code}')">Remove</button></td>
+        `;
+        bqTableBody.appendChild(tr);
+    });
+}
+
+// Update the quantity in Bill of Quantities
+function updateQuantity(code, newQuantity) {
+    const item = billOfQuantities.find(bq => bq.code === code);
+    if (item) {
+        item.quantity = parseInt(newQuantity);
+        item.totalPrice = item.price * item.quantity;
+        updateBOQTable();
+    }
+}
+
+// Remove item from Bill of Quantities
+function removeFromBOQ(code) {
+    billOfQuantities = billOfQuantities.filter(bq => bq.code !== code);
+    updateBOQTable();
+}
+
+// Save as PDF function
+function saveAsPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Add title to PDF
+    doc.text("Bill of Quantities", 10, 10);
+
+    // Define headers and data structure for autoTable
+    const headers = [
+        [
+            { content: "No", rowSpan: 2, styles: { halign: 'center' } },
+            { content: "Keterangan", rowSpan: 2, styles: { halign: 'center' } },
+            { content: "JKKE", colSpan: 3, styles: { halign: 'center' } },
+            { content: "Kuantiti", rowSpan: 2, styles: { halign: 'center' } },
+            { content: "Harga (RM)", rowSpan: 2, styles: { halign: 'center' } }
+        ],
+        [
+            { content: "Bhg.", styles: { halign: 'center' } },
+            { content: "Bil.", styles: { halign: 'center' } },
+            { content: "RM", styles: { halign: 'center' } }
+        ]
+    ];
+
+    // Map data for each row in the Bill of Quantities
+    const data = billOfQuantities.map((item, index) => [
+        index + 1,
+        item.description,
+        "I",  // Placeholder for Bhg.
+        `B${index + 1}`,  // Placeholder for Bil.
+        item.price.toFixed(2),
+        item.quantity,
+        item.totalPrice.toFixed(2)
+    ]);
+
+    // Footer data for additional charge and total price rows
+    const additionalCharge = calculateAdditionalCharge(); // Replace this with actual charge calculation if needed
+    const totalPrice = billOfQuantities.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2);
+
+    const footerRows = [
+        [
+            { content: "Additional Charge Applied (Jadual 1): RM", colSpan: 6, styles: { halign: 'right' } },
+            { content: additionalCharge.toFixed(2), styles: { halign: 'right' } }
+        ],
+        [
+            { content: "Jumlah Nilai Kerja (NK): RM", colSpan: 6, styles: { halign: 'right' } },
+            { content: totalPrice, styles: { halign: 'right' } }
+        ]
+    ];
+
+    // Generate table using autoTable
+    doc.autoTable({
+        startY: 20,
+        head: headers,
+        body: data,
+        foot: footerRows,
+        theme: 'grid',
+        styles: { fontSize: 10, cellPadding: 3 },
+        headStyles: { fillColor: [52, 152, 219], textColor: 255 },
+        footStyles: { fillColor: [241, 196, 15], textColor: 0 }
+    });
+
+    // Save the PDF
+    doc.save("Bill_of_Quantities.pdf");
+}
+
+// Calculate additional charge based on logic if needed
+function calculateAdditionalCharge() {
+    return 0; // Placeholder, replace with actual logic if needed
+}
+
+
+
+// Redirect to home page
+function goToHome() {
+    window.location.href = 'jkke.html';
+}
+
+
+</script>
+</body>
+</html>
