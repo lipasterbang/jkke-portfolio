@@ -3,80 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JKKE 2024 Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>JKKE 2024 System Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #f0f4f8;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+      color: #333;
     }
-    .section {
-      padding: 50px 20px;
-    }
-    .header {
-      background-color: #0d6efd;
+    header {
+      background-color: #003366;
       color: white;
+      padding: 20px 40px;
+      text-align: center;
+    }
+    main {
       padding: 40px;
-      text-align: center;
+      max-width: 1000px;
+      margin: auto;
     }
-    .feature-box {
-      background-color: white;
+    h2 {
+      color: #003366;
+    }
+    .button-group a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      background-color: #0055aa;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .button-group a:hover {
+      background-color: #0077cc;
+    }
+    footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .qr-container {
-      text-align: center;
-      margin-top: 30px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <h1>Sistem Carian Jadual Kadar Kerja Elektrik (JKKE 2024)</h1>
-    <p>Portfolio Projek Digital</p>
+  <header>
+    <h1>JKKE 2024 - Sistem Carian Jadual Kadar Kerja Elektrik</h1>
   </header>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="mb-4">Objektif Sistem</h2>
-      <p>Sistem ini direka untuk memudahkan proses carian kadar kerja elektrik dan penjanaan sebut harga mengikut format rasmi Jabatan Kerja Raya (JKR).</p>
+  <main>
+    <section>
+      <h2>📌 Tentang Sistem</h2>
+      <p>Sistem Carian JKKE 2024 membantu kakitangan JKR membuat carian kadar kerja elektrik mengikut kod yang telah ditetapkan, serta menjana sebutharga secara automatik berdasarkan format rasmi.</p>
+    </section>
 
-      <h3 class="mt-5">Ciri-ciri Utama:</h3>
+    <section>
+      <h2>🚀 Ciri-ciri Utama</h2>
       <ul>
-        <li>Carian Kod JKKE berdasarkan JSON Data</li>
-        <li>Penjanaan Bill of Quantities (BQ) dalam format rasmi</li>
-        <li>Output PDF & Excel automatik</li>
-        <li>Kiraan caj tambahan berdasarkan jarak projek</li>
-        <li>Pengurusan data melalui localStorage / database (akan datang)</li>
+        <li>Carian kadar kerja berdasarkan Bab dan Subtopik</li>
+        <li>Penjanaan sebutharga automatik (Auto Quotation)</li>
+        <li>Papar dan eksport format Jadual Kadar Kerja seperti dokumen rasmi</li>
+        <li>Integrasi sistem dengan fail JSON (akan datang: MySQL)</li>
       </ul>
+    </section>
 
-      <h3 class="mt-5">Teknologi Digunakan:</h3>
-      <p>HTML, CSS, JavaScript, JSON, PDFMake, SheetJS (xlsx.js)</p>
-
-      <h3 class="mt-5">Gambar Projek:</h3>
-      <div class="row">
-        <div class="col-md-4"><img src="screenshot1.png" alt="Screenshot 1" class="img-fluid rounded"></div>
-        <div class="col-md-4"><img src="screenshot2.png" alt="Screenshot 2" class="img-fluid rounded"></div>
-        <div class="col-md-4"><img src="screenshot3.png" alt="Screenshot 3" class="img-fluid rounded"></div>
+    <section>
+      <h2>🔗 Pautan Sistem</h2>
+      <div class="button-group">
+        <a href="jkke.html" target="_blank">Halaman Utama (jkke.html)</a>
+        <a href="generateJKKE.html" target="_blank">Penjana Sebutharga</a>
+        <a href="semuajkke.html" target="_blank">Lihat Semua Kod JKKE</a>
       </div>
+    </section>
 
-      <div class="qr-container">
-        <h5 class="mt-4">Akses Melalui QR Code:</h5>
-        <img src="qr-placeholder.png" alt="QR Code" width="200" />
-        <p class="text-muted">(QR akan dihasilkan selepas dimuat naik ke GitHub Pages)</p>
-      </div>
+    <section>
+      <h2>🛠️ Teknologi & Perancangan</h2>
+      <ul>
+        <li>Frontend: HTML, CSS, JavaScript</li>
+        <li>Data: JSON (akan dipindah ke MySQL untuk sistem lebih efisien)</li>
+        <li>Hosting: GitHub Pages + QR Code untuk akses mudah</li>
+      </ul>
+    </section>
 
-      <div class="text-center mt-5">
-        <a href="JKKE_Portfolio.pdf" download class="btn btn-primary">Muat Turun Portfolio (PDF)</a>
-        <a href="JKKE_Data.xlsx" download class="btn btn-success">Muat Turun Jadual (Excel)</a>
-        <a href="https://lipasterbang.github.io/jkke-portfolio/jkke.html" class="btn btn-outline-secondary" target="_blank">Lihat Sistem Sebenar</a>
-      </div>
-    </div>
-  </section>
+    <section>
+      <h2>📷 Kod QR</h2>
+      <p>Imbas untuk lihat portfolio ini:</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/&size=150x150" alt="QR Code" />
+    </section>
+  </main>
 
-  <footer class="text-center text-muted p-3">
-    &copy; 2024 Sistem JKKE | Dibangunkan oleh Aliif Najmi
+  <footer>
+    <p>Direka oleh [Nama Anda] | JKKE 2024 | Dikemaskini pada April 2025</p>
   </footer>
 </body>
 </html>
