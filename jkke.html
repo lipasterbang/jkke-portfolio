@@ -188,6 +188,13 @@
             text-decoration: none;
             cursor: pointer;
         }
+        #dify-chatbot-bubble-button {
+            background-color: #1C64F2 !important;
+        }
+        #dify-chatbot-bubble-window {
+            width: 24rem !important;
+            height: 40rem !important;
+        }
     </style>
 </head>
 <body>
@@ -200,6 +207,12 @@
                 <input type="text" id="navSearchInput" placeholder="Search...">
                 <button onclick="navSearch()">Search</button>
             </nav>
+            <iframe
+            src="https://udify.app/chatbot/OSicAkNisLROH0P1"
+            style="width: 100%; height: 100%; min-height: 700px"
+            frameborder="0"
+            allow="microphone">
+            </iframe>
             <h2>Instructions:</h2>
             <p>1. Use the search bar to find JKKE Codes and their descriptions.</p>
             <p>2. Enter the JKKE Code in the input field and click 'Carian' to search for the item.</p>
@@ -427,6 +440,30 @@
         }
             document.getElementById('navSearchInput').addEventListener('input', liveSearch);
 
+    </script>
+    <script>
+            window.difyChatbotConfig = {
+            token: 'OSicAkNisLROH0P1',
+            inputs: {
+                // You can define the inputs from the Start node here
+                // key is the variable name
+                // e.g.
+                // name: "NAME"
+            },
+            systemVariables: {
+                // user_id: 'YOU CAN DEFINE USER ID HERE',
+                // conversation_id: 'YOU CAN DEFINE CONVERSATION ID HERE, IT MUST BE A VALID UUID',
+            },
+            userVariables: {
+                // avatar_url: 'YOU CAN DEFINE USER AVATAR URL HERE',
+                // name: 'YOU CAN DEFINE USER NAME HERE',
+            },
+            }
+            </script>
+            <script
+            src="https://udify.app/embed.min.js"
+            id="OSicAkNisLROH0P1"
+            defer>
     </script>
 </body>
 </html>
