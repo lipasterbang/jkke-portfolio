@@ -386,11 +386,32 @@
             XLSX.writeFile(wb, "Lampiran_C_Smart.xlsx");
         }
 
-        window.onload = function() {
-            updateFloatingCart();
-            // Panggil load data masing-masing
-            if(typeof loadBQFromStorage === "function") loadBQFromStorage();
-        };
+            // Kunci standard untuk semua halaman
+            const CART_KEY = 'projectCart';
+
+            // Fungsi wajib dijalankan setiap kali halaman dibuka
+            window.addEventListener('DOMContentLoaded', () => {
+                updateCartBadge();
+            });
+
+            // Kemaskini nombor merah di icon header
+            function updateCartBadge() {
+                const currentCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+                const badge = document.getElementById('cartCountBadge');
+                if (badge) badge.innerText = currentCart.length;
+            }
+
+            // Fungsi Simpan (Wajib panggil ini selepas Add, Edit Qty, atau Delete)
+            function saveToLocalStorage(data) {
+                localStorage.setItem(CART_KEY, JSON.stringify(data));
+                updateCartBadge(); // Automatik kemaskini badge
+            }
+            
+            window.onload = function() {
+                updateFloatingCart();
+                // Panggil load data masing-masing
+                if(typeof loadBQFromStorage === "function") loadBQFromStorage();
+            };
 
     </script>
 </body>

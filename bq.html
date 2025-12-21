@@ -302,16 +302,15 @@
         function updateQty(index, value) {
             let newQty = parseInt(value);
             if (newQty < 1) newQty = 1;
+            
+            // bqItems mesti merujuk kepada array dari localStorage
             bqItems[index].quantity = newQty;
             
-            // Recalculate row total
-            let price = parseFloat(bqItems[index].price);
-            let total = price * newQty;
-            document.getElementById(`total-${index}`).innerText = total.toFixed(2);
+            // Simpan semula secara global
+            saveToLocalStorage(bqItems);
             
-            // Recalculate grand total
+            // Kira balik total di skrin
             recalcGrandTotal();
-            saveToStorage();
         }
 
         function updateRemark(index, value) {
@@ -388,6 +387,27 @@
         // 6. Print Function
         function printBQ() {
             window.print();
+        }
+
+        // Kunci standard untuk semua halaman
+        const CART_KEY = 'projectCart';
+
+        // Fungsi wajib dijalankan setiap kali halaman dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+        });
+
+        // Kemaskini nombor merah di icon header
+        function updateCartBadge() {
+            const currentCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            const badge = document.getElementById('cartCountBadge');
+            if (badge) badge.innerText = currentCart.length;
+        }
+
+        // Fungsi Simpan (Wajib panggil ini selepas Add, Edit Qty, atau Delete)
+        function saveToLocalStorage(data) {
+            localStorage.setItem(CART_KEY, JSON.stringify(data));
+            updateCartBadge(); // Automatik kemaskini badge
         }
 
         window.onload = function() {

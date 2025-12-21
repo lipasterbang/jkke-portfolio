@@ -382,28 +382,28 @@
 
         // 4. Cart Logic
         function addToCart(code) {
-            // 1. Ambil data sedia ada dari localStorage
-            let currentCart = JSON.parse(localStorage.getItem('projectCart')) || [];
+            // 1. Ambil data terkini
+            let currentCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
             
             // 2. Semak jika item sudah ada
             const exists = currentCart.find(item => item.code === code);
             
             if (exists) {
-                alert("Item ini sudah ada dalam projek.");
+                alert("Item sudah ada dalam projek.");
             } else {
                 const itemData = bqData[code];
                 currentCart.push({
                     code: code,
                     description: itemData.description,
                     price: itemData.price,
-                    quantity: 1, // Default kuantiti
+                    quantity: 1, // Penting: guna nama 'quantity'
                     remarks: ""
                 });
                 
-                // 3. Simpan semula ke localStorage
-                localStorage.setItem('projectCart', JSON.stringify(currentCart));
-                alert("Berjaya ditambah ke projek!");
-                updateFloatingCart(); // Kemaskini ikon
+                // 3. Simpan secara global
+                saveToLocalStorage(currentCart);
+                alert("Berjaya ditambah!");
+                renderList(); // Refresh butang jadi hijau
             }
         }
 
@@ -579,6 +579,27 @@
 
             printWindow.document.write(html);
             printWindow.document.close();
+        }
+
+       // Kunci standard untuk semua halaman
+        const CART_KEY = 'projectCart';
+
+        // Fungsi wajib dijalankan setiap kali halaman dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+        });
+
+        // Kemaskini nombor merah di icon header
+        function updateCartBadge() {
+            const currentCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            const badge = document.getElementById('cartCountBadge');
+            if (badge) badge.innerText = currentCart.length;
+        }
+
+        // Fungsi Simpan (Wajib panggil ini selepas Add, Edit Qty, atau Delete)
+        function saveToLocalStorage(data) {
+            localStorage.setItem(CART_KEY, JSON.stringify(data));
+            updateCartBadge(); // Automatik kemaskini badge
         }
 
         window.onload = function() {

@@ -281,8 +281,12 @@
         <div class="navbar-brand">
             <i class="fa-solid fa-bolt"></i> JKKE 2025
         </div>
-        <div style="font-size: 0.9rem; opacity: 0.8;">
-            JKR TERENGGANU
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="bq.html" style="color: white; text-decoration: none; position: relative; font-size: 1.1rem;">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cartCountBadge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold;">0</span>
+            </a>
+            <div style="font-size: 0.9rem; opacity: 0.8;">JKR TERENGGANU</div>
         </div>
     </nav>
 
@@ -529,11 +533,36 @@
             inputs: { page_title: document.title, current_url: window.location.href }
         }
     </script>
+
     <script src="https://udify.app/embed.min.js" id="OSicAkNisLROH0P1" defer></script>
+
     <style>
         #dify-chatbot-bubble-button { background-color: #1e3a8a !important; bottom: 20px !important; right: 20px !important; }
         #dify-chatbot-bubble-window { width: 24rem !important; height: 38rem !important; bottom: 90px !important; right: 20px !important; border-radius: 12px !important; }
     </style>
+
+    <script>
+        // Kunci standard untuk semua halaman
+        const CART_KEY = 'projectCart';
+
+        // Fungsi wajib dijalankan setiap kali halaman dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+        });
+
+        // Kemaskini nombor merah di icon header
+        function updateCartBadge() {
+            const currentCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            const badge = document.getElementById('cartCountBadge');
+            if (badge) badge.innerText = currentCart.length;
+        }
+
+        // Fungsi Simpan (Wajib panggil ini selepas Add, Edit Qty, atau Delete)
+        function saveToLocalStorage(data) {
+            localStorage.setItem(CART_KEY, JSON.stringify(data));
+            updateCartBadge(); // Automatik kemaskini badge
+        }
+    </script>
 
 </body>
 </html>
