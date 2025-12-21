@@ -511,6 +511,12 @@
             showModal(bqOutput);
         }
 
+        window.onload = function() {
+            updateFloatingCart();
+            // Panggil load data masing-masing
+            if(typeof loadBQFromStorage === "function") loadBQFromStorage();
+        };
+
         function goToBQPage() { localStorage.setItem('bqData', JSON.stringify(bqData)); window.location.href = 'bq.html'; }
         function generateC() { localStorage.setItem('bqData', JSON.stringify(bqData)); window.location.href = 'generateJKKE.html'; }
         function goToSemuaJKKE() { window.location.href = 'semuajkke.html'; }

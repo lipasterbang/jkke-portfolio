@@ -203,15 +203,13 @@
         });
 
         function loadData() {
-            // Retrieve from localStorage (Shared with bq.html / semuajkke.html)
-            const rawData = localStorage.getItem('bqDetails');
+            const rawData = localStorage.getItem('projectCart'); // Guna key yang sama
             
             if (rawData) {
                 projectData = JSON.parse(rawData);
                 renderTable();
             } else {
                 document.getElementById('emptyState').style.display = 'block';
-                document.getElementById('tableBody').style.display = 'none';
             }
         }
 
@@ -387,6 +385,12 @@
             XLSX.utils.book_append_sheet(wb, ws, "Lampiran C");
             XLSX.writeFile(wb, "Lampiran_C_Smart.xlsx");
         }
+
+        window.onload = function() {
+            updateFloatingCart();
+            // Panggil load data masing-masing
+            if(typeof loadBQFromStorage === "function") loadBQFromStorage();
+        };
 
     </script>
 </body>

@@ -308,6 +308,12 @@
         </div>
     </div>
 
+    <div id="floatingCart" onclick="window.location.href='bq.html'" style="position: fixed; bottom: 30px; right: 30px; background: #1e3a8a; color: white; padding: 15px 25px; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 9999; display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid fa-cart-shopping"></i>
+            <span>Lihat BQ</span>
+        <span id="cartCountBadge" style="background: red; color: white; border-radius: 50%; padding: 2px 8px; font-size: 0.8rem;">0</span>
+    </div>
+
     <div class="toast" id="toastMsg">Item ditambah ke projek!</div>
 
     <script>
@@ -376,23 +382,36 @@
 
         // 4. Cart Logic
         function addToCart(code) {
-            const existingItem = projectCart.find(item => item.code === code);
+            // 1. Ambil data sedia ada dari localStorage
+            let currentCart = JSON.parse(localStorage.getItem('projectCart')) || [];
             
-            if (existingItem) {
-                // If exists, show message already in cart
-                showToast("Item ini sudah ada dalam projek.");
+            // 2. Semak jika item sudah ada
+            const exists = currentCart.find(item => item.code === code);
+            
+            if (exists) {
+                alert("Item ini sudah ada dalam projek.");
             } else {
                 const itemData = bqData[code];
-                projectCart.push({
+                currentCart.push({
                     code: code,
                     description: itemData.description,
                     price: itemData.price,
-                    qty: 1
+                    quantity: 1, // Default kuantiti
+                    remarks: ""
                 });
-                showToast("Berjaya ditambah ke projek!");
-                updateCartUI();
-                renderList(); // Re-render to update button state
+                
+                // 3. Simpan semula ke localStorage
+                localStorage.setItem('projectCart', JSON.stringify(currentCart));
+                alert("Berjaya ditambah ke projek!");
+                updateFloatingCart(); // Kemaskini ikon
             }
+        }
+
+        // Fungsi untuk kemaskini bilangan di ikon terapung
+        function updateFloatingCart() {
+            let currentCart = JSON.parse(localStorage.getItem('projectCart')) || [];
+            const badge = document.getElementById('cartCountBadge');
+            if(badge) badge.innerText = currentCart.length;
         }
 
         function removeFromCart(code) {
@@ -561,6 +580,12 @@
             printWindow.document.write(html);
             printWindow.document.close();
         }
+
+        window.onload = function() {
+            updateFloatingCart();
+            // Panggil load data masing-masing
+            if(typeof loadBQFromStorage === "function") loadBQFromStorage();
+        };
     </script>
 </body>
 </html>

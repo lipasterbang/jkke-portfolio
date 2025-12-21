@@ -232,38 +232,28 @@
         let bqItems = [];
 
         function loadBQFromStorage() {
-            // Check if there is data from the previous page logic
-            // (In the previous code for semuajkke.html, we implemented a print function directly)
-            // (To link them, semuajkke.html needs to save to localStorage before navigating here)
-            // Let's assume we use 'bqDataItems' key.
-            
-            // For demo purposes, if empty, I will load sample data so you can see the UI.
-            // In real integration, delete this sample block.
-            /* const storedData = localStorage.getItem('projectCart'); // Assuming you updated semuajkke.html to save this
+            const storedData = localStorage.getItem('projectCart');
             if (storedData) {
                 bqItems = JSON.parse(storedData);
+                renderTable();
+            } else {
+                document.getElementById('emptyState').style.display = 'block';
             }
-            */
-           
-           // TEMPORARY: Sample data extraction from 'bqData' in localStorage if available, or manual sample
-           // Try to load full database first to lookup
-           const fullDB = localStorage.getItem('bqData'); // Usually cached
-           
-           // If we are coming from the Cart system (semuajkke.html logic integration needed)
-           // Let's try to parse 'bqDetails' if legacy code used it, or create a mockup for UI testing
-           const legacyData = localStorage.getItem('bqDetails');
-           if (legacyData) {
-               bqItems = JSON.parse(legacyData);
-           } else {
-               // Fallback: Check if there's a cart from the new system
-               // If completely empty, show empty state
-               document.getElementById('emptyState').style.display = 'block';
-               document.querySelector('.bq-table').style.display = 'none';
-               document.querySelector('.action-bar').style.display = 'none';
-               return; 
-           }
+        }
 
-           renderTable();
+        // Penting: Pastikan fungsi update kuantiti simpan semula ke projectCart
+        function updateQty(index, value) {
+            bqItems[index].quantity = parseInt(value);
+            localStorage.setItem('projectCart', JSON.stringify(bqItems)); // Sync balik
+            recalcGrandTotal();
+        }
+
+        function deleteRow(index) {
+            if(confirm("Padam item?")) {
+                bqItems.splice(index, 1);
+                localStorage.setItem('projectCart', JSON.stringify(bqItems)); // Sync balik
+                renderTable();
+            }
         }
 
         // 3. Render Table
@@ -399,6 +389,12 @@
         function printBQ() {
             window.print();
         }
+
+        window.onload = function() {
+            updateFloatingCart();
+            // Panggil load data masing-masing
+            if(typeof loadBQFromStorage === "function") loadBQFromStorage();
+        };
     </script>
 </body>
 </html>
