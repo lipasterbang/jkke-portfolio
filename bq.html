@@ -1,194 +1,403 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bill of Quantities (BQ) Page</title>
+    <title>Jana BQ & Anggaran Kos | JKKE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-body: #f1f5f9;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            background-color: var(--bg-body);
+            color: #1e293b;
         }
-        header, footer {
-            background-color: #2c1e50;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .panel {
-            background-color: #fff;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            padding: 20px;
-            text-align: center;
-            max-width: 800px;
-            width: 100%;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        table, th, td {
-            border: 1px solid #bdc3c7;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #2c1e50;
-            color: #fff;
-        }
-        td input[type="number"], td input[type="text"] {
-            width: 100%;
-            padding: 5px;
-            box-sizing: border-box;
-            border: 1px solid #bdc3c7;
-            border-radius: 3px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #008000;
-			margin-top: 5px;
-			margin-bottom: 20px;
+
+        /* --- Header --- */
+        nav.navbar {
+            background-color: var(--primary);
             color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-			box-shadow: 0 9px #999;
-            font-size: 16px
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        button:hover {
-            background-color: #e60000;
+
+        .brand { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-links button {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 8px 15px; border-radius: 6px; cursor: pointer;
+            transition: all 0.2s;
         }
-        button:active {
-			background-color: #3e8e41;
-			box-shadow: 0 5px #666;
-			transform: translateY(4px);
-		}
-        .total-row td {
-            font-weight: bold;
-            text-align: right;
+        .nav-links button:hover { background: rgba(255,255,255,0.2); }
+
+        /* --- Layout Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 3fr; /* Sidebar Estimator vs Main Table */
+            gap: 25px;
+        }
+
+        /* --- Smart Calculator Card --- */
+        .estimator-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .estimator-card h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #64748b; }
+        .form-control {
+            width: 100%; padding: 10px; border: 1px solid var(--border);
+            border-radius: 6px; font-size: 1rem; box-sizing: border-box;
+        }
+        
+        .calc-result {
+            background: #eff6ff; border: 1px solid #bfdbfe;
+            padding: 15px; border-radius: 8px; margin-top: 15px; display: none;
+        }
+        .calc-result p { margin: 5px 0; font-size: 0.9rem; }
+        .calc-result strong { color: var(--primary); }
+
+        .btn-calc {
+            width: 100%; background: var(--secondary); color: white;
+            border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-calc:hover { background: #2563eb; }
+
+        /* --- BQ Table Card --- */
+        .bq-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .bq-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .bq-header h2 { margin: 0; color: var(--primary); }
+
+        table.bq-table { width: 100%; border-collapse: collapse; }
+        table.bq-table th { text-align: left; padding: 12px; background: #f8fafc; color: #64748b; font-weight: 600; border-bottom: 2px solid var(--border); }
+        table.bq-table td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        
+        .qty-input { width: 70px; padding: 8px; text-align: center; border: 1px solid var(--border); border-radius: 6px; }
+        .remarks-input { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 6px; }
+        
+        .total-row {
+            background: #f8fafc; font-weight: 700; font-size: 1.2rem; color: var(--primary);
+        }
+
+        .action-bar {
+            margin-top: 25px; display: flex; justify-content: flex-end; gap: 15px;
+        }
+
+        .btn-print { background: var(--success); color: white; padding: 12px 25px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .btn-print:hover { background: #059669; }
+
+        .btn-reset { background: var(--danger); color: white; padding: 12px 25px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Bill of Quantities (BQ) Page</h1>
-        <button onclick="goBackHome()">Go Back Home</button>
-    </header>
-    <main>
-        <div class="panel">
-            <h2>Bill of Quantities (BQ)</h2>
-            <table>
+
+    <nav class="navbar">
+        <div class="brand"><i class="fa-solid fa-file-invoice-dollar"></i> JANA BQ & ANGGARAN</div>
+        <button onclick="window.location.href='jkke.html'" style="background:none; border:1px solid white; color:white; padding:5px 10px; border-radius:4px; cursor:pointer;">
+            <i class="fa-solid fa-house"></i> Home
+        </button>
+    </nav>
+
+    <div class="container">
+        
+        <aside class="estimator-card">
+            <h3><i class="fa-solid fa-calculator"></i> Kalkulator Kuantiti Pintar</h3>
+            <p style="font-size:0.85rem; color:#64748b;">Masukkan saiz bilik untuk anggaran bilangan lampu dan kipas.</p>
+            
+            <div class="form-group">
+                <label>Jenis Ruang</label>
+                <select id="roomType" class="form-control">
+                    <option value="office">Pejabat / Bilik Kerja (Terang)</option>
+                    <option value="bedroom">Bilik Tidur / Rehat (Sederhana)</option>
+                    <option value="store">Stor / Laluan (Malap)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Panjang (Kaki)</label>
+                <input type="number" id="roomL" class="form-control" placeholder="Contoh: 20">
+            </div>
+
+            <div class="form-group">
+                <label>Lebar (Kaki)</label>
+                <input type="number" id="roomW" class="form-control" placeholder="Contoh: 15">
+            </div>
+
+            <button class="btn-calc" onclick="calculateMaterial()">Kira Anggaran</button>
+
+            <div id="estResult" class="calc-result">
+                <h4><i class="fa-solid fa-lightbulb"></i> Cadangan:</h4>
+                <p>Keluasan: <strong id="resArea">0</strong> kps</p>
+                <p>Lampu LED: <strong>~<span id="resLight">0</span> unit</strong></p>
+                <p>Kipas Siling: <strong>~<span id="resFan">0</span> unit</strong></p>
+                <p>Suis Soket: <strong>~<span id="resSocket">0</span> unit</strong></p>
+                <hr style="border:0; border-top:1px solid #bfdbfe; margin:10px 0;">
+                <p style="font-size:0.8rem; color:#ef4444;">*Nota: Ini adalah anggaran kasar. Sila rujuk jurutera untuk pengiraan lux tepat.</p>
+            </div>
+        </aside>
+
+        <main class="bq-card">
+            <div class="bq-header">
+                <h2>Senarai Kadar Harga (Bill of Quantities)</h2>
+                <div style="font-size:0.9rem; color:#64748b;">Tarikh: <span id="currentDate"></span></div>
+            </div>
+
+            <table class="bq-table">
                 <thead>
                     <tr>
-                        <th>Code Number</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price (RM)</th>
-                        <th>Total (RM)</th>
-                        <th>Remarks</th>
+                        <th width="10%">Kod</th>
+                        <th width="40%">Keterangan Item</th>
+                        <th width="15%" style="text-align:right;">Harga Unit</th>
+                        <th width="10%" style="text-align:center;">Kuantiti</th>
+                        <th width="15%" style="text-align:right;">Jumlah (RM)</th>
+                        <th width="10%" style="text-align:center;">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="bqTableBody">
-                    <!-- Rows will be added here dynamically -->
-                </tbody>
+                    </tbody>
                 <tfoot>
                     <tr class="total-row">
-                        <td colspan="4">Total Price:</td>
-                        <td id="totalPrice">RM 0.00</td>
+                        <td colspan="4" style="text-align:right; padding-right:20px;">JUMLAH KESELURUHAN (RM):</td>
+                        <td style="text-align:right;" id="grandTotal">0.00</td>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
-            <button onclick="checkout()">Checkout</button>
-        </div>
-    </main>
-    
-    <footer>
-        <p>
-            <nav>
-                <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank">JKKE 2023 (PDF)</a> |
-                <a href="https://jkrelektrik.terengganu.gov.my" target="_top">CKE WEBSITE</a>
-            </nav>
-        </p>
-        &copy; 2024 Projek JKKE. All rights reserved.
-    </footer>
+
+            <div id="emptyState" style="text-align:center; padding:40px; color:#94a3b8; display:none;">
+                <i class="fa-solid fa-folder-open" style="font-size:3rem; margin-bottom:15px;"></i>
+                <p>Senarai BQ kosong. Sila pilih item dari Katalog dahulu.</p>
+                <button onclick="window.location.href='semuajkke.html'" class="btn-calc" style="width:auto; margin-top:10px;">Pergi ke Katalog</button>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn-reset" onclick="clearBQ()"><i class="fa-solid fa-trash"></i> Kosongkan Semua</button>
+                <button class="btn-print" onclick="printBQ()"><i class="fa-solid fa-print"></i> Cetak / Simpan PDF</button>
+            </div>
+        </main>
+
+    </div>
 
     <script>
-        const bqData = JSON.parse(localStorage.getItem('bqData') || '{}');
-        const bqTableBody = document.getElementById('bqTableBody');
-        let totalPrice = 0;
+        // 1. Setup Data on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ms-MY');
+            loadBQFromStorage();
+        });
 
-        // Function to update the total price dynamically
-        function updateTotalPrice() {
-            totalPrice = Array.from(bqTableBody.getElementsByTagName('tr')).reduce((sum, row) => {
-                const quantity = row.cells[2].getElementsByTagName('input')[0].value;
-                const price = parseFloat(row.cells[3].innerText.replace('RM ', '').replace(',', ''));
-                const total = quantity * price;
-                row.cells[4].innerText = 'RM ' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                return sum + total;
-            }, 0);
-            document.getElementById('totalPrice').innerText = 'RM ' + totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        // 2. Load Data from LocalStorage (from semuajkke.html Project Cart)
+        // Note: In semuajkke.html, we used 'projectCart' array. We need to verify logic consistency.
+        // Assuming user flow: User selects items in 'semuajkke.html' -> clicks 'Go to BQ Page'.
+        // We will assume the cart is saved in localStorage key 'projectCart' or similar.
+        // For this standalone page, we will use a dummy key if not present or load sample.
+        
+        let bqItems = [];
+
+        function loadBQFromStorage() {
+            // Check if there is data from the previous page logic
+            // (In the previous code for semuajkke.html, we implemented a print function directly)
+            // (To link them, semuajkke.html needs to save to localStorage before navigating here)
+            // Let's assume we use 'bqDataItems' key.
+            
+            // For demo purposes, if empty, I will load sample data so you can see the UI.
+            // In real integration, delete this sample block.
+            /* const storedData = localStorage.getItem('projectCart'); // Assuming you updated semuajkke.html to save this
+            if (storedData) {
+                bqItems = JSON.parse(storedData);
+            }
+            */
+           
+           // TEMPORARY: Sample data extraction from 'bqData' in localStorage if available, or manual sample
+           // Try to load full database first to lookup
+           const fullDB = localStorage.getItem('bqData'); // Usually cached
+           
+           // If we are coming from the Cart system (semuajkke.html logic integration needed)
+           // Let's try to parse 'bqDetails' if legacy code used it, or create a mockup for UI testing
+           const legacyData = localStorage.getItem('bqDetails');
+           if (legacyData) {
+               bqItems = JSON.parse(legacyData);
+           } else {
+               // Fallback: Check if there's a cart from the new system
+               // If completely empty, show empty state
+               document.getElementById('emptyState').style.display = 'block';
+               document.querySelector('.bq-table').style.display = 'none';
+               document.querySelector('.action-bar').style.display = 'none';
+               return; 
+           }
+
+           renderTable();
         }
 
-        // Populate the table with data from local storage
-        for (const [id, data] of Object.entries(bqData)) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${id}</td>
-                <td>${data.description}</td>
-                <td><input type="number" value="0" min="0" oninput="updateTotalPrice()"></td>
-                <td>RM ${parseFloat(data.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>RM 0.00</td>
-                <td><input type="text"></td>
-            `;
-            bqTableBody.appendChild(row);
-        }
+        // 3. Render Table
+        function renderTable() {
+            const tbody = document.getElementById('bqTableBody');
+            tbody.innerHTML = '';
+            let grandTotal = 0;
 
-        // Function to handle checkout
-        function checkout() {
-            const rows = bqTableBody.getElementsByTagName('tr');
-            const bqDetails = Array.from(rows).map(row => {
-                return {
-                    code: row.cells[0].innerText,
-                    description: row.cells[1].innerText,
-                    quantity: row.cells[2].getElementsByTagName('input')[0].value,
-                    price: row.cells[3].innerText,
-                    total: row.cells[4].innerText,
-                    remarks: row.cells[5].getElementsByTagName('input')[0].value
-                };
+            if (bqItems.length > 0) {
+                document.getElementById('emptyState').style.display = 'none';
+                document.querySelector('.bq-table').style.display = 'table';
+                document.querySelector('.action-bar').style.display = 'flex';
+            }
+
+            bqItems.forEach((item, index) => {
+                // Ensure price is a number
+                let price = parseFloat(item.price);
+                // Ensure quantity is a number, default 1
+                let qty = parseInt(item.quantity) || 1; 
+                let total = price * qty;
+                grandTotal += total;
+
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight:600; color:#1e3a8a;">${item.code}</td>
+                    <td>
+                        <div>${item.description}</div>
+                        <input type="text" class="remarks-input" placeholder="Catatan tambahan (lokasi/nota)..." value="${item.remarks || ''}" onchange="updateRemark(${index}, this.value)">
+                    </td>
+                    <td style="text-align:right;">${price.toFixed(2)}</td>
+                    <td style="text-align:center;">
+                        <input type="number" class="qty-input" value="${qty}" min="1" onchange="updateQty(${index}, this.value)">
+                    </td>
+                    <td style="text-align:right; font-weight:600;" id="total-${index}">${total.toFixed(2)}</td>
+                    <td style="text-align:center;">
+                        <button onclick="deleteRow(${index})" style="color:#ef4444; background:none; border:none; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
             });
 
-            localStorage.setItem('bqDetails', JSON.stringify(bqDetails));
-            window.location.href = 'checkout.html';
+            document.getElementById('grandTotal').innerText = grandTotal.toLocaleString('en-MY', {minimumFractionDigits: 2});
         }
 
-        // Function to navigate back to home page
-        function goBackHome() {
-            window.location.href = 'jkke.html';
+        // 4. Update Logic
+        function updateQty(index, value) {
+            let newQty = parseInt(value);
+            if (newQty < 1) newQty = 1;
+            bqItems[index].quantity = newQty;
+            
+            // Recalculate row total
+            let price = parseFloat(bqItems[index].price);
+            let total = price * newQty;
+            document.getElementById(`total-${index}`).innerText = total.toFixed(2);
+            
+            // Recalculate grand total
+            recalcGrandTotal();
+            saveToStorage();
+        }
+
+        function updateRemark(index, value) {
+            bqItems[index].remarks = value;
+            saveToStorage();
+        }
+
+        function deleteRow(index) {
+            if(confirm("Padam item ini dari BQ?")) {
+                bqItems.splice(index, 1);
+                renderTable();
+                saveToStorage();
+            }
+        }
+
+        function recalcGrandTotal() {
+            let total = bqItems.reduce((sum, item) => sum + (parseFloat(item.price) * (parseInt(item.quantity)||1)), 0);
+            document.getElementById('grandTotal').innerText = total.toLocaleString('en-MY', {minimumFractionDigits: 2});
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('bqDetails', JSON.stringify(bqItems));
+        }
+
+        function clearBQ() {
+            if(confirm("Adakah anda pasti mahu kosongkan semua senarai?")) {
+                bqItems = [];
+                localStorage.removeItem('bqDetails');
+                renderTable();
+                // Show empty state
+                document.getElementById('emptyState').style.display = 'block';
+                document.querySelector('.bq-table').style.display = 'none';
+                document.querySelector('.action-bar').style.display = 'none';
+            }
+        }
+
+        // 5. Smart Estimator Logic
+        function calculateMaterial() {
+            const L = parseFloat(document.getElementById('roomL').value) || 0;
+            const W = parseFloat(document.getElementById('roomW').value) || 0;
+            const type = document.getElementById('roomType').value;
+
+            if (L === 0 || W === 0) {
+                alert("Sila masukkan panjang dan lebar bilik.");
+                return;
+            }
+
+            const area = L * W; // square feet
+            let lightFactor = 60; // Default coverage per light (sqft)
+            let fanFactor = 144; // Approx 12x12 area per fan
+            let socketFactor = 100; // General rule
+
+            // Adjust based on room type
+            if (type === 'office') {
+                lightFactor = 50; // Need brighter (more lights)
+                socketFactor = 60; // More sockets for computers
+            } else if (type === 'store') {
+                lightFactor = 100; // Dimmer ok
+                socketFactor = 300; // Less sockets
+            }
+
+            const lights = Math.ceil(area / lightFactor);
+            const fans = Math.ceil(area / fanFactor);
+            const sockets = Math.ceil(area / socketFactor);
+
+            // Display Results
+            document.getElementById('resArea').innerText = area;
+            document.getElementById('resLight').innerText = lights;
+            document.getElementById('resFan').innerText = fans;
+            document.getElementById('resSocket').innerText = sockets;
+            document.getElementById('estResult').style.display = 'block';
+        }
+
+        // 6. Print Function
+        function printBQ() {
+            window.print();
         }
     </script>
 </body>

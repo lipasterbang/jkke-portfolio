@@ -1,463 +1,533 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISTEM CARIAN JADUAL KADAR KERJA ELEKTRIK</title>
+    <title>Sistem Carian JKKE | Dashboard</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        :root {
+            --primary: #1e3a8a;       /* Navy Blue JKR */
+            --secondary: #3b82f6;     /* Bright Blue */
+            --accent: #0ea5e9;        /* Sky Blue */
+            --bg-body: #f1f5f9;       /* Light Grey BG */
+            --bg-card: #ffffff;       /* White Card */
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-        header, footer {
-            background-color: #2c1e50;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        main {
+
+        /* --- Navbar --- */
+        nav.navbar {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            flex: 1;
-            flex-direction: column;
-            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .panel {
-            background-color: #ecf0f1;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            padding: 20px;
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand i { color: var(--accent); }
+
+        /* --- Hero Search Section --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e293b 100%);
+            color: white;
+            padding: 3rem 1rem;
             text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 { margin: 0 0 0.5rem 0; font-weight: 800; }
+        .hero p { opacity: 0.8; margin-bottom: 2rem; }
+
+        .search-bar-wrapper {
             max-width: 600px;
-            width: 100%;
-            margin-bottom: 20px;
+            margin: 0 auto;
+            position: relative;
         }
-        input, select {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            width: calc(100% - 24px);
+
+        .search-input-group {
+            display: flex;
+            background: white;
+            padding: 5px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #3498db;
-            color: #fff;
+
+        .search-input-group input {
             border: none;
-            border-radius: 15px;
-            transition: background-color 0.3s ease-in-out;
-            margin-top: 10px;
-            width: calc(100% - 5px);
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 50px;
+            outline: none;
+            font-size: 1rem;
         }
-        button:hover {
-            background-color: #2980b9;
+
+        .search-input-group button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
         }
-		button:active {
-			background-color: #3e8e41;
-			box-shadow: 0 5px #666;
-			transform: translateY(4px);
-		}
-			
-        .loading-spinner {
-            display: none;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: #3498db;
-            animation: spin 1s infinite linear;
+
+        .search-input-group button:hover { background: var(--primary); }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            flex: 1;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+            height: 100%; /* Ensure full height for flex/grid */
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        output {
-            display: block;
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .card-header h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+        .card-header i { color: var(--secondary); font-size: 1.2rem; }
+
+        /* Grid Placement - Modified for Chatbot Layout */
+        .col-left { grid-column: span 8; }
+        .col-right { grid-column: span 4; }
+        
+        .row-info { 
+            grid-column: span 12; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; /* Split Info and Chatbot 50/50 */
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .col-left, .col-right { grid-column: span 12; }
+            .row-info { grid-template-columns: 1fr; } /* Stack on mobile */
+        }
+
+        /* --- Forms & Buttons --- */
+        .form-group { margin-bottom: 1rem; }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus { border-color: var(--secondary); outline: none; }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        
+        .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background-color: var(--secondary); color: white; }
+        .btn-primary:hover { background-color: #2563eb; }
+
+        .btn-outline { background-color: white; border: 1px solid #cbd5e1; color: var(--text-dark); }
+        .btn-outline:hover { background-color: #f8fafc; border-color: var(--secondary); }
+
+        .btn-action { width: 100%; margin-bottom: 8px; text-align: left; justify-content: flex-start; }
+
+        /* --- Result Output --- */
+        .result-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
             padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            min-height: 50px;
+        }
+
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #059669;
             margin-top: 10px;
-            background-color: #ecf0f1;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
         }
-        .content {
-            max-width: 600px;
-            width: 100%;
-            padding: 20px;
-            background-color: #ecf0f1;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            margin-bottom: 20px;
+
+        /* --- Content List --- */
+        ul.simple-list { list-style: none; padding: 0; }
+        ul.simple-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start; /* Align top for long text */
+            gap: 10px;
         }
-        h1 {
-            background-image: url("wire.gif");
-        }
-        .instructions {
-            text-align: left;
-            background-color: #dfe6e9;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-		/* Fixed Pagination Buttons */
-		.pagination-buttons {
-			position: fixed;
-			bottom: 20px;
-			left: 50%;
-			transform: translateX(-50%);
-			display: flex;
-			justify-content: space-between;
-			width: 200px;
-			padding: 10px;
-			background-color: #fefefe;
-			border-radius: 5px;
-			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-		}
+        ul.simple-list li i { color: #10b981; font-size: 0.9rem; margin-top: 3px; }
 
-		.pagination-buttons button {
-			padding: 8px 16px;
-			background-color: #3498db;
-			color: white;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.3s;
-		}
-
-		.pagination-buttons button:hover {
-			background-color: #2980b9;
-		}
-
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
+        /* --- Chatbot Frame --- */
+        .chatbot-container {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
             height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
+            min-height: 500px;
+            background: white;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid #e2e8f0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        footer a { color: var(--secondary); text-decoration: none; }
+
+        /* --- Modal --- */
+        .modal {
+            display: none; position: fixed; z-index: 9999; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto;
+            background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
         }
         .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 30px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 10px;
-            text-align: left;
-            max-height: 80vh;
-            overflow-y: auto; /* Scrollable content */
+            background-color: #fff; margin: 5% auto; padding: 0;
+            border-radius: 12px; width: 90%; max-width: 700px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: slideDown 0.3s ease;
         }
+        @keyframes slideDown { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+        
         .modal-header {
-            font-size: 1.5rem;
-            margin: 5% auto;
-            text-align: left;
-            line-height: 1.5;
-            margin-bottom: 20px;
+            background: var(--primary); color: white;
+            padding: 15px 25px; border-radius: 12px 12px 0 0;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .modal-text {
-            font-size: 1rem;
-            margin: 10% auto;
-            text-align: left;
-            line-height: 1.5;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        #dify-chatbot-bubble-button {
-            background-color: #1C64F2 !important;
-        }
-        #dify-chatbot-bubble-window {
-            width: 24rem !important;
-            height: 40rem !important;
-        }
+        .modal-body { padding: 25px; max-height: 70vh; overflow-y: auto; }
+        .close { color: white; font-size: 24px; cursor: pointer; }
+
     </style>
 </head>
 <body>
-    <header>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fa-solid fa-bolt"></i> JKKE 2025
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.8;">
+            JKR TERENGGANU
+        </div>
+    </nav>
+
+    <div class="hero">
         <h1>SISTEM CARIAN JADUAL KADAR KERJA ELEKTRIK</h1>
-    </header>
-    <main>
-        <div class="instructions">
-            <nav>
-                <input type="text" id="navSearchInput" placeholder="Search...">
-                <button onclick="navSearch()">Search</button>
-            </nav>
-            <h2>Instructions:</h2>
-            <p>1. Use the search bar to find JKKE Codes and their descriptions.</p>
-            <p>2. Enter the JKKE Code in the input field and click 'Carian' to search for the item.</p>
-            <p>3. Click 'Harga Per Unit' to view the unit price of the item.</p>
-            <p>4. Use the buttons below to navigate to the Bill of Quantities (BQ) or Lampiran C pages.</p>
+        <p>Cari kod, keterangan, dan harga bahan elektrik dengan mudah.</p>
+        
+        <div class="search-bar-wrapper">
+            <div class="search-input-group">
+                <input type="text" id="navSearchInput" placeholder="Cari item (Contoh: Lampu, Kabel, Soket)...">
+                <button onclick="navSearch()"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+            </div>
         </div>
-        <div class="panel">
-            <h2>Sila Masukkan Kod Bilangan JKKE</h2>
-            <label for="searchInput">Contoh: 1A1, 1A25, 2C2, 3E14</label>
-            <input type="text" id="searchInput">
-            <output id="searchOutput"></output>
-            <output id="priceOutput"></output>
-            <button onclick="searchItem()">Carian</button>
-            <button onclick="showPrice()">Harga Per Unit</button>
+    </div>
+
+    <div class="container">
+        
+        <div class="col-left">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-barcode"></i>
+                    <h3>Semakan Kod Spesifik</h3>
+                </div>
+                <p class="text-muted" style="margin-top:0; font-size:0.9rem;">Masukkan kod JKKE untuk paparan pantas (Contoh: 1A1, 2C2, 3E14).</p>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Masukkan Kod JKKE...">
+                </div>
+
+                <div id="searchOutput" class="result-box" style="display:none;"></div>
+                <div id="priceOutput" class="price-tag"></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="searchItem()">
+                        <i class="fa-solid fa-check"></i> Semak Kod
+                    </button>
+                    <button class="btn btn-outline" onclick="showPrice()">
+                        <i class="fa-solid fa-tag"></i> Lihat Harga
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="panel">
-            <h2>Output Bill of Quantities (BQ)</h2>
-            <button onclick="generateBQ()">Semua Keterangan JKKE</button>
-			<button onclick="goToSemuaJKKE()">View Semua Keterangan JKKE</button>
-            <button onclick="goToBQPage()">Go to BQ Page</button>
-			<button onclick="generateC()">Go to Lampiran C</button>
+
+        <div class="col-right">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h3>Menu Pantas</h3>
+                </div>
+                <button class="btn btn-outline btn-action" onclick="generateBQ()">
+                    <i class="fa-solid fa-list"></i> Papar Semua Item JKKE
+                </button>
+                <button class="btn btn-outline btn-action" onclick="goToSemuaJKKE()">
+                    <i class="fa-solid fa-file-invoice"></i> Lihat Keterangan Penuh
+                </button>
+                <button class="btn btn-outline btn-action" onclick="goToBQPage()">
+                    <i class="fa-solid fa-table"></i> Halaman BQ (Excel)
+                </button>
+                <button class="btn btn-outline btn-action" onclick="generateC()">
+                    <i class="fa-solid fa-file-contract"></i> Ke Lampiran C
+                </button>
+            </div>
         </div>
-        <div class="content">
-            <h2>KEHENDAK AM DAN SYARAT</h2>
-            <ol>
-                <li>Semua bahan dan peralatan elektrik yang digunakan hendaklah yang baru (belum terpakai) dan sesuai kepada sistem bekalan tempatan.</li>
-                <li>Hanya jenama, jenis dan model yang telah diluluskan oleh Electrical Material Approval List (EMAL) JKR akan diterima.</li>
-                <li>Bagi bahan dan peralatan elektrik di mana tiada jenama, jenis atau model yang telah diluluskan oleh JKR, maka pertimbangan untuk pengggunaan barang-barang ini boleh dirujuk kepada pejabat Ketua Jurutera Elektrik berkenaan.</li>
-                <li>Kerja-kerja elektrik yang dijalankan hendaklah mematuhi Undang-Undang, Peraturan dan Pekeliling.</li>
-                <li>Kerja-kerja elektrik yang hendak dilaksanakan wajib mematuhi garis panduan semasa.</li>
-            </ol>
+
+        <div class="row-info">
+            
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div class="card-header">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <h3>Kehendak Am Dan Syarat</h3>
+                    </div>
+                    <ul class="simple-list">
+                        <li><i class="fa-solid fa-check-circle"></i> Semua bahan dan peralatan elektrik yang digunakan hendaklah yang baru (belum terpakai) dan sesuai kepada sistem bekalan tempatan.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Hanya jenama, jenis dan model yang telah diluluskan oleh Electrical Material Approval List (EMAL) JKR akan diterima.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Bagi bahan dan peralatan elektrik di mana tiada jenama, jenis atau model yang telah diluluskan oleh JKR, maka pertimbangan untuk pengggunaan barang-barang ini boleh dirujuk kepada pejabat Ketua Jurutera Elektrik berkenaan.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Kerja-kerja elektrik yang dijalankan hendaklah mematuhi Undang-Undang, Peraturan dan Pekeliling.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Kerja-kerja elektrik yang hendak dilaksanakan wajib mematuhi garis panduan semasa.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 25px; background-color: #2c1e50; color: white; padding: 25px 20px; border-radius: 8px; text-align: center;">
+                    
+                    <i class="fa-solid fa-headset" style="font-size: 2.5rem; margin-bottom: 15px; color: #3498db;"></i>
+                    <h4 style="margin: 0 0 10px 0; color: white; font-size: 1.2rem;">Perlukan Bantuan?</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 20px; color: #cbd5e1;">
+                        Hubungi CKE JKR Terengganu untuk sebarang pertanyaan teknikal.
+                    </p>
+
+                    <a href="tel:096225155" style="text-decoration: none; display: block; margin-bottom: 10px;">
+                        <button class="btn" style="background: white; color: #2c1e50; font-weight: 700; width: 100%; padding: 12px; border: 2px solid white; transition: all 0.2s;">
+                            <i class="fa-solid fa-phone" style="margin-right: 8px; color: #2c1e50;"></i> 09-6225155
+                        </button>
+                    </a>
+
+                    <a href="mailto:elektriktrg@jkr.gov.my" style="text-decoration: none; display: block;">
+                        <button class="btn" style="background: transparent; color: white; font-weight: 600; width: 100%; padding: 12px; border: 2px solid rgba(255,255,255,0.3); transition: all 0.2s;">
+                            <i class="fa-solid fa-envelope" style="margin-right: 8px; color: #3498db;"></i> Email Kami
+                        </button>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="card" style="padding: 0; overflow: hidden;">
+                <div style="background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 600;"><i class="fa-solid fa-robot"></i> Pembantu Maya JKKE</div>
+                    <small style="opacity: 0.8;">Powered by Dify.AI</small>
+                </div>
+                <div class="chatbot-container">
+                    <iframe
+                        src="https://udify.app/chatbot/OSicAkNisLROH0P1"
+                        style="width: 100%; height: 100%; min-height: 600px; border: none;"
+                        allow="microphone">
+                    </iframe>
+                </div>
+            </div>
+
         </div>
-        <div class="content">
-            <h2>ISI KANDUNGAN JADUAL KADAR KERJA ELEKTRIK</h2>
-            <ol>
-                <li>BAHAGIAN I: PENDAWAIAN</li>
-                <li>BAHAGIAN II: PAPAN AGIHAN, PEMUTUS LITAR DAN PERALATAN PERLINDUNGAN</li>
-                <li>BAHAGIAN III: ALAT-ALAT LENGKAP PENDAWAIAN ELEKTRIK</li>
-                <li>BAHAGIAN IV: LENGKAPAN PENCAHAYAAN, LAMPU, KOMPONEN LAMPU DAN KIPAS</li>
-                <li>BAHAGIAN V: PEMASANGAN LUAR-LAMPU JALAN, LAMPU ISYARAT DAN LAMPU KAWASAN</li>
-                <li>BAHAGIAN VI: KABEL BAWAH TANAH DAN AKSESORI</li>
-                <li>BAHAGIAN VII: PELBAGAI</li>
-            </ol>
-        </div>
-        <div class="content">
-            <h2>JABATAN KERJA RAYA</h2>
-            <h3>Cawangan Kejuruteraan Elektrik Negeri Terengganu</h3>
-            <p>Jalan Bukit Kecil, 21080 Kuala Terengganu, Terengganu Darul Iman</p>
-            <p>Tel: 09-6225155/57 Emel: elektriktrg@jkr.gov.my</p>
-            <p>Faks: 09-6220023 </p>
-        </div>
-        <div class="loading-spinner" id="loadingSpinner"></div>
-    </main>
+
+    </div>
+
     <footer>
         <p>
-            <nav>
-                <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank">JKKE 2023 (PDF)</a> |
-                <a href="https://jkrelektrik.terengganu.gov.my" target="_top">CKE WEBSITE</a>
-            </nav>
+            <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i> Muat Turun JKKE 2023</a>
+            &nbsp; | &nbsp;
+            <a href="https://jkrelektrik.terengganu.gov.my" target="_blank"><i class="fa-solid fa-globe"></i> Portal CKE</a>
         </p>
-        &copy; 2024 Projek JKKE. All rights reserved.
+        <p>&copy; 2025 Projek JKKE. Hak Cipta Terpelihara.</p>
     </footer>
 
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p id="modalText"></p>
+            <div class="modal-header">
+                <h3 style="margin:0"><i class="fa-solid fa-list-ul"></i> Hasil Carian</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalText"></p>
+            </div>
         </div>
     </div>
-    
+
     <script>
-        let bqData = {};  // This will hold the JKKE data.
+        let bqData = {};
         let currentPage = 1;
         const resultsPerPage = 7;
         let searchResults = [];
 
-        // Fetch bqData from the JSON file
         fetch('bqData.json')
             .then(response => response.json())
-            .then(data => {
-                bqData = data;
-            })
+            .then(data => { bqData = data; })
             .catch(error => console.error('Error loading bqData:', error));
 
-        // Live search with pagination
         function navSearch() {
             const searchInput = document.getElementById('navSearchInput').value.toLowerCase();
             searchResults = Object.entries(bqData).filter(([key, value]) =>
                 value.description.toLowerCase().includes(searchInput)
             );
-            currentPage = 1; // Reset to the first page on a new search
+            currentPage = 1;
             displayResults();
         }
 
-        // Function to display results with pagination
         function displayResults() {
             const totalPages = Math.ceil(searchResults.length / resultsPerPage);
             const startIndex = (currentPage - 1) * resultsPerPage;
             const endIndex = startIndex + resultsPerPage;
             const paginatedResults = searchResults.slice(startIndex, endIndex);
 
-            let output = `<h3>Search Results (Page ${currentPage} of ${totalPages})</h3>`;
+            let output = `<div style="margin-bottom:15px;">Menunjukkan halaman ${currentPage} dari ${totalPages}</div>`;
+            
             if (paginatedResults.length > 0) {
                 paginatedResults.forEach(([key, value]) => {
-                    output += `<p><strong>Code:</strong> ${key} | <strong>Description:</strong> ${value.description}</p>`;
+                    output += `<div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
+                        <div><strong style="color:var(--primary)">${key}</strong><br>${value.description}</div>
+                        </div>`;
                 });
             } else {
-                output += `<p>No results found</p>`;
-            }
-            output += generatePaginationButtons(totalPages);
-
-            showModal(output); // Display results in the modal
-        }
-
-        // Function to generate pagination buttons
-        function generatePaginationButtons(totalPages) {
-            let buttons = `<div class="pagination-buttons">`;
-
-            // Previous button
-            if (currentPage > 1) {
-                buttons += `<button onclick="goToPage(${currentPage - 1})">Previous</button>`;
-            } else {
-                buttons += `<button disabled>Previous</button>`;
+                output += `<p style="text-align:center; color:red;">Tiada rekod dijumpai.</p>`;
             }
 
-            // Next button
-            if (currentPage < totalPages) {
-                buttons += `<button onclick="goToPage(${currentPage + 1})">Next</button>`;
-            } else {
-                buttons += `<button disabled>Next</button>`;
-            }
+            output += `<div style="margin-top:20px; display:flex; justify-content:center; gap:10px;">`;
+            if (currentPage > 1) output += `<button class="btn btn-outline" style="width:auto" onclick="goToPage(${currentPage - 1})">Sebelum</button>`;
+            if (currentPage < totalPages) output += `<button class="btn btn-outline" style="width:auto" onclick="goToPage(${currentPage + 1})">Seterusnya</button>`;
+            output += `</div>`;
 
-            buttons += `</div>`;
-            return buttons;
+            showModal(output);
         }
 
-        // Function to change the page
-        function goToPage(page) {
-            currentPage = page;
-            displayResults();
-        }
+        function goToPage(page) { currentPage = page; displayResults(); }
+        function showModal(content) { document.getElementById('modalText').innerHTML = content; document.getElementById('myModal').style.display = "block"; }
+        function closeModal() { document.getElementById('myModal').style.display = "none"; }
 
-        // Function to show the modal
-        function showModal(content) {
-            const modal = document.getElementById('myModal');
-            const modalText = document.getElementById('modalText');
-            modalText.innerHTML = content;
-            modal.style.display = "block";
-        }
-
-        // Function to close the modal
-        function closeModal() {
-            const modal = document.getElementById('myModal');
-            modal.style.display = "none";
-        }
-		
         function searchItem() {
-            const searchInput = document.getElementById('searchInput').value;
+            const input = document.getElementById('searchInput').value;
             const output = document.getElementById('searchOutput');
-            if (bqData[searchInput]) {
-                output.innerText = 'Keterangan: ' + bqData[searchInput].description;
+            output.style.display = 'block';
+            
+            if (bqData[input]) {
+                output.innerHTML = `<strong>Keterangan:</strong><br>${bqData[input].description}`;
+                output.style.backgroundColor = "#f0f9ff";
+                output.style.borderColor = "#bae6fd";
             } else {
-                output.innerText = 'Item not found';
+                output.innerText = 'Item tidak dijumpai dalam pangkalan data.';
+                output.style.backgroundColor = "#fef2f2";
+                output.style.borderColor = "#fecaca";
             }
         }
 
         function showPrice() {
-            const searchInput = document.getElementById('searchInput').value;
-            const priceOutput = document.getElementById('priceOutput');
-            if (bqData[searchInput]) {
-                priceOutput.innerText = 'Harga Per Unit: RM' + Number(bqData[searchInput].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            const input = document.getElementById('searchInput').value;
+            const output = document.getElementById('priceOutput');
+            if (bqData[input]) {
+                output.innerText = 'RM ' + Number(bqData[input].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             } else {
-                priceOutput.innerText = 'Harga Tidak Tersedia';
+                output.innerText = '';
             }
         }
 
         function generateBQ() {
-            let bqOutput = 'Bill of Quantities (BQ):\n';
+            let bqOutput = '<table style="width:100%; border-collapse:collapse;"><tr><th style="text-align:left; border-bottom:2px solid #ddd;">Kod</th><th style="text-align:left; border-bottom:2px solid #ddd;">Deskripsi</th><th style="text-align:right; border-bottom:2px solid #ddd;">Harga</th></tr>';
             for (const [id, data] of Object.entries(bqData)) {
-                bqOutput += `Kod: ${id}, Description: ${data.description}, Price: RM${Number(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}\n`;
+                bqOutput += `<tr><td style="padding:8px; border-bottom:1px solid #eee;">${id}</td><td style="padding:8px; border-bottom:1px solid #eee;">${data.description}</td><td style="padding:8px; border-bottom:1px solid #eee; text-align:right;">RM${data.price}</td></tr>`;
             }
+            bqOutput += '</table>';
             showModal(bqOutput);
         }
 
-        function goToBQPage() {
-            localStorage.setItem('bqData', JSON.stringify(bqData));
-            window.location.href = 'bq.html';
-        }
-		
-		function generateC() {
-            localStorage.setItem('bqData', JSON.stringify(bqData));
-            window.location.href = 'generateJKKE.html';
-        }
-
-        function saveSearch(searchTerm) {
-            let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
-            if (!recentSearches.includes(searchTerm)) {
-                recentSearches.push(searchTerm);
-            if (recentSearches.length > 6) {
-            recentSearches.shift(); // Remove the oldest search
-            }
-                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
-            }
-        }
-
-        function loadRecentSearches() {
-            let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
-            return recentSearches.map(search => `<li>${search}</li>`).join('');
-        }
-		
-		function goToSemuaJKKE() {
-        window.location.href = 'semuajkke.html';
-		}
-
-        function liveSearch() {
-            const searchInput = document.getElementById('navSearchInput').value.toLowerCase();
-            const searchResults = Object.entries(bqData).filter(([key, value]) =>
-            value.description.toLowerCase().includes(searchInput)
-            );
-            let searchOutput2 = 'Search Results:\n';
-            searchResults.forEach(([key, value]) => {
-            searchOutput2 += `Code: ${key}, Description: ${value.description}\n`;
-            });
-            document.getElementById('searchOutput2').innerText = searchOutput2;
-        }
-            document.getElementById('navSearchInput').addEventListener('input', liveSearch);
+        function goToBQPage() { localStorage.setItem('bqData', JSON.stringify(bqData)); window.location.href = 'bq.html'; }
+        function generateC() { localStorage.setItem('bqData', JSON.stringify(bqData)); window.location.href = 'generateJKKE.html'; }
+        function goToSemuaJKKE() { window.location.href = 'semuajkke.html'; }
 
     </script>
+
     <script>
-            window.difyChatbotConfig = {
+        window.difyChatbotConfig = {
             token: 'OSicAkNisLROH0P1',
-            inputs: {
-                // You can define the inputs from the Start node here
-                // key is the variable name
-                // e.g.
-                // name: "NAME"
-            },
-            systemVariables: {
-                // user_id: 'YOU CAN DEFINE USER ID HERE',
-                // conversation_id: 'YOU CAN DEFINE CONVERSATION ID HERE, IT MUST BE A VALID UUID',
-            },
-            userVariables: {
-                // avatar_url: 'YOU CAN DEFINE USER AVATAR URL HERE',
-                // name: 'YOU CAN DEFINE USER NAME HERE',
-            },
-            }
-            </script>
-            <script
-            src="https://udify.app/embed.min.js"
-            id="OSicAkNisLROH0P1"
-            defer>
+            inputs: { page_title: document.title, current_url: window.location.href }
+        }
     </script>
+    <script src="https://udify.app/embed.min.js" id="OSicAkNisLROH0P1" defer></script>
+    <style>
+        #dify-chatbot-bubble-button { background-color: #1e3a8a !important; bottom: 20px !important; right: 20px !important; }
+        #dify-chatbot-bubble-window { width: 24rem !important; height: 38rem !important; bottom: 90px !important; right: 20px !important; border-radius: 12px !important; }
+    </style>
+
 </body>
 </html>
