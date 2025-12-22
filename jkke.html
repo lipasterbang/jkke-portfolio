@@ -580,9 +580,14 @@
 
     <script>
         window.difyChatbotConfig = {
-            token: 'OSicAkNisLROH0P1',
-            inputs: { page_title: document.title, current_url: window.location.href }
+        token: 'OSicAkNisLROH0P1',
+        inputs: {
+            page_title: document.title,
+            current_url: window.location.href,
+            // INI YANG PENTING: Hantar tarikh automatik
+            today_date: new Date().toLocaleDateString('ms-MY') 
         }
+    }
     </script>
 
     <script src="https://udify.app/embed.min.js" id="OSicAkNisLROH0P1" defer></script>
