@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,19 +26,71 @@
     }
     h2 {
       color: #003366;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+    section {
+      margin-bottom: 40px;
     }
     .button-group a {
       display: inline-block;
-      margin: 10px;
+      margin: 10px 10px 10px 0;
       padding: 12px 20px;
       background-color: #0055aa;
       color: white;
       text-decoration: none;
       border-radius: 8px;
+      transition: background 0.3s;
     }
     .button-group a:hover {
       background-color: #0077cc;
     }
+    
+    /* Style untuk QR Code Bersebelahan */
+    .qr-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center; /* Tengah */
+      margin-top: 20px;
+    }
+    .qr-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 220px; /* Lebar sedikit supaya muat */
+      border: 1px solid #ddd;
+      transition: transform 0.3s;
+    }
+    .qr-box:hover {
+      transform: translateY(-5px);
+    }
+    .qr-box img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+    .qr-label {
+      font-weight: 600;
+      color: #003366;
+      margin-top: 5px;
+    }
+    .qr-desc {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+    .qr-link {
+        display: block;
+        margin-top: 10px;
+        font-size: 0.75rem;
+        color: #0055aa;
+        text-decoration: none;
+    }
+
     footer {
       background-color: #003366;
       color: white;
@@ -65,7 +117,7 @@
         <li>Carian kadar kerja berdasarkan Bab dan Subtopik</li>
         <li>Penjanaan sebutharga automatik (Auto Quotation)</li>
         <li>Papar dan eksport format Jadual Kadar Kerja seperti dokumen rasmi</li>
-        <li>Integrasi sistem dengan fail JSON (akan datang: MySQL)</li>
+        <li>Integrasi Pembantu Maya AI (Dify Chatbot)</li>
       </ul>
     </section>
 
@@ -82,15 +134,32 @@
       <h2>🛠️ Teknologi & Perancangan</h2>
       <ul>
         <li>Frontend: HTML, CSS, JavaScript</li>
-        <li>Data: JSON (akan dipindah ke MySQL untuk sistem lebih efisien)</li>
-        <li>Hosting: GitHub Pages + QR Code untuk akses mudah</li>
+        <li>AI Integration: Dify.AI Agent</li>
+        <li>Hosting: GitHub Pages</li>
       </ul>
     </section>
 
     <section>
-      <h2>📷 Kod QR</h2>
-      <p>Imbas untuk lihat portfolio ini:</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/&size=150x150" alt="QR Code" />
+      <h2>📷 Akses Pantas (QR Code)</h2>
+      <p>Imbas kod di bawah menggunakan kamera telefon:</p>
+      
+      <div class="qr-container">
+        
+        <div class="qr-box">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/jkke.html&size=150x150" alt="QR Web Portfolio" />
+          <div class="qr-label">Sistem Web JKKE</div>
+          <div class="qr-desc">Akses terus ke laman utama sistem (Dashboard).</div>
+          <a href="https://lipasterbang.github.io/jkke-portfolio/jkke.html" target="_blank" class="qr-link">Buka Pautan <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="qr-box">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://udify.app/chat/PdcFvdGc8pYYuCXY&size=150x150" alt="QR Chatbot" />
+          <div class="qr-label">Pembantu AI</div>
+          <div class="qr-desc">Berbual dengan Bot AI untuk pertanyaan pantas.</div>
+          <a href="https://udify.app/chat/PdcFvdGc8pYYuCXY" target="_blank" class="qr-link">Buka Chat <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+      </div>
     </section>
   </main>
 
