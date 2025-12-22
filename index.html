@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JKKE 2024 System Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -28,10 +30,13 @@
       color: #003366;
       border-bottom: 2px solid #e0e0e0;
       padding-bottom: 10px;
+      margin-top: 40px;
     }
     section {
       margin-bottom: 40px;
     }
+    
+    /* Button Styles */
     .button-group a {
       display: inline-block;
       margin: 10px 10px 10px 0;
@@ -45,13 +50,100 @@
     .button-group a:hover {
       background-color: #0077cc;
     }
+
+    /* --- PORTFOLIO THUMBNAIL GRID (NEW) --- */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .portfolio-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    }
+
+    .portfolio-thumb {
+      height: 180px;
+      background-color: #e0e7ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Ini untuk memastikan gambar fit cantik dalam kotak */
+    .portfolio-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* atau 'contain' jika nak nampak penuh */
+    }
+
+    /* Placeholder icon jika tiada gambar */
+    .portfolio-thumb i {
+      font-size: 4rem;
+      color: #003366;
+      opacity: 0.3;
+    }
+
+    .portfolio-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-title {
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .portfolio-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .btn-download {
+      display: inline-block;
+      text-align: center;
+      padding: 10px;
+      background-color: #fff;
+      color: #0055aa;
+      border: 1px solid #0055aa;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-download:hover {
+      background-color: #0055aa;
+      color: white;
+    }
     
-    /* Style untuk QR Code Bersebelahan */
+    /* --- QR Code Section --- */
     .qr-container {
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
-      justify-content: center; /* Tengah */
+      justify-content: center;
       margin-top: 20px;
     }
     .qr-box {
@@ -60,36 +152,15 @@
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       text-align: center;
-      width: 220px; /* Lebar sedikit supaya muat */
+      width: 220px;
       border: 1px solid #ddd;
       transition: transform 0.3s;
     }
-    .qr-box:hover {
-      transform: translateY(-5px);
-    }
-    .qr-box img {
-      width: 150px;
-      height: 150px;
-      margin-bottom: 10px;
-    }
-    .qr-label {
-      font-weight: 600;
-      color: #003366;
-      margin-top: 5px;
-    }
-    .qr-desc {
-      font-size: 0.8rem;
-      color: #666;
-      margin-top: 5px;
-      line-height: 1.4;
-    }
-    .qr-link {
-        display: block;
-        margin-top: 10px;
-        font-size: 0.75rem;
-        color: #0055aa;
-        text-decoration: none;
-    }
+    .qr-box:hover { transform: translateY(-5px); }
+    .qr-box img { width: 150px; height: 150px; margin-bottom: 10px; }
+    .qr-label { font-weight: 600; color: #003366; margin-top: 5px; }
+    .qr-desc { font-size: 0.8rem; color: #666; margin-top: 5px; line-height: 1.4; }
+    .qr-link { display: block; margin-top: 10px; font-size: 0.75rem; color: #0055aa; text-decoration: none; }
 
     footer {
       background-color: #003366;
@@ -127,6 +198,48 @@
         <a href="jkke.html" target="_blank">Halaman Utama (jkke.html)</a>
         <a href="generateJKKE.html" target="_blank">Penjana Sebutharga</a>
         <a href="semuajkke.html" target="_blank">Lihat Semua Kod JKKE</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>📂 Dokumentasi & Analisis Projek</h2>
+      <p>Berikut adalah bahan dokumentasi dan analisis reka bentuk bagi sistem JKKE:</p>
+      
+      <div class="portfolio-grid">
+        
+        <div class="portfolio-card">
+          <div class="portfolio-thumb">
+            <img src="https://placehold.co/600x400/e0e7ff/003366?text=Empathy+Map" alt="Empathy Map Canvas">
+          </div>
+          <div class="portfolio-content">
+            <div class="portfolio-title">Empathy Map Canvas</div>
+            <div class="portfolio-desc">Analisis mendalam mengenai pengguna (Kontraktor & Juruukur Bahan) untuk memahami keperluan emosi dan fizikal mereka.</div>
+            <a href="empathy_map.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> Lihat Gambar</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-thumb">
+            <img src="https://placehold.co/600x400/e0e7ff/003366?text=Value+Prop" alt="Value Proposition Canvas">
+          </div>
+          <div class="portfolio-content">
+            <div class="portfolio-title">Value Proposition Canvas</div>
+            <div class="portfolio-desc">Pemetaan antara masalah pengguna (Pains) dan penyelesaian yang ditawarkan oleh sistem JKKE (Gain Creators).</div>
+            <a href="vpc.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> Lihat Gambar</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-thumb">
+            <i class="fa-solid fa-file-powerpoint"></i>
+          </div>
+          <div class="portfolio-content">
+            <div class="portfolio-title">Slide Deck Pembentangan</div>
+            <div class="portfolio-desc">Slaid pembentangan rasmi merangkumi pengenalan masalah, solusi, arkitektur sistem, dan hala tuju projek.</div>
+            <a href="slide_deck.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> Muat Turun (PDF)</a>
+          </div>
+        </div>
+
       </div>
     </section>
 
