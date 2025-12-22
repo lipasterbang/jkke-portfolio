@@ -131,8 +131,19 @@
         .modal-body { padding: 25px; max-height: 60vh; overflow-y: auto; }
         @keyframes slideDown { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
         
-        /* Chatbot Style */
-        #dify-chatbot-bubble-button { background-color: #1e3a8a !important; bottom: 20px !important; right: 20px !important; }
+        /* Chatbot Style - Updated with ID and Size */
+        #dify-chatbot-bubble-button { 
+            background-color: #1e3a8a !important; /* Navy Blue JKR Theme */
+            bottom: 20px !important; 
+            right: 20px !important; 
+        }
+        #dify-chatbot-bubble-window {
+            width: 24rem !important;
+            height: 40rem !important;
+            bottom: 90px !important;
+            right: 20px !important;
+            border-radius: 12px !important;
+        }
     </style>
 </head>
 <body>
@@ -200,35 +211,41 @@
                 </div>
                 <div style="margin-top: 25px; background-color: #2c1e50; color: white; padding: 25px 20px; border-radius: 8px; text-align: center;">
     
-    <i class="fa-solid fa-headset" style="font-size: 2.5rem; margin-bottom: 15px; color: #3498db;"></i>
+                    <i class="fa-solid fa-headset" style="font-size: 2.5rem; margin-bottom: 15px; color: #3498db;"></i>
             
-            <h4 style="margin: 0 0 10px 0; color: white; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px;">
-                Bantuan & Sokongan Teknikal
-            </h4>
-            
-            <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 20px; color: #cbd5e1; line-height: 1.5;">
-                Perlukan penjelasan lanjut? Hubungi CKE JKR Terengganu atau dapatkan jawapan segera melalui 
-                <strong style="color:#fbbf24; cursor:pointer;" onclick="if(window.difyChatbotConfig){document.getElementById('dify-chatbot-bubble-button').click()}">Pembantu Maya AI</strong> di penjuru skrin.
-            </p>
+                    <h4 style="margin: 0 0 10px 0; color: white; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Bantuan & Sokongan Teknikal
+                    </h4>
+                    
+                    <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 20px; color: #cbd5e1; line-height: 1.5;">
+                        Perlukan penjelasan lanjut? Hubungi CKE JKR Terengganu atau dapatkan jawapan segera melalui 
+                        <strong style="color:#fbbf24; cursor:pointer;" onclick="if(window.difyChatbotConfig){document.getElementById('dify-chatbot-bubble-button').click()}">Pembantu Maya AI</strong> di penjuru skrin.
+                    </p>
 
-            <a href="tel:096225155" style="text-decoration: none; display: block; margin-bottom: 10px;">
-                <button class="btn" style="background: white; color: #2c1e50; font-weight: 700; width: 100%; padding: 12px; border: 2px solid white; transition: all 0.2s;">
-                    <i class="fa-solid fa-phone" style="margin-right: 8px; color: #2c1e50;"></i> 09-6225155
-                </button>
-            </a>
+                    <a href="tel:096225155" style="text-decoration: none; display: block; margin-bottom: 10px;">
+                        <button class="btn" style="background: white; color: #2c1e50; font-weight: 700; width: 100%; padding: 12px; border: 2px solid white; transition: all 0.2s;">
+                            <i class="fa-solid fa-phone" style="margin-right: 8px; color: #2c1e50;"></i> 09-6225155
+                        </button>
+                    </a>
 
-            <a href="mailto:elektriktrg@jkr.gov.my" style="text-decoration: none; display: block;">
-                <button class="btn" style="background: transparent; color: white; font-weight: 600; width: 100%; padding: 12px; border: 2px solid rgba(255,255,255,0.3); transition: all 0.2s;">
-                    <i class="fa-solid fa-envelope" style="margin-right: 8px; color: #3498db;"></i> Email Rasmi
-                </button>
-            </a>
+                    <a href="mailto:elektriktrg@jkr.gov.my" style="text-decoration: none; display: block;">
+                        <button class="btn" style="background: transparent; color: white; font-weight: 600; width: 100%; padding: 12px; border: 2px solid rgba(255,255,255,0.3); transition: all 0.2s;">
+                            <i class="fa-solid fa-envelope" style="margin-right: 8px; color: #3498db;"></i> Email Rasmi
+                        </button>
+                    </a>
 
-        </div>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="card-header"><i class="fa-solid fa-calculator"></i><h3>Kalkulator Kuantiti Pintar</h3></div>
-                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 15px;">Anggaran M&E berdasarkan keluasan ruang.</p>
+           <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-calculator"></i>
+                    <h3>Kalkulator Kuantiti Pintar</h3>
+                </div>
+                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 15px;">
+                    Anggaran keperluan M&E berdasarkan keluasan ruang.
+                </p>
+                
                 <div class="form-group">
                     <label>Jenis Ruang</label>
                     <select id="roomType" class="form-control">
@@ -236,22 +253,57 @@
                         <option value="living">Ruang Tamu / Bilik Tidur (Std Load)</option>
                     </select>
                 </div>
+
                 <div style="display: flex; gap: 10px;">
-                    <div class="form-group" style="flex:1"><label>Panjang (Kaki)</label><input type="number" id="roomL" class="form-control" placeholder="0"></div>
-                    <div class="form-group" style="flex:1"><label>Lebar (Kaki)</label><input type="number" id="roomW" class="form-control" placeholder="0"></div>
+                    <div class="form-group" style="flex:1">
+                        <label>Panjang (Kaki)</label>
+                        <input type="number" id="roomL" class="form-control" placeholder="0">
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label>Lebar (Kaki)</label>
+                        <input type="number" id="roomW" class="form-control" placeholder="0">
+                    </div>
                 </div>
-                <button class="btn btn-primary" onclick="calculateMaterial()"><i class="fa-solid fa-wand-magic-sparkles"></i> Kira Anggaran</button>
-                
+
+                <button class="btn btn-primary" onclick="calculateMaterial()" style="width: 100%; margin-top: 5px;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Kira Anggaran
+                </button>
+
                 <div id="estResult" style="display:none; margin-top: 20px; background: #f0f9ff; padding: 15px; border-radius: 8px; border: 1px solid #bae6fd;">
+                    
                     <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; font-size: 0.9rem;">
                         <span style="color:#64748b">Luas Ruang:</span>
-                        <div style="text-align: right;"><strong><span id="resAreaSqft">0</span> ft²</strong><br><small style="color:#64748b">(<span id="resAreaM2">0</span> m²)</small></div>
+                        <div style="text-align: right;">
+                            <strong><span id="resAreaSqft">0</span> ft²</strong><br>
+                            <small style="color:#64748b">(<span id="resAreaM2">0</span> m²)</small>
+                        </div>
                     </div>
+
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
-                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-lightbulb" style="color:#f59e0b;"></i> Lampu LED<br><strong style="font-size: 1.1rem;" id="resLight">0</strong> <small>unit</small></div>
-                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-fan" style="color:#3b82f6;"></i> Kipas Siling<br><strong style="font-size: 1.1rem;" id="resFan">0</strong> <small>unit</small></div>
-                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-plug" style="color:#ef4444;"></i> Soket 13A<br><strong style="font-size: 1.1rem;" id="resSocket">0</strong> <small>unit</small></div>
-                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-snowflake" style="color:#0ea5e9;"></i> Aircond<br><strong style="font-size: 1.1rem;" id="resAc">0</strong> <small>unit</small></div>
+                        
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-lightbulb" style="color:#f59e0b;"></i> Lampu LED<br>
+                            <strong style="font-size: 1.1rem;" id="resLight">0</strong> <small>unit</small>
+                        </div>
+
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-fan" style="color:#3b82f6;"></i> Kipas Siling<br>
+                            <strong style="font-size: 1.1rem;" id="resFan">0</strong> <small>unit</small>
+                        </div>
+
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-plug" style="color:#ef4444;"></i> Soket 13A<br>
+                            <strong style="font-size: 1.1rem;" id="resSocket">0</strong> <small>unit</small>
+                        </div>
+
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-snowflake" style="color:#0ea5e9;"></i> Aircond<br>
+                            <strong style="font-size: 1.1rem;" id="resAc">0</strong> <small>unit</small>
+                        </div>
+
+                    </div>
+                        <div style="margin-top: 10px; font-size: 0.75rem; color: #94a3b8; text-align: center;">
+                            *Anggaran berdasarkan piawaian MS1525 & JKR.
                     </div>
                 </div>
             </div>
@@ -343,35 +395,63 @@
 
         // --- 5. CALCULATOR LOGIC ---
         function calculateMaterial() {
-            const L = parseFloat(document.getElementById('roomL').value) || 0;
-            const W = parseFloat(document.getElementById('roomW').value) || 0;
-            const type = document.getElementById('roomType').value;
-            const areaSqft = L * W;
-            const areaM2 = areaSqft * 0.092903;
+                // Ambil input
+                const L = parseFloat(document.getElementById('roomL').value) || 0;
+                const W = parseFloat(document.getElementById('roomW').value) || 0;
+                const type = document.getElementById('roomType').value;
 
-            if (areaSqft > 0) {
-                document.getElementById('resAreaSqft').innerText = areaSqft.toLocaleString();
-                document.getElementById('resAreaM2').innerText = areaM2.toFixed(2);
+                // Kira Luas
+                const areaSqft = L * W;
+                const areaM2 = areaSqft * 0.092903; // Tukar ft2 ke m2
 
-                let lightFactor = type === 'office' ? 45 : 60;
-                let socketFactor = type === 'office' ? 50 : 100;
-                
-                let lights = Math.ceil(areaSqft / lightFactor);
-                let fans = Math.ceil(areaSqft / 144);
-                let sockets = Math.ceil(areaSqft / socketFactor);
-                if (type === 'living' && sockets < 2) sockets = 2;
-                
-                let totalBTU = areaSqft * 70;
-                let acUnits = Math.ceil(totalBTU / 14000); 
-                if(areaSqft < 130) acUnits = 1;
+                if (areaSqft > 0) {
+                    // Paparkan Luas
+                    document.getElementById('resAreaSqft').innerText = areaSqft.toLocaleString();
+                    document.getElementById('resAreaM2').innerText = areaM2.toFixed(2);
 
-                document.getElementById('resLight').innerText = lights;
-                document.getElementById('resFan').innerText = fans;
-                document.getElementById('resSocket').innerText = sockets;
-                document.getElementById('resAc').innerText = acUnits;
-                document.getElementById('estResult').style.display = 'block';
-            } else { alert("Sila masukkan panjang dan lebar ruang."); }
-        }
+                    // LOGIK PENGIRAAN (ANALISIS JKR & INDUSTRI)
+                    
+                    // 1. Lampu (Pencahayaan)
+                    // Office: 1 lampu per 45 sqft (Terang)
+                    // Living: 1 lampu per 60 sqft (Sederhana)
+                    let lightFactor = type === 'office' ? 45 : 60;
+                    let lights = Math.ceil(areaSqft / lightFactor);
+
+                    // 2. Kipas Siling
+                    // Standard: 1 kipas cover 144 sqft (12x12)
+                    let fans = Math.ceil(areaSqft / 144);
+
+                    // 3. Soket 13A (Plug Points)
+                    // Office: High density (1 per 50 sqft)
+                    // Living: Standard (1 per 100 sqft, minimum 2)
+                    let socketFactor = type === 'office' ? 50 : 100;
+                    let sockets = Math.ceil(areaSqft / socketFactor);
+                    if (type === 'living' && sockets < 2) sockets = 2; // Minima 2 untuk bilik
+
+                    // 4. Aircond (Penyaman Udara)
+                    // Formula Malaysia: Area x 70 BTU (Safety Margin for Heat)
+                    // 1 HP = ~9500 BTU. 
+                    // Kita kira berapa "Point" diperlukan. 
+                    // Jika bilik besar (>400sqft), mungkin perlu 2 unit aircond.
+                    let totalBTU = areaSqft * 70;
+                    // Anggap purata aircond adalah 1.5HP (~14,000 BTU) untuk kiraan unit
+                    let acUnits = Math.ceil(totalBTU / 14000); 
+                    
+                    // Jika bilik kecil (<120 sqft), 1 unit 1.0HP dah cukup.
+                    if(areaSqft < 130) acUnits = 1;
+
+                    // Update UI
+                    document.getElementById('resLight').innerText = lights;
+                    document.getElementById('resFan').innerText = fans;
+                    document.getElementById('resSocket').innerText = sockets;
+                    document.getElementById('resAc').innerText = acUnits;
+
+                    // Show Result
+                    document.getElementById('estResult').style.display = 'block';
+                } else {
+                    alert("Sila masukkan panjang dan lebar ruang.");
+                }
+            }
 
         // --- 6. UTILS ---
         function updateCartBadge() {
@@ -389,14 +469,34 @@
     </script>
 
     <script>
-        window.difyChatbotConfig = {
-            token: 'PdcFvdGc8pYYuCXY',
-            inputs: { page_title: document.title, current_url: window.location.href, today_date: new Date().toLocaleDateString('ms-MY') }
-        }
+     window.difyChatbotConfig = {
+      token: 'PdcFvdGc8pYYuCXY', // Token Baru
+      inputs: {
+        // Kekalkan input ini supaya tiada error "Date empty" untuk Airtable
+        page_title: document.title,
+        current_url: window.location.href,
+        today_date: new Date().toLocaleDateString('ms-MY')
+      }
+     }
     </script>
-    <script src="https://udify.app/embed.min.js" id="PdcFvdGc8pYYuCXY" defer></script>
+    <script
+     src="https://udify.app/embed.min.js"
+     id="PdcFvdGc8pYYuCXY"
+     defer>
+    </script>
     <style>
-        #dify-chatbot-bubble-button { background-color: #1e3a8a !important; }
+      #dify-chatbot-bubble-button {
+        background-color: #1e3a8a !important; /* Kekal warna Navy Blue JKR */
+        bottom: 20px !important;
+        right: 20px !important;
+      }
+      #dify-chatbot-bubble-window {
+        width: 24rem !important;
+        height: 40rem !important;
+        bottom: 90px !important;
+        right: 20px !important;
+        border-radius: 12px !important;
+      }
     </style>
 
 </body>
