@@ -10,11 +10,11 @@
 
     <style>
         :root {
-            --primary: #1e3a8a;       /* Navy Blue JKR */
-            --secondary: #3b82f6;     /* Bright Blue */
-            --accent: #0ea5e9;        /* Sky Blue */
-            --bg-body: #f1f5f9;       /* Light Grey BG */
-            --bg-card: #ffffff;       /* White Card */
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #0ea5e9;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
             --text-dark: #0f172a;
             --text-muted: #64748b;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -25,254 +25,114 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-body);
             color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            display: flex; flex-direction: column; min-height: 100vh;
         }
 
         /* --- Navbar --- */
         nav.navbar {
             background-color: var(--primary);
             color: white;
-            padding: 1rem 2rem;
+            padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .navbar-brand {
-            font-size: 1.25rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .navbar-brand { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .navbar-brand i { color: var(--accent); }
 
-        /* --- Hero Search Section --- */
+        /* LIVE CLOCK STYLE */
+        .live-clock {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            background: rgba(0,0,0,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #fbbf24; /* Kuning Emas */
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+
+        /* --- Hero --- */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, #1e293b 100%);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-            margin-bottom: 2rem;
+            color: white; padding: 3rem 1rem; text-align: center; margin-bottom: 2rem;
         }
-
         .hero h1 { margin: 0 0 0.5rem 0; font-weight: 800; }
-        .hero p { opacity: 0.8; margin-bottom: 2rem; }
-
-        .search-bar-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
-
+        .search-bar-wrapper { max-width: 600px; margin: 0 auto; position: relative; }
+        
         .search-input-group {
-            display: flex;
-            background: white;
-            padding: 5px;
-            border-radius: 50px;
+            display: flex; background: white; padding: 5px; border-radius: 50px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-
-        .search-input-group input {
-            border: none;
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 50px;
-            outline: none;
-            font-size: 1rem;
-        }
-
+        .search-input-group input { border: none; flex: 1; padding: 12px 20px; border-radius: 50px; outline: none; font-size: 1rem; }
         .search-input-group button {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
+            background: var(--secondary); color: white; border: none; padding: 10px 25px;
+            border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s;
         }
-
         .search-input-group button:hover { background: var(--primary); }
 
-        /* --- Main Layout --- */
+        /* --- Layout --- */
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
-            flex: 1;
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; flex: 1;
         }
 
-        /* --- Cards --- */
-        .card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid #e2e8f0;
-            height: 100%; /* Ensure full height for flex/grid */
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #f1f5f9;
-            padding-bottom: 10px;
-        }
-
-        .card-header h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
-        .card-header i { color: var(--secondary); font-size: 1.2rem; }
-
-        /* Grid Placement - Modified for Chatbot Layout */
         .col-left { grid-column: span 8; }
         .col-right { grid-column: span 4; }
-        
-        .row-info { 
-            grid-column: span 12; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; /* Split Info and Chatbot 50/50 */
-            gap: 24px;
-            margin-top: 24px;
-        }
+        .row-info { grid-column: span 12; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
 
         @media (max-width: 900px) {
             .col-left, .col-right { grid-column: span 12; }
-            .row-info { grid-template-columns: 1fr; } /* Stack on mobile */
+            .row-info { grid-template-columns: 1fr; }
+            .live-clock { display: none; } /* Sembunyi jam di mobile jika sempit */
         }
 
-        /* --- Forms & Buttons --- */
-        .form-group { margin-bottom: 1rem; }
+        /* --- Components --- */
+        .card {
+            background: var(--bg-card); border-radius: var(--radius); padding: 1.5rem;
+            box-shadow: var(--shadow); border: 1px solid #e2e8f0; height: 100%; transition: 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border 0.3s;
-            box-sizing: border-box;
-        }
+        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+        .card-header h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+        .card-header i { color: var(--secondary); font-size: 1.2rem; }
 
-        .form-control:focus { border-color: var(--secondary); outline: none; }
-
-        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        
-        .btn {
-            flex: 1;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .btn-primary { background-color: var(--secondary); color: white; }
+        .btn { padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%; margin-top: 5px; }
+        .btn-primary { background-color: var(--secondary); color: white; border: none; }
         .btn-primary:hover { background-color: #2563eb; }
-
-        .btn-outline { background-color: white; border: 1px solid #cbd5e1; color: var(--text-dark); }
+        .btn-outline { background-color: white; border: 1px solid #cbd5e1; color: var(--text-dark); margin-bottom: 10px; justify-content: flex-start; }
         .btn-outline:hover { background-color: #f8fafc; border-color: var(--secondary); }
 
-        .btn-action { width: 100%; margin-bottom: 8px; text-align: left; justify-content: flex-start; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 10px; }
+        .result-box { background: #f0f9ff; border: 1px solid #bae6fd; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        .price-tag { font-size: 1.5rem; font-weight: 700; color: #059669; margin-top: 10px; }
 
-        /* --- Result Output --- */
-        .result-box {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            min-height: 50px;
-        }
-
-        .price-tag {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #059669;
-            margin-top: 10px;
-        }
-
-        /* --- Content List --- */
+        /* List Styling */
         ul.simple-list { list-style: none; padding: 0; }
-        ul.simple-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f5f9;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: flex-start; /* Align top for long text */
-            gap: 10px;
-        }
-        ul.simple-list li i { color: #10b981; font-size: 0.9rem; margin-top: 3px; }
+        ul.simple-list li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; color: var(--text-muted); display: flex; gap: 10px; font-size: 0.9rem; }
+        ul.simple-list li i { color: #10b981; margin-top: 3px; }
 
-        /* --- Chatbot Frame --- */
-        .chatbot-container {
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-            height: 100%;
-            min-height: 500px;
-            background: white;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-top: 1px solid #e2e8f0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        
+        /* Footer & Modal */
+        footer { background: white; text-align: center; padding: 2rem; margin-top: 3rem; border-top: 1px solid #e2e8f0; color: var(--text-muted); font-size: 0.9rem; }
         footer a { color: var(--secondary); text-decoration: none; }
 
-        /* --- Modal --- */
-        .modal {
-            display: none; position: fixed; z-index: 9999; left: 0; top: 0;
-            width: 100%; height: 100%; overflow: auto;
-            background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-        }
-        .modal-content {
-            background-color: #fff; margin: 5% auto; padding: 0;
-            border-radius: 12px; width: 90%; max-width: 700px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            animation: slideDown 0.3s ease;
-        }
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .modal-content { background-color: #fff; padding: 0; border-radius: 12px; width: 90%; max-width: 600px; animation: slideDown 0.3s ease; }
+        .modal-header { background: var(--primary); color: white; padding: 15px 25px; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-body { padding: 25px; max-height: 60vh; overflow-y: auto; }
         @keyframes slideDown { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
         
-        .modal-header {
-            background: var(--primary); color: white;
-            padding: 15px 25px; border-radius: 12px 12px 0 0;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .modal-body { padding: 25px; max-height: 70vh; overflow-y: auto; }
-        .close { color: white; font-size: 24px; cursor: pointer; }
-
+        /* Chatbot Style */
+        #dify-chatbot-bubble-button { background-color: #1e3a8a !important; bottom: 20px !important; right: 20px !important; }
     </style>
 </head>
 <body>
@@ -281,19 +141,23 @@
         <div class="navbar-brand">
             <i class="fa-solid fa-bolt"></i> JKKE 2025
         </div>
-        <div style="display: flex; align-items: center; gap: 20px;">
+
+        <div class="live-clock" id="clockDisplay">
+            <i class="fa-regular fa-clock"></i> Memuatkan...
+        </div>
+
+        <div class="nav-right">
             <a href="bq.html" style="color: white; text-decoration: none; position: relative; font-size: 1.1rem;">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span id="cartCountBadge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold;">0</span>
             </a>
-            <div style="font-size: 0.9rem; opacity: 0.8;">JKR TERENGGANU</div>
+            <div style="font-size: 0.9rem; opacity: 0.8; font-weight: 600;">JKR TERENGGANU</div>
         </div>
     </nav>
 
     <div class="hero">
         <h1>SISTEM CARIAN JADUAL KADAR KERJA ELEKTRIK</h1>
         <p>Cari kod, keterangan, dan harga bahan elektrik dengan mudah.</p>
-        
         <div class="search-bar-wrapper">
             <div class="search-input-group">
                 <input type="text" id="navSearchInput" placeholder="Cari item (Contoh: Lampu, Kabel, Soket)...">
@@ -303,167 +167,83 @@
     </div>
 
     <div class="container">
-        
         <div class="col-left">
             <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-barcode"></i>
-                    <h3>Semakan Kod Spesifik</h3>
-                </div>
-                <p class="text-muted" style="margin-top:0; font-size:0.9rem;">Masukkan kod JKKE untuk paparan pantas (Contoh: 1A1, 2C2, 3E14).</p>
-                
-                <div class="form-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Masukkan Kod JKKE...">
-                </div>
-
+                <div class="card-header"><i class="fa-solid fa-barcode"></i><h3>Semakan Kod Spesifik</h3></div>
+                <div class="form-group"><input type="text" class="form-control" id="searchInput" placeholder="Masukkan Kod JKKE (Cth: 1A1)..."></div>
                 <div id="searchOutput" class="result-box" style="display:none;"></div>
                 <div id="priceOutput" class="price-tag"></div>
-
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="searchItem()">
-                        <i class="fa-solid fa-check"></i> Semak Kod
-                    </button>
-                    <button class="btn btn-outline" onclick="showPrice()">
-                        <i class="fa-solid fa-tag"></i> Lihat Harga
-                    </button>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <button class="btn btn-primary" onclick="searchItem()"><i class="fa-solid fa-check"></i> Semak Kod</button>
+                    <button class="btn btn-outline" style="margin:0; justify-content:center; border:1px solid #cbd5e1;" onclick="showPrice()"><i class="fa-solid fa-tag"></i> Lihat Harga</button>
                 </div>
             </div>
         </div>
 
         <div class="col-right">
             <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <h3>Menu Pantas</h3>
-                </div>
-                <button class="btn btn-outline btn-action" onclick="generateBQ()">
-                    <i class="fa-solid fa-list"></i> Papar Semua Item JKKE
-                </button>
-                <button class="btn btn-outline btn-action" onclick="goToSemuaJKKE()">
-                    <i class="fa-solid fa-file-invoice"></i> Lihat Keterangan Penuh
-                </button>
-                <button class="btn btn-outline btn-action" onclick="goToBQPage()">
-                    <i class="fa-solid fa-table"></i> Halaman BQ (Excel)
-                </button>
-                <button class="btn btn-outline btn-action" onclick="generateC()">
-                    <i class="fa-solid fa-file-contract"></i> Ke Lampiran C
-                </button>
+                <div class="card-header"><i class="fa-solid fa-layer-group"></i><h3>Menu Pantas</h3></div>
+                <button class="btn btn-outline btn-action" onclick="generateBQ()"><i class="fa-solid fa-list"></i> Papar Semua Item JKKE</button>
+                <button class="btn btn-outline btn-action" onclick="goToSemuaJKKE()"><i class="fa-solid fa-file-invoice"></i> Lihat Keterangan Penuh</button>
+                <button class="btn btn-outline btn-action" onclick="goToBQPage()"><i class="fa-solid fa-table"></i> Halaman BQ (Excel)</button>
+                <button class="btn btn-outline btn-action" onclick="generateC()"><i class="fa-solid fa-file-contract"></i> Ke Lampiran C</button>
             </div>
         </div>
 
         <div class="row-info">
-    
-        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-                <div class="card-header">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <h3>Kehendak Am Dan Syarat</h3>
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div class="card-header"><i class="fa-solid fa-circle-info"></i><h3>Kehendak Am Dan Syarat</h3></div>
+                    <ul class="simple-list">
+                        <li><i class="fa-solid fa-check-circle"></i> Bahan mesti baru dan lulus piawaian.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Jenama mesti dalam senarai EMAL JKR.</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Patuh kepada akta & peraturan semasa.</li>
+                    </ul>
                 </div>
-                <ul class="simple-list">
-                    <li><i class="fa-solid fa-check-circle"></i> Semua bahan dan peralatan elektrik yang digunakan hendaklah yang baru dan sesuai kepada sistem bekalan tempatan.</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Hanya jenama yang telah diluluskan oleh EMAL JKR akan diterima.</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Kerja-kerja elektrik hendaklah mematuhi Undang-Undang, Peraturan dan Pekeliling JKR semasa.</li>
-                </ul>
+                <div style="margin-top: 25px; background-color: #2c1e50; color: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <i class="fa-solid fa-headset" style="font-size: 2rem; margin-bottom: 10px; color: #3498db;"></i>
+                    <h4 style="margin: 0 0 5px 0; color: white;">Perlukan Bantuan?</h4>
+                    <p style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 15px; color: #cbd5e1;">Hubungi CKE JKR Terengganu.</p>
+                    <a href="tel:096225155" style="text-decoration:none;"><button class="btn" style="background:white; color:#2c1e50; font-weight:700;"><i class="fa-solid fa-phone"></i> 09-6225155</button></a>
+                    <a href="mailto:elektriktrg@jkr.gov.my" style="text-decoration:none;"><button class="btn" style="background:transparent; color:white; border:1px solid rgba(255,255,255,0.3);"><i class="fa-solid fa-envelope"></i> Email Kami</button></a>
+                </div>
             </div>
 
-            <div style="margin-top: 25px; background-color: #2c1e50; color: white; padding: 20px; border-radius: 8px; text-align: center;">
-                <i class="fa-solid fa-headset" style="font-size: 2rem; margin-bottom: 10px; color: #3498db;"></i>
-                <h4 style="margin: 0 0 5px 0; color: white;">Perlukan Bantuan?</h4>
-                <p style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 15px; color: #cbd5e1;">Hubungi CKE JKR Terengganu untuk maklumat lanjut.</p>
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-calculator"></i><h3>Kalkulator Kuantiti Pintar</h3></div>
+                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 15px;">Anggaran M&E berdasarkan keluasan ruang.</p>
+                <div class="form-group">
+                    <label>Jenis Ruang</label>
+                    <select id="roomType" class="form-control">
+                        <option value="office">Pejabat / Ruang Kerja (High Load)</option>
+                        <option value="living">Ruang Tamu / Bilik Tidur (Std Load)</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex:1"><label>Panjang (Kaki)</label><input type="number" id="roomL" class="form-control" placeholder="0"></div>
+                    <div class="form-group" style="flex:1"><label>Lebar (Kaki)</label><input type="number" id="roomW" class="form-control" placeholder="0"></div>
+                </div>
+                <button class="btn btn-primary" onclick="calculateMaterial()"><i class="fa-solid fa-wand-magic-sparkles"></i> Kira Anggaran</button>
                 
-                <a href="tel:096225155" style="text-decoration: none; display: block; margin-bottom: 8px;">
-                    <button class="btn" style="background: white; color: #2c1e50; font-weight: 700; width: 100%; padding: 10px; border: none; cursor: pointer;">
-                        <i class="fa-solid fa-phone" style="margin-right: 8px;"></i> 09-6225155
-                    </button>
-                </a>
-                
-                <a href="mailto:elektriktrg@jkr.gov.my" style="text-decoration: none; display: block;">
-                    <button class="btn" style="background: transparent; color: white; font-weight: 600; width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;">
-                        <i class="fa-solid fa-envelope" style="margin-right: 8px; color: #3498db;"></i> Email Kami
-                    </button>
-                </a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <i class="fa-solid fa-calculator"></i>
-                <h3>Kalkulator Kuantiti Pintar</h3>
-            </div>
-            <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 15px;">
-                Anggaran keperluan M&E berdasarkan keluasan ruang.
-            </p>
-            
-            <div class="form-group">
-                <label>Jenis Ruang</label>
-                <select id="roomType" class="form-control">
-                    <option value="office">Pejabat / Ruang Kerja (High Load)</option>
-                    <option value="living">Ruang Tamu / Bilik Tidur (Std Load)</option>
-                </select>
-            </div>
-
-            <div style="display: flex; gap: 10px;">
-                <div class="form-group" style="flex:1">
-                    <label>Panjang (Kaki)</label>
-                    <input type="number" id="roomL" class="form-control" placeholder="0">
-                </div>
-                <div class="form-group" style="flex:1">
-                    <label>Lebar (Kaki)</label>
-                    <input type="number" id="roomW" class="form-control" placeholder="0">
-                </div>
-            </div>
-
-            <button class="btn btn-primary" onclick="calculateMaterial()" style="width: 100%; margin-top: 5px;">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Kira Anggaran
-            </button>
-
-            <div id="estResult" style="display:none; margin-top: 20px; background: #f0f9ff; padding: 15px; border-radius: 8px; border: 1px solid #bae6fd;">
-                
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; font-size: 0.9rem;">
-                    <span style="color:#64748b">Luas Ruang:</span>
-                    <div style="text-align: right;">
-                        <strong><span id="resAreaSqft">0</span> ft²</strong><br>
-                        <small style="color:#64748b">(<span id="resAreaM2">0</span> m²)</small>
+                <div id="estResult" style="display:none; margin-top: 20px; background: #f0f9ff; padding: 15px; border-radius: 8px; border: 1px solid #bae6fd;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; font-size: 0.9rem;">
+                        <span style="color:#64748b">Luas Ruang:</span>
+                        <div style="text-align: right;"><strong><span id="resAreaSqft">0</span> ft²</strong><br><small style="color:#64748b">(<span id="resAreaM2">0</span> m²)</small></div>
                     </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
-                    
-                    <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
-                        <i class="fa-solid fa-lightbulb" style="color:#f59e0b;"></i> Lampu LED<br>
-                        <strong style="font-size: 1.1rem;" id="resLight">0</strong> <small>unit</small>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-lightbulb" style="color:#f59e0b;"></i> Lampu LED<br><strong style="font-size: 1.1rem;" id="resLight">0</strong> <small>unit</small></div>
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-fan" style="color:#3b82f6;"></i> Kipas Siling<br><strong style="font-size: 1.1rem;" id="resFan">0</strong> <small>unit</small></div>
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-plug" style="color:#ef4444;"></i> Soket 13A<br><strong style="font-size: 1.1rem;" id="resSocket">0</strong> <small>unit</small></div>
+                        <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;"><i class="fa-solid fa-snowflake" style="color:#0ea5e9;"></i> Aircond<br><strong style="font-size: 1.1rem;" id="resAc">0</strong> <small>unit</small></div>
                     </div>
-
-                    <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
-                        <i class="fa-solid fa-fan" style="color:#3b82f6;"></i> Kipas Siling<br>
-                        <strong style="font-size: 1.1rem;" id="resFan">0</strong> <small>unit</small>
-                    </div>
-
-                    <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
-                        <i class="fa-solid fa-plug" style="color:#ef4444;"></i> Soket 13A<br>
-                        <strong style="font-size: 1.1rem;" id="resSocket">0</strong> <small>unit</small>
-                    </div>
-
-                    <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
-                        <i class="fa-solid fa-snowflake" style="color:#0ea5e9;"></i> Aircond<br>
-                        <strong style="font-size: 1.1rem;" id="resAc">0</strong> <small>unit</small>
-                    </div>
-
-                </div>
-                <div style="margin-top: 10px; font-size: 0.75rem; color: #94a3b8; text-align: center;">
-                    *Anggaran berdasarkan piawaian MS1525 & JKR.
                 </div>
             </div>
         </div>
-
-    </div>
-
     </div>
 
     <footer>
         <p>
-            <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i> Muat Turun JKKE 2023</a>
-            &nbsp; | &nbsp;
+            <a href="https://www.jkr.gov.my/sites/default/files/upload/JKKE%202023%20-%20FINALISED%20%28PORTAL%20JKR%29.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i> Muat Turun JKKE 2023</a> | 
             <a href="https://jkrelektrik.terengganu.gov.my" target="_blank"><i class="fa-solid fa-globe"></i> Portal CKE</a>
         </p>
         <p>&copy; 2025 Projek JKKE. Hak Cipta Terpelihara.</p>
@@ -471,79 +251,68 @@
 
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="margin:0"><i class="fa-solid fa-list-ul"></i> Hasil Carian</h3>
-                <span class="close" onclick="closeModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p id="modalText"></p>
-            </div>
+            <div class="modal-header"><h3 style="margin:0"><i class="fa-solid fa-list-ul"></i> Hasil Carian</h3><span class="close" onclick="closeModal()" style="cursor:pointer; font-size:1.5rem;">&times;</span></div>
+            <div class="modal-body"><p id="modalText"></p></div>
         </div>
     </div>
 
     <script>
+        // --- 1. SETTINGS & DATA ---
         let bqData = {};
-        let currentPage = 1;
-        const resultsPerPage = 7;
-        let searchResults = [];
+        const CART_KEY = 'projectCart';
 
-        fetch('bqData.json')
-            .then(response => response.json())
-            .then(data => { bqData = data; })
-            .catch(error => console.error('Error loading bqData:', error));
+        // --- 2. INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('bqData.json')
+                .then(response => response.json())
+                .then(data => { bqData = data; })
+                .catch(error => console.error('Error loading bqData:', error));
+            
+            updateCartBadge();
+            startLiveClock(); // Start the clock
+        });
 
+        // --- 3. LIVE CLOCK FUNCTION ---
+        function startLiveClock() {
+            function update() {
+                const now = new Date();
+                const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+                const datePart = now.toLocaleDateString('ms-MY', options); // Cth: Isnin, 22 Dis 2025
+                const timePart = now.toLocaleTimeString('en-US', { hour12: true }); // Cth: 10:30:05 AM
+                document.getElementById('clockDisplay').innerHTML = `<i class="fa-regular fa-clock"></i> ${datePart} | ${timePart}`;
+            }
+            setInterval(update, 1000);
+            update();
+        }
+
+        // --- 4. NAVIGATION & SEARCH ---
         function navSearch() {
             const searchInput = document.getElementById('navSearchInput').value.toLowerCase();
-            searchResults = Object.entries(bqData).filter(([key, value]) =>
+            const results = Object.entries(bqData).filter(([key, value]) =>
                 value.description.toLowerCase().includes(searchInput)
             );
-            currentPage = 1;
-            displayResults();
-        }
-
-        function displayResults() {
-            const totalPages = Math.ceil(searchResults.length / resultsPerPage);
-            const startIndex = (currentPage - 1) * resultsPerPage;
-            const endIndex = startIndex + resultsPerPage;
-            const paginatedResults = searchResults.slice(startIndex, endIndex);
-
-            let output = `<div style="margin-bottom:15px;">Menunjukkan halaman ${currentPage} dari ${totalPages}</div>`;
             
-            if (paginatedResults.length > 0) {
-                paginatedResults.forEach(([key, value]) => {
-                    output += `<div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
-                        <div><strong style="color:var(--primary)">${key}</strong><br>${value.description}</div>
-                        </div>`;
+            let output = `<div><strong>${results.length}</strong> padanan dijumpai.</div><hr>`;
+            if (results.length > 0) {
+                results.slice(0, 10).forEach(([key, value]) => { // Show top 10 only
+                    output += `<div style="padding:10px; border-bottom:1px solid #eee;"><strong>${key}</strong><br>${value.description}</div>`;
                 });
-            } else {
-                output += `<p style="text-align:center; color:red;">Tiada rekod dijumpai.</p>`;
-            }
-
-            output += `<div style="margin-top:20px; display:flex; justify-content:center; gap:10px;">`;
-            if (currentPage > 1) output += `<button class="btn btn-outline" style="width:auto" onclick="goToPage(${currentPage - 1})">Sebelum</button>`;
-            if (currentPage < totalPages) output += `<button class="btn btn-outline" style="width:auto" onclick="goToPage(${currentPage + 1})">Seterusnya</button>`;
-            output += `</div>`;
-
-            showModal(output);
+            } else { output += `<p style="color:red;">Tiada rekod.</p>`; }
+            
+            document.getElementById('modalText').innerHTML = output;
+            document.getElementById('myModal').style.display = "flex";
         }
-
-        function goToPage(page) { currentPage = page; displayResults(); }
-        function showModal(content) { document.getElementById('modalText').innerHTML = content; document.getElementById('myModal').style.display = "block"; }
-        function closeModal() { document.getElementById('myModal').style.display = "none"; }
 
         function searchItem() {
             const input = document.getElementById('searchInput').value;
             const output = document.getElementById('searchOutput');
             output.style.display = 'block';
-            
             if (bqData[input]) {
                 output.innerHTML = `<strong>Keterangan:</strong><br>${bqData[input].description}`;
-                output.style.backgroundColor = "#f0f9ff";
-                output.style.borderColor = "#bae6fd";
+                output.style.backgroundColor = "#f0f9ff"; output.style.borderColor = "#bae6fd";
             } else {
-                output.innerText = 'Item tidak dijumpai dalam pangkalan data.';
-                output.style.backgroundColor = "#fef2f2";
-                output.style.borderColor = "#fecaca";
+                output.innerText = 'Item tidak dijumpai.';
+                output.style.backgroundColor = "#fef2f2"; output.style.borderColor = "#fecaca";
             }
         }
 
@@ -552,143 +321,66 @@
             const output = document.getElementById('priceOutput');
             if (bqData[input]) {
                 output.innerText = 'RM ' + Number(bqData[input].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            } else {
-                output.innerText = '';
-            }
+            } else { output.innerText = ''; }
         }
 
-        function generateBQ() {
-            let bqOutput = '<table style="width:100%; border-collapse:collapse;"><tr><th style="text-align:left; border-bottom:2px solid #ddd;">Kod</th><th style="text-align:left; border-bottom:2px solid #ddd;">Deskripsi</th><th style="text-align:right; border-bottom:2px solid #ddd;">Harga</th></tr>';
-            for (const [id, data] of Object.entries(bqData)) {
-                bqOutput += `<tr><td style="padding:8px; border-bottom:1px solid #eee;">${id}</td><td style="padding:8px; border-bottom:1px solid #eee;">${data.description}</td><td style="padding:8px; border-bottom:1px solid #eee; text-align:right;">RM${data.price}</td></tr>`;
-            }
-            bqOutput += '</table>';
-            showModal(bqOutput);
+        // --- 5. CALCULATOR LOGIC ---
+        function calculateMaterial() {
+            const L = parseFloat(document.getElementById('roomL').value) || 0;
+            const W = parseFloat(document.getElementById('roomW').value) || 0;
+            const type = document.getElementById('roomType').value;
+            const areaSqft = L * W;
+            const areaM2 = areaSqft * 0.092903;
+
+            if (areaSqft > 0) {
+                document.getElementById('resAreaSqft').innerText = areaSqft.toLocaleString();
+                document.getElementById('resAreaM2').innerText = areaM2.toFixed(2);
+
+                let lightFactor = type === 'office' ? 45 : 60;
+                let socketFactor = type === 'office' ? 50 : 100;
+                
+                let lights = Math.ceil(areaSqft / lightFactor);
+                let fans = Math.ceil(areaSqft / 144);
+                let sockets = Math.ceil(areaSqft / socketFactor);
+                if (type === 'living' && sockets < 2) sockets = 2;
+                
+                let totalBTU = areaSqft * 70;
+                let acUnits = Math.ceil(totalBTU / 14000); 
+                if(areaSqft < 130) acUnits = 1;
+
+                document.getElementById('resLight').innerText = lights;
+                document.getElementById('resFan').innerText = fans;
+                document.getElementById('resSocket').innerText = sockets;
+                document.getElementById('resAc').innerText = acUnits;
+                document.getElementById('estResult').style.display = 'block';
+            } else { alert("Sila masukkan panjang dan lebar ruang."); }
         }
 
-        window.onload = function() {
-            updateFloatingCart();
-            // Panggil load data masing-masing
-            if(typeof loadBQFromStorage === "function") loadBQFromStorage();
-        };
-
-        function goToBQPage() { localStorage.setItem('bqData', JSON.stringify(bqData)); window.location.href = 'bq.html'; }
-        function generateC() { localStorage.setItem('bqData', JSON.stringify(bqData)); window.location.href = 'generateJKKE.html'; }
-        function goToSemuaJKKE() { window.location.href = 'semuajkke.html'; }
-
-    </script>
-
-    <script>
-        window.difyChatbotConfig = {
-        token: 'OSicAkNisLROH0P1',
-        inputs: {
-            page_title: document.title,
-            current_url: window.location.href,
-            // INI YANG PENTING: Hantar tarikh automatik
-            today_date: new Date().toLocaleDateString('ms-MY') 
-        }
-    }
-    </script>
-
-    <script src="https://udify.app/embed.min.js" id="OSicAkNisLROH0P1" defer></script>
-
-    <style>
-        #dify-chatbot-bubble-button { background-color: #1e3a8a !important; bottom: 20px !important; right: 20px !important; }
-        #dify-chatbot-bubble-window { width: 24rem !important; height: 38rem !important; bottom: 90px !important; right: 20px !important; border-radius: 12px !important; }
-    </style>
-
-    <script>
-        // Kunci standard untuk semua halaman
-        const CART_KEY = 'projectCart';
-
-        // Fungsi wajib dijalankan setiap kali halaman dibuka
-        window.addEventListener('DOMContentLoaded', () => {
-            updateCartBadge();
-        });
-
-        // Kemaskini nombor merah di icon header
+        // --- 6. UTILS ---
         function updateCartBadge() {
             const currentCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
             const badge = document.getElementById('cartCountBadge');
             if (badge) badge.innerText = currentCart.length;
         }
-
-        // Fungsi Simpan (Wajib panggil ini selepas Add, Edit Qty, atau Delete)
-        function saveToLocalStorage(data) {
-            localStorage.setItem(CART_KEY, JSON.stringify(data));
-            updateCartBadge(); // Automatik kemaskini badge
-        }
-
-        // 1. Logik Kalkulator
-        function calculateMaterial() {
-            // Ambil input
-            const L = parseFloat(document.getElementById('roomL').value) || 0;
-            const W = parseFloat(document.getElementById('roomW').value) || 0;
-            const type = document.getElementById('roomType').value;
-
-            // Kira Luas
-            const areaSqft = L * W;
-            const areaM2 = areaSqft * 0.092903; // Tukar ft2 ke m2
-
-            if (areaSqft > 0) {
-                // Paparkan Luas
-                document.getElementById('resAreaSqft').innerText = areaSqft.toLocaleString();
-                document.getElementById('resAreaM2').innerText = areaM2.toFixed(2);
-
-                // LOGIK PENGIRAAN (ANALISIS JKR & INDUSTRI)
-                
-                // 1. Lampu (Pencahayaan)
-                // Office: 1 lampu per 45 sqft (Terang)
-                // Living: 1 lampu per 60 sqft (Sederhana)
-                let lightFactor = type === 'office' ? 45 : 60;
-                let lights = Math.ceil(areaSqft / lightFactor);
-
-                // 2. Kipas Siling
-                // Standard: 1 kipas cover 144 sqft (12x12)
-                let fans = Math.ceil(areaSqft / 144);
-
-                // 3. Soket 13A (Plug Points)
-                // Office: High density (1 per 50 sqft)
-                // Living: Standard (1 per 100 sqft, minimum 2)
-                let socketFactor = type === 'office' ? 50 : 100;
-                let sockets = Math.ceil(areaSqft / socketFactor);
-                if (type === 'living' && sockets < 2) sockets = 2; // Minima 2 untuk bilik
-
-                // 4. Aircond (Penyaman Udara)
-                // Formula Malaysia: Area x 70 BTU (Safety Margin for Heat)
-                // 1 HP = ~9500 BTU. 
-                // Kita kira berapa "Point" diperlukan. 
-                // Jika bilik besar (>400sqft), mungkin perlu 2 unit aircond.
-                let totalBTU = areaSqft * 70;
-                // Anggap purata aircond adalah 1.5HP (~14,000 BTU) untuk kiraan unit
-                let acUnits = Math.ceil(totalBTU / 14000); 
-                
-                // Jika bilik kecil (<120 sqft), 1 unit 1.0HP dah cukup.
-                if(areaSqft < 130) acUnits = 1;
-
-                // Update UI
-                document.getElementById('resLight').innerText = lights;
-                document.getElementById('resFan').innerText = fans;
-                document.getElementById('resSocket').innerText = sockets;
-                document.getElementById('resAc').innerText = acUnits;
-
-                // Show Result
-                document.getElementById('estResult').style.display = 'block';
-            } else {
-                alert("Sila masukkan panjang dan lebar ruang.");
-            }
-        }
-
-        // 2. Logik Badge Keranjang (Supaya data tak hilang)
-        function updateCartBadge() {
-            const currentCart = JSON.parse(localStorage.getItem('projectCart')) || [];
-            const badge = document.getElementById('cartCountBadge');
-            if (badge) badge.innerText = currentCart.length;
-        }
-
-        // Jalankan badge masa page load
-        window.addEventListener('DOMContentLoaded', updateCartBadge);
+        function closeModal() { document.getElementById('myModal').style.display = "none"; }
+        
+        // Navigation shortcuts
+        function generateBQ() { navSearch(); } // Reusing modal for quick list
+        function goToBQPage() { window.location.href = 'bq.html'; }
+        function generateC() { window.location.href = 'generateJKKE.html'; }
+        function goToSemuaJKKE() { window.location.href = 'semuajkke.html'; }
     </script>
+
+    <script>
+        window.difyChatbotConfig = {
+            token: 'PdcFvdGc8pYYuCXY',
+            inputs: { page_title: document.title, current_url: window.location.href, today_date: new Date().toLocaleDateString('ms-MY') }
+        }
+    </script>
+    <script src="https://udify.app/embed.min.js" id="PdcFvdGc8pYYuCXY" defer></script>
+    <style>
+        #dify-chatbot-bubble-button { background-color: #1e3a8a !important; }
+    </style>
 
 </body>
 </html>
