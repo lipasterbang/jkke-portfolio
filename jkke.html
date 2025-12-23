@@ -31,34 +31,56 @@
             display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- Navbar --- */
+       /* --- Navbar (Susun Atur Baru: Kiri-Tengah-Kanan) --- */
         nav.navbar {
             background-color: var(--primary);
             color: white;
             padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
+            
+            /* Grid 3 Kolum untuk centering yang tepat */
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr; 
             align-items: center;
+            
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             position: sticky; top: 0; z-index: 1000;
         }
 
-        .navbar-brand { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        /* Kiri: Jam */
+        .nav-left { justify-self: start; }
+        
+        /* Tengah: Brand/Logo */
+        .navbar-brand { 
+            justify-self: center; 
+            font-size: 1.4rem; /* Besar sikit */
+            font-weight: 800; 
+            display: flex; align-items: center; gap: 10px; 
+            letter-spacing: 1px;
+        }
         .navbar-brand i { color: var(--accent); }
 
-        /* LIVE CLOCK STYLE */
+        /* Kanan: Cart & User */
+        .nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
+
+        /* LIVE CLOCK STYLE (Kemas & Minimalis) */
         .live-clock {
             font-family: 'Courier New', monospace;
             font-weight: 600;
-            background: rgba(0,0,0,0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: #ffffff; 
+            background: rgba(255, 255, 255, 0.1); /* Transparent sikit */
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #fbbf24; /* Warna Emas */
             display: flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .nav-right { display: flex; align-items: center; gap: 20px; }
+        @media (max-width: 900px) {
+            /* Mobile View adjustment */
+            nav.navbar { display: flex; justify-content: space-between; }
+            .navbar-brand { font-size: 1.1rem; }
+            .live-clock { display: none; } /* Sorok jam di mobile */
+        }
 
         /* --- Hero --- */
         .hero {
@@ -148,20 +170,28 @@
 </head>
 <body>
 
-    <nav class="navbar">
+   <nav class="navbar">
+        
+        <div class="nav-left">
+            <div class="live-clock" id="clockDisplay">
+                <i class="fa-regular fa-clock"></i> --:--:--
+            </div>
+        </div>
+
         <div class="navbar-brand">
             <i class="fa-solid fa-bolt"></i> JKKE 2025
         </div>
 
         <div class="nav-right">
-            <div class="live-clock" id="clockDisplay">
-                <i class="fa-regular fa-clock"></i> Memuatkan...
-            </div>
-            <a href="bq.html" style="color: white; text-decoration: none; position: relative; font-size: 1.1rem;">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="cartCountBadge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold;">0</span>
+            <a href="bq.html" style="color: white; text-decoration: none; position: relative; font-size: 1.2rem; display: flex; align-items: center; gap:10px;">
+                <div style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">Keranjang Projek</div>
+                <div style="position: relative;">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCountBadge" style="position: absolute; top: -8px; right: -10px; background: #ef4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold; border: 2px solid var(--primary);">0</span>
+                </div>
             </a>
         </div>
+
     </nav>
 
     <div class="hero">
