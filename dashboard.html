@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exchange 106 | Integrated Building Monitor</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --bg-dark: #0b1120; /* Deep Navy */
+    --card-bg: #1e293b;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --mulia-mint: #4ade80; /* Warna Identiti Mulia */
+    --mulia-gold: #fbbf24;
+    --danger: #ef4444;
+    --success: #10b981;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    margin: 0; padding: 20px;
+    height: 100vh;
+    overflow: hidden; /* Full screen dashboard feel */
+  }
+
+  /* --- HEADER BAR --- */
+  .top-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .brand h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; font-weight: 700; }
+  .brand span { color: var(--mulia-mint); font-weight: 300; }
+  .meta-info { text-align: right; font-size: 0.85rem; color: var(--text-muted); }
+  .status-badge {
+    background: rgba(16, 185, 129, 0.1); color: var(--success);
+    padding: 5px 10px; border-radius: 4px; border: 1px solid var(--success);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .blink { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+  /* --- GRID LAYOUT --- */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 300px; /* Sidebar | Main | Side Panel */
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    height: calc(100vh - 100px);
+  }
+
+  .card {
+    background: var(--card-bg); border-radius: 12px; padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; font-size: 0.85rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+  }
+
+  /* --- MODULE: VERTICAL TRANSPORT (LIFTS) --- */
+  .lift-module { overflow-y: auto; padding-right: 5px; }
+  .lift-group { margin-bottom: 15px; }
+  .lift-label { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
+  .progress-bg { height: 6px; background: #334155; border-radius: 3px; }
+  .progress-fill { height: 100%; background: var(--mulia-mint); border-radius: 3px; position: relative; }
+  .progress-fill::after { content: ''; position: absolute; right: 0; top: 0; width: 2px; height: 100%; background: white; box-shadow: 0 0 5px white; }
+  .maintenance { background: var(--mulia-gold); }
+  
+  /* --- MODULE: FLOOR TWIN (VISUAL) --- */
+  .floor-monitor {
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  /* The Exchange 106 Shape (Squircle-ish) */
+  .building-shape {
+    width: 300px; height: 300px;
+    border: 2px dashed rgba(74, 222, 128, 0.3);
+    border-radius: 40px; /* The curve */
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    animation: scan 4s infinite linear;
+  }
+  .core {
+    width: 80px; height: 80px; border: 2px solid var(--mulia-mint);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px;
+    background: rgba(74, 222, 128, 0.1);
+  }
+  .core-cell { background: rgba(74, 222, 128, 0.4); }
+  
+  /* Sensors */
+  .sensor { width: 10px; height: 10px; border-radius: 50%; position: absolute; }
+  .s-temp { top: 20px; left: 50%; background: var(--mulia-mint); box-shadow: 0 0 10px var(--mulia-mint); }
+  .s-fcu { bottom: 40px; right: 30px; background: var(--success); }
+  .s-lux { top: 60px; left: 30px; background: var(--mulia-gold); }
+
+  .floor-data {
+    position: absolute; bottom: 20px; left: 20px;
+    background: rgba(15, 23, 42, 0.9); padding: 15px; border-radius: 8px;
+    border: 1px solid #334155; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+  }
+
+  /* --- MODULE: VMS & M&E --- */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; text-align: center; }
+  .stat-val { font-size: 1.8rem; font-weight: 700; color: white; }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); }
+  
+  .vms-btn {
+    display: block; width: 100%; padding: 12px; margin-top: 15px;
+    background: rgba(74, 222, 128, 0.1); color: var(--mulia-mint);
+    text-align: center; text-decoration: none; border-radius: 6px;
+    font-size: 0.85rem; font-weight: 600; transition: 0.2s;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+  }
+  .vms-btn:hover { background: var(--mulia-mint); color: #0b1120; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    body { overflow-y: auto; height: auto; }
+    .dashboard-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="brand">
+      <h1>EXCHANGE 106 <span>DIGITAL TWIN</span></h1>
+    </div>
+    <div style="display:flex; gap:20px; align-items:center;">
+      <div class="meta-info">
+        <div>Lingkaran TRX, Kuala Lumpur</div>
+        <div>GBI CERTIFIED | MSC STATUS</div>
+      </div>
+      <div class="status-badge">
+        <div class="blink"></div> SYSTEM ONLINE
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="card lift-module" style="grid-row: span 2;">
+      <div class="card-header">
+        <span>Vertical Transport</span>
+        <i class="fa-solid fa-elevator"></i>
+      </div>
+
+      <div class="lift-group">
+        <div class="lift-label"><span>Low Zone (L1-15)</span> <span style="color:var(--success)">8/8</span></div>
+        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+      </div>
+
+      <div class="lift-group">
+        <div class="lift-label"><span>Mid Zone (L16-37)</span> <span style="color:var(--success)">8/8</span></div>
+        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+      </div>
+
+      <div class="lift-group">
+        <div class="lift-label"><span>High Zone (L38-55)</span> <span style="color:var(--mulia-gold)">7/8</span></div>
+        <div class="progress-bg"><div class="progress-fill maintenance" style="width: 87%;"></div></div>
+        <small style="color:var(--mulia-gold); font-size:0.7rem;">Lift H-3: Preventive Maint.</small>
+      </div>
+
+      <div class="lift-group">
+        <div class="lift-label"><span>Sky Lobby (L56-57)</span> <span style="color:var(--success)">8/8</span></div>
+        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+      </div>
+
+      <div class="lift-group">
+        <div class="lift-label"><span>Zone 1 & 2 (L58-98)</span> <span style="color:var(--success)">16/16</span></div>
+        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+      </div>
+
+      <div class="lift-group">
+        <div class="lift-label"><span>Sky Floors (L99-106)</span> <span style="color:var(--success)">2/2</span></div>
+        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+      </div>
+      
+      <div style="margin-top:20px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.1);">
+         <div class="lift-label"><span>Service Lifts</span> <span>4/4 OK</span></div>
+         <div class="lift-label"><span>Car Park Lifts</span> <span>4/4 OK</span></div>
+      </div>
+    </div>
+
+    <div class="card floor-monitor" style="grid-row: span 2;">
+       <div style="position:absolute; top:20px; left:20px; color:var(--text-muted); font-size:0.9rem;">
+          <i class="fa-solid fa-layer-group"></i> LEVEL 45 (High Zone)
+          <div style="color:white; font-size:1.5rem; font-weight:700;">2,600 sqm</div>
+          <div style="color:var(--mulia-mint); font-size:0.8rem;">PREMIUM OFFICE LAYOUT</div>
+       </div>
+
+       <div class="building-shape">
+          <div class="sensor s-temp" title="Temp Sensor"></div>
+          <div class="sensor s-fcu" title="FCU Status"></div>
+          <div class="sensor s-lux" title="Lux Sensor"></div>
+          <div class="core">
+             <div class="core-cell"></div><div class="core-cell"></div>
+             <div class="core-cell"></div><div class="core-cell"></div>
+          </div>
+       </div>
+
+       <div class="floor-data">
+          <div style="display:flex; justify-content:space-between; width:200px; margin-bottom:5px;">
+             <span>TEMP (AVG)</span> <span style="color:var(--mulia-mint)">23.5°C</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; width:200px; margin-bottom:5px;">
+             <span>HUMIDITY</span> <span>55%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; width:200px; margin-bottom:5px;">
+             <span>CO2 LEVEL</span> <span style="color:var(--success)">420 PPM</span>
+          </div>
+          <div style="margin-top:10px; border-top:1px solid #334155; padding-top:5px; color:var(--text-muted);">
+             FCU UNITS: <strong>AUTO MODE</strong>
+          </div>
+       </div>
+    </div>
+
+    <div class="card">
+       <div class="card-header">
+          <span>Visitor Management</span>
+          <i class="fa-solid fa-id-card-clip"></i>
+       </div>
+       
+       <div style="text-align:center; margin-bottom:15px;">
+          <div style="font-size:2.5rem; font-weight:700; color:white;">1,240</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">TOTAL VISITORS TODAY</div>
+       </div>
+
+       <div class="stat-grid">
+          <div class="stat-box">
+             <div class="stat-val" style="font-size:1.2rem;">850</div>
+             <div class="stat-label">Pre-Registered</div>
+          </div>
+          <div class="stat-box">
+             <div class="stat-val" style="font-size:1.2rem;">390</div>
+             <div class="stat-label">Walk-In</div>
+          </div>
+       </div>
+
+       <a href="https://vms.exchange106.my/Account/Login" target="_blank" class="vms-btn">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> OPEN VMS PORTAL
+       </a>
+    </div>
+
+    <div class="card">
+       <div class="card-header">
+          <span>M&E Health</span>
+          <i class="fa-solid fa-bolt"></i>
+       </div>
+
+       <div style="margin-bottom:15px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:5px;">
+             <span>Power Backup (Genset)</span> <span style="color:var(--success)">100% READY</span>
+          </div>
+          <div class="progress-bg"><div class="progress-fill" style="width:100%"></div></div>
+       </div>
+
+       <div style="margin-bottom:15px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:5px;">
+             <span>Central Chill Water</span> <span style="color:var(--success)">OPTIMAL</span>
+          </div>
+          <div class="progress-bg"><div class="progress-fill" style="width:98%"></div></div>
+       </div>
+       
+       <div style="margin-top:auto; background:rgba(239, 68, 68, 0.1); color:var(--danger); padding:10px; border-radius:6px; font-size:0.8rem; display:flex; gap:10px; align-items:center;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <div>Alert: Zone 3 Fire Panel Test Scheduled 23:00</div>
+       </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
