@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+  :root {
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --text-light: #f1f5f9;
+    --accent-blue: #3b82f6;
+    --accent-gold: #fbbf24;
+    --danger: #ef4444;
+  }
+  
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    padding: 40px;
+  }
+
+  h2 { border-left: 4px solid var(--accent-gold); padding-left: 15px; margin-bottom: 20px;}
+
+  /* --- BENTO GRID SYSTEM --- */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Kolum */
+    grid-template-rows: repeat(2, 200px);  /* 2 Baris, tinggi tetap */
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .bento-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s;
+  }
+  .bento-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
+
+  /* --- SPANS (Untuk saiz petak berbeza) --- */
+  .col-span-2 { grid-column: span 2; } /* Lebar 2 petak */
+  .row-span-2 { grid-row: span 2; }    /* Tinggi 2 petak */
+
+  /* --- TYPOGRAPHY --- */
+  .card-title { font-size: 0.9rem; color: #94a3b8; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+  .big-number { font-size: 3rem; font-weight: 700; color: white; margin: 0; }
+  .unit { font-size: 1rem; color: #94a3b8; }
+  .trend-up { color: #10b981; font-size: 0.9rem; }
+  .trend-down { color: var(--danger); font-size: 0.9rem; }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .col-span-2, .row-span-2 { grid-column: span 1; grid-row: span 1; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <h2>📊 Facility Command Center (Concept)</h2>
+  <p style="margin-bottom:30px; opacity:0.8;">Real-time overview of Exchange 106 Operational Health.</p>
+
+  <div class="bento-grid">
+    
+    <div class="bento-card">
+      <div class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Active Work Orders</div>
+      <div class="big-number">42</div>
+      <div class="trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +5 today</div>
+    </div>
+
+    <div class="bento-card col-span-2">
+      <div style="display:flex; justify-content:space-between;">
+        <div class="card-title"><i class="fa-solid fa-bolt"></i> Energy Efficiency Index (EEI)</div>
+        <span style="background:#10b981; color:white; padding:2px 8px; border-radius:4px; font-size:0.8rem;">GBI Gold Target</span>
+      </div>
+      <div style="display:flex; align-items:end; gap:15px;">
+        <div class="big-number">145 <span class="unit">kWh/m²</span></div>
+      </div>
+      <div style="display:flex; gap:5px; height:50px; align-items:flex-end; margin-top:10px;">
+        <div style="width:100%; background:#334155; height:10px; border-radius:4px; overflow:hidden;">
+            <div style="width:75%; background:var(--accent-gold); height:100%;"></div>
+        </div>
+      </div>
+      <small style="color:#94a3b8; margin-top:5px;">75% of monthly budget utilized</small>
+    </div>
+
+    <div class="bento-card">
+      <div class="card-title"><i class="fa-solid fa-users-gear"></i> Vendor SLA</div>
+      <div class="big-number">98<span class="unit">%</span></div>
+      <div class="trend-up" style="color:#10b981;">Excellent</div>
+    </div>
+
+    <div class="bento-card row-span-2" style="background: linear-gradient(to bottom right, #1e3a8a, #0f172a);">
+      <div class="card-title" style="color:white;"><i class="fa-solid fa-server"></i> System Health</div>
+      <div style="margin-top:20px;">
+        <div style="margin-bottom:15px;">
+            <div style="display:flex; justify-content:space-between; color:white; margin-bottom:5px;"><span>Chiller Plant</span> <i class="fa-solid fa-check-circle" style="color:#10b981;"></i></div>
+            <div style="height:4px; background:rgba(255,255,255,0.2);"><div style="width:100%; height:100%; background:#10b981;"></div></div>
+        </div>
+        <div style="margin-bottom:15px;">
+            <div style="display:flex; justify-content:space-between; color:white; margin-bottom:5px;"><span>Lift System</span> <i class="fa-solid fa-check-circle" style="color:#10b981;"></i></div>
+            <div style="height:4px; background:rgba(255,255,255,0.2);"><div style="width:98%; height:100%; background:#10b981;"></div></div>
+        </div>
+        <div style="margin-bottom:15px;">
+            <div style="display:flex; justify-content:space-between; color:white; margin-bottom:5px;"><span>Fire Alarm</span> <i class="fa-solid fa-circle-exclamation" style="color:var(--accent-gold);"></i></div>
+            <div style="height:4px; background:rgba(255,255,255,0.2);"><div style="width:100%; height:100%; background:var(--accent-gold);"></div></div>
+            <small style="color:rgba(255,255,255,0.6);">Maintenance in progress</small>
+        </div>
+      </div>
+      <button style="background:rgba(255,255,255,0.1); border:none; color:white; padding:10px; width:100%; border-radius:8px; cursor:pointer; margin-top:auto;">View Full Log</button>
+    </div>
+
+    <div class="bento-card col-span-2">
+      <div class="card-title"><i class="fa-solid fa-sack-dollar"></i> M&E Spending (YTD)</div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <div class="big-number" style="font-size:2rem;">RM 450k</div>
+        <div style="color:#94a3b8;">vs Budget: RM 500k</div>
+      </div>
+      <div class="trend-up">On Track (Saved 10%)</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

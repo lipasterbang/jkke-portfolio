@@ -1,286 +1,324 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JKKE 2024 System Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Aliif Najmi | Facilities System Analyst Portfolio</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    :root {
+      --primary: #1e3a8a; /* Navy Blue (JKR/Corporate) */
+      --secondary: #fbbf24; /* Gold (Accents) */
+      --bg-light: #f8fafc;
+      --text-dark: #1e293b;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f7fa;
-      color: #333;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
     }
+
+    /* --- HERO SECTION --- */
     header {
-      background-color: #003366;
+      background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
       color: white;
-      padding: 20px 40px;
+      padding: 60px 20px;
       text-align: center;
     }
+    
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--secondary);
+      object-fit: cover;
+      margin-bottom: 20px;
+      background-color: white;
+    }
+
+    header h1 {
+      margin: 10px 0 5px;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      padding: 10px 25px;
+      background-color: var(--secondary);
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 50px;
+      transition: transform 0.2s;
+    }
+    .btn-cta:hover { transform: translateY(-3px); }
+
+    /* --- MAIN CONTENT --- */
     main {
-      padding: 40px;
-      max-width: 1000px;
+      padding: 40px 20px;
+      max-width: 1100px;
       margin: auto;
     }
-    h2 {
-      color: #003366;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 10px;
-      margin-top: 40px;
-    }
-    section {
-      margin-bottom: 40px;
-    }
+
+    section { margin-bottom: 60px; }
     
-    /* Button Styles */
-    .button-group a {
-      display: inline-block;
-      margin: 10px 10px 10px 0;
-      padding: 12px 20px;
-      background-color: #0055aa;
-      color: white;
+    h2 {
+      color: var(--primary);
+      border-left: 5px solid var(--secondary);
+      padding-left: 15px;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+    }
+
+    /* --- ABOUT ME CARD --- */
+    .about-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    /* --- PROJECT SHOWCASE --- */
+    .project-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+    }
+    .project-text { flex: 1; min-width: 300px; }
+    .project-links { 
+      flex: 1; 
+      min-width: 300px; 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+      gap: 15px; 
+    }
+
+    .link-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
       text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.3s;
+      color: var(--primary);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
     }
-    .button-group a:hover {
-      background-color: #0077cc;
+    .link-card:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-5px);
     }
+    .link-card i { font-size: 2rem; margin-bottom: 10px; display: block; }
 
-    /* --- PORTFOLIO THUMBNAIL GRID (NEW) --- */
-    .portfolio-grid {
+    /* --- DOCUMENTATION GRID --- */
+    .doc-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 25px;
-      margin-top: 20px;
     }
 
-    .portfolio-card {
+    .doc-card {
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
       border: 1px solid #e2e8f0;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
       display: flex;
       flex-direction: column;
     }
+    .doc-card:hover { transform: translateY(-5px); }
 
-    .portfolio-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
-    }
-
-    .portfolio-thumb {
+    .doc-thumb {
       height: 180px;
-      background-color: #e0e7ff;
+      background: #e2e8f0;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border-bottom: 1px solid #eee;
     }
+    .doc-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .doc-thumb i { font-size: 4rem; color: #cbd5e1; }
 
-    /* Ini untuk memastikan gambar fit cantik dalam kotak */
-    .portfolio-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* atau 'contain' jika nak nampak penuh */
-    }
-
-    /* Placeholder icon jika tiada gambar */
-    .portfolio-thumb i {
-      font-size: 4rem;
-      color: #003366;
-      opacity: 0.3;
-    }
-
-    .portfolio-content {
-      padding: 20px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .portfolio-title {
-      font-weight: 600;
-      color: #003366;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-
-    .portfolio-desc {
-      font-size: 0.9rem;
-      color: #64748b;
-      margin-bottom: 15px;
-      flex-grow: 1;
-    }
-
+    .doc-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+    .doc-desc { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; flex-grow: 1; }
+    
     .btn-download {
-      display: inline-block;
+      display: block;
       text-align: center;
       padding: 10px;
-      background-color: #fff;
-      color: #0055aa;
-      border: 1px solid #0055aa;
+      border: 1px solid var(--primary);
+      color: var(--primary);
       border-radius: 6px;
       text-decoration: none;
-      font-size: 0.9rem;
       font-weight: 600;
-      transition: all 0.2s;
+      transition: 0.2s;
     }
-    .btn-download:hover {
-      background-color: #0055aa;
-      color: white;
+    .btn-download:hover { background: var(--primary); color: white; }
+
+    /* --- QR SECTION --- */
+    .qr-section {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
-    
-    /* --- QR Code Section --- */
     .qr-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
       justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
       margin-top: 20px;
     }
-    .qr-box {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 220px;
-      border: 1px solid #ddd;
-      transition: transform 0.3s;
-    }
-    .qr-box:hover { transform: translateY(-5px); }
-    .qr-box img { width: 150px; height: 150px; margin-bottom: 10px; }
-    .qr-label { font-weight: 600; color: #003366; margin-top: 5px; }
-    .qr-desc { font-size: 0.8rem; color: #666; margin-top: 5px; line-height: 1.4; }
-    .qr-link { display: block; margin-top: 10px; font-size: 0.75rem; color: #0055aa; text-decoration: none; }
+    .qr-item img { width: 140px; height: 140px; border: 1px solid #ddd; padding: 5px; border-radius: 8px; }
 
     footer {
-      background-color: #003366;
+      background: var(--primary);
       color: white;
       text-align: center;
       padding: 20px;
-      margin-top: 40px;
+      margin-top: 60px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>PORTFOLIO : SISTEM CARIAN JADUAL KADAR KERJA HARGA ELEKTRIK (JKKE)</h1>
+    <img src="https://placehold.co/150x150/e2e8f0/1e3a8a?text=AN" alt="Aliif Najmi" class="profile-img">
+    <h1>AHMAD ALIIF NAJMI</h1>
+    <p>Facilities System Analyst | Digitalizing Operations & Maintenance</p>
+    <a href="Aliif Resume.pdf" target="_blank" class="btn-cta"><i class="fa-solid fa-download"></i> Download Resume</a>
   </header>
 
   <main>
     <section>
-      <h2>📌 Tentang Sistem</h2>
-      <p>Sistem Carian JKKE membantu kakitangan JKR membuat carian kadar kerja elektrik mengikut kod yang telah ditetapkan, serta menjana sebutharga secara automatik berdasarkan format rasmi.</p>
-    </section>
-
-    <section>
-      <h2>🚀 Ciri-ciri Utama</h2>
-      <ul>
-        <li>Carian kadar kerja berdasarkan Bab dan Subtopik</li>
-        <li>Penjanaan sebutharga automatik (Auto Quotation)</li>
-        <li>Papar dan eksport format Jadual Kadar Kerja seperti dokumen rasmi</li>
-        <li>Integrasi Pembantu Maya AI (Dify Chatbot)</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>🔗 Pautan Sistem</h2>
-      <div class="button-group">
-        <a href="jkke.html" target="_blank">Halaman Utama (jkke.html)</a>
-        <a href="generateJKKE.html" target="_blank">Penjana Sebutharga</a>
-        <a href="semuajkke.html" target="_blank">Lihat Semua Kod JKKE</a>
+      <h2>👨‍💻 Professional Profile</h2>
+      <div class="about-card">
+        <p>
+          Highly disciplined Engineering graduate with distinct expertise in <strong>digitalizing operational workflows</strong> and <strong>cost management systems</strong>. 
+          Proven track record in developing automated estimation tools (JKKE) that reduced administrative processing time by <strong>50%</strong> and ensured budget accuracy. 
+          Eager to leverage data analytics and system automation skills to uphold the <strong>world-class maintenance standards</strong> of Exchange 106.
+        </p>
       </div>
     </section>
 
     <section>
-      <h2>📂 Dokumentasi & Analisis Projek</h2>
-      <p>Berikut adalah bahan dokumentasi dan analisis reka bentuk bagi sistem JKKE:</p>
+      <h2>🚀 Automated Maintenance Budgeting System (JKKE)</h2>
+      <p style="margin-bottom: 20px;">
+        A specialized web-based tool designed to standardize maintenance rates, automate Bill of Quantities (BQ) generation, and provide instant technical data for Facilities Teams.
+      </p>
       
-      <div class="portfolio-grid">
+      <div class="project-showcase">
+        <div class="project-text">
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary);"></i> <strong>Standardized Rate Database:</strong> Eliminates vendor overcharging by centralizing approved JKR rates.</li>
+            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary);"></i> <strong>Smart Estimator:</strong> Automatically calculates electrical load and quantity based on room area (sqft).</li>
+            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary);"></i> <strong>AI Integration:</strong> Built-in 24/7 Chatbot (Dify) for instant technical code retrieval.</li>
+          </ul>
+        </div>
         
-        <div class="portfolio-card">
-          <div class="portfolio-thumb">
-            <img src="JKKE Empathy Map Canvas.png" alt="Empathy Map Canvas">
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-title">Empathy Map Canvas</div>
-            <div class="portfolio-desc">Analisis mendalam mengenai pengguna (Kontraktor & Juruukur Bahan) untuk memahami keperluan emosi dan fizikal mereka.</div>
-            <a href="JKKE Empathy Map Canvas.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> Lihat Gambar</a>
-          </div>
+        <div class="project-links">
+          <a href="jkke.html" target="_blank" class="link-card">
+            <i class="fa-solid fa-laptop-code"></i>
+            <div>Live System</div>
+          </a>
+          <a href="generateJKKE.html" target="_blank" class="link-card">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <div>Auto-Quotation</div>
+          </a>
+          <a href="semuajkke.html" target="_blank" class="link-card">
+            <i class="fa-solid fa-database"></i>
+            <div>Rate Database</div>
+          </a>
         </div>
-
-        <div class="portfolio-card">
-          <div class="portfolio-thumb">
-            <img src="JKKE Value Proposition Canvas.png" alt="Value Proposition Canvas">
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-title">Value Proposition Canvas</div>
-            <div class="portfolio-desc">Pemetaan antara masalah pengguna (Pains) dan penyelesaian yang ditawarkan oleh sistem JKKE (Gain Creators).</div>
-            <a href="JKKE Value Proposition Canvas.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> Lihat Gambar</a>
-          </div>
-        </div>
-
-        <div class="portfolio-card">
-          <div class="portfolio-thumb">
-            <img src="Aliif Najmi (Slide Deck JKKE).png" alt="Slide Deck Preview" onerror="this.src='https://placehold.co/600x400/e0e7ff/003366?text=Slide+Preview'">
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-title">Slide Deck Pembentangan JKKE</div>
-            <div class="portfolio-desc">Slaid pembentangan rasmi merangkumi pengenalan masalah, solusi, arkitektur sistem, dan hala tuju projek.</div>
-            
-            <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="btn-download">
-                <i class="fa-solid fa-file-pdf"></i> Lihat / Muat Turun
-            </a>
-          </div>
-        </div>
-
       </div>
     </section>
 
     <section>
-      <h2>🛠️ Teknologi & Perancangan</h2>
-      <ul>
-        <li>Frontend: HTML, CSS, JavaScript</li>
-        <li>AI Integration: Dify.AI Agent</li>
-        <li>Hosting: GitHub Pages</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>📷 Akses Pantas (QR Code)</h2>
-      <p>Imbas kod di bawah menggunakan kamera telefon:</p>
+      <h2>📂 Strategic Analysis & Documentation</h2>
+      <p>Demonstrating a system-thinking approach to solving facilities management challenges.</p>
       
-      <div class="qr-container">
+      <div class="doc-grid">
         
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/jkke.html&size=150x150" alt="QR Web Portfolio" />
-          <div class="qr-label">Sistem Web JKKE</div>
-          <div class="qr-desc">Akses terus ke laman utama sistem (Dashboard).</div>
-          <a href="https://lipasterbang.github.io/jkke-portfolio/jkke.html" target="_blank" class="qr-link">Buka Pautan <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <img src="empathy_map.png" alt="Empathy Map" onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=Empathy+Map'">
+          </div>
+          <div class="doc-content">
+            <div class="doc-title">User Empathy Analysis</div>
+            <div class="doc-desc">Understanding the pain points of Maintenance Engineers in manual budgeting workflows.</div>
+            <a href="empathy_map.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> View Diagram</a>
+          </div>
         </div>
 
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://udify.app/chat/PdcFvdGc8pYYuCXY&size=150x150" alt="QR Chatbot" />
-          <div class="qr-label">Pembantu AI</div>
-          <div class="qr-desc">Berbual dengan Bot AI untuk pertanyaan pantas.</div>
-          <a href="https://udify.app/chat/PdcFvdGc8pYYuCXY" target="_blank" class="qr-link">Buka Chat <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <img src="vpc.png" alt="Value Prop" onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=Value+Prop'">
+          </div>
+          <div class="doc-content">
+            <div class="doc-title">Value Proposition Canvas</div>
+            <div class="doc-desc">Mapping system features directly to operational efficiency gains and cost reduction.</div>
+            <a href="vpc.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> View Diagram</a>
+          </div>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <img src="slide_thumb.png" alt="Slide Preview" onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=Slide+Deck'">
+          </div>
+          <div class="doc-content">
+            <div class="doc-title">Project Presentation</div>
+            <div class="doc-desc">Full breakdown of system architecture, problem statement, and ROI analysis.</div>
+            <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="btn-download"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
+          </div>
         </div>
 
       </div>
     </section>
+
+    <section>
+      <h2>📱 Quick Access</h2>
+      <div class="qr-section">
+        <p>Scan to view the Live System or Chat with the AI Assistant on mobile.</p>
+        <div class="qr-container">
+          <div class="qr-item">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/jkke.html&size=150x150" alt="Web QR">
+            <p style="font-weight:600; font-size:0.9rem; margin-top:10px;">System Dashboard</p>
+          </div>
+          <div class="qr-item">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://udify.app/chat/PdcFvdGc8pYYuCXY&size=150x150" alt="AI QR">
+            <p style="font-weight:600; font-size:0.9rem; margin-top:10px;">AI Assistant</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
-    <p>Dibangunkan oleh Aliif Najmi | JKKE 2024 |</p>
+    <p>&copy; 2025 Ahmad Aliif Najmi. Ready to serve Exchange 106.</p>
   </footer>
+
 </body>
 </html>
