@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exchange 106 | Smart Inventory System</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --bg-dark: #0b1120;
+    --card-bg: #1e293b;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --mulia-mint: #4ade80;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    margin: 0; padding: 20px;
+  }
+
+  /* --- HEADER --- */
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 15px; }
+  .title h1 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+  .title span { color: var(--mulia-mint); }
+
+  /* --- GRID --- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 120px auto;
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--card-bg); border-radius: 12px; padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; justify-content: center;
+  }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-4 { grid-column: span 4; }
+  
+  /* --- METRICS --- */
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px;}
+  .stat-val { font-size: 2rem; font-weight: 700; color: white; margin-top: 5px; }
+  .stat-sub { font-size: 0.8rem; margin-top: 5px; }
+  .trend-up { color: var(--mulia-mint); }
+  .trend-down { color: var(--danger); }
+
+  /* --- TABLE (THE JKKE CONNECTION) --- */
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+  th { text-align: left; color: var(--text-muted); padding: 10px 5px; border-bottom: 1px solid #334155; font-size: 0.75rem; text-transform: uppercase; }
+  td { padding: 12px 5px; border-bottom: 1px solid #334155; }
+  .stock-pill { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .s-ok { background: rgba(74, 222, 128, 0.1); color: var(--mulia-mint); }
+  .s-low { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+  .s-crit { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+  /* --- BARS --- */
+  .bar-container { margin-bottom: 15px; }
+  .bar-info { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; }
+  .track { height: 8px; background: #334155; border-radius: 4px; }
+  .fill { height: 100%; border-radius: 4px; background: var(--mulia-mint); }
+
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title">
+      <h1>Inventory <span>Smart Monitor</span></h1>
+      <div style="font-size:0.8rem; color:#94a3b8;">Logik Pengiraan: JKKE Algorithm Integration</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:1.5rem; font-weight:700;">RM 1.2M</div>
+      <div style="font-size:0.8rem; color:#94a3b8;">Total Stock Value</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    
+    <div class="card" style="border-color:var(--danger);">
+      <div class="stat-label"><i class="fa-solid fa-triangle-exclamation" style="color:var(--danger)"></i> Critical Alerts</div>
+      <div class="stat-val" style="color:var(--danger)">3 Items</div>
+      <div class="stat-sub">Require immediate restock</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label"><i class="fa-solid fa-chart-line"></i> Spending (Jan)</div>
+      <div class="stat-val">RM 45k</div>
+      <div class="stat-sub trend-up"><i class="fa-solid fa-arrow-down"></i> 12% under budget</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label"><i class="fa-solid fa-handshake"></i> Vendor Delivery</div>
+      <div class="stat-val">98%</div>
+      <div class="stat-sub">On-Time Performance</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label"><i class="fa-solid fa-boxes-stacked"></i> Stock Health</div>
+      <div class="stat-val" style="color:var(--mulia-mint)">Good</div>
+      <div class="stat-sub">95% items optimal</div>
+    </div>
+
+    <div class="card col-span-4" style="justify-content: flex-start;">
+      <div class="stat-label" style="margin-bottom:15px; font-size:1rem;">
+        <i class="fa-solid fa-list-check"></i> 
+        Spare Part Inventory Status (Real-Time)
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Item Code</th>
+            <th>Item Name</th>
+            <th>Location</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Est. Cost (JKKE Logic)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'JetBrains Mono'">EL-LED-18W</td>
+            <td>Downlight LED 18W (Warm)</td>
+            <td>Store Lvl B2</td>
+            <td>450 Units</td>
+            <td><span class="stock-pill s-ok">OPTIMAL</span></td>
+            <td>RM 12.50 /unit</td>
+            <td style="color:#94a3b8;">-</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono'">AC-FCU-FLT</td>
+            <td>FCU Air Filter (Standard)</td>
+            <td>Store Lvl 45</td>
+            <td>28 Units</td>
+            <td><span class="stock-pill s-low">LOW STOCK</span></td>
+            <td>RM 85.00 /unit</td>
+            <td><button style="background:var(--mulia-mint); border:none; padding:5px 10px; border-radius:4px; font-weight:700; cursor:pointer;">Restock</button></td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono'">LFT-PCB-MN</td>
+            <td>Lift PCB Mainboard (Schindler)</td>
+            <td>Store Safe Room</td>
+            <td>0 Units</td>
+            <td><span class="stock-pill s-crit">CRITICAL</span></td>
+            <td>RM 2,500.00 /unit</td>
+            <td><button style="background:var(--danger); color:white; border:none; padding:5px 10px; border-radius:4px; font-weight:700; cursor:pointer;">Urgent Order</button></td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono'">PL-VLV-25</td>
+            <td>Brass Gate Valve 25mm</td>
+            <td>Store Lvl B2</td>
+            <td>120 Units</td>
+            <td><span class="stock-pill s-ok">OPTIMAL</span></td>
+            <td>RM 45.00 /unit</td>
+            <td style="color:#94a3b8;">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
