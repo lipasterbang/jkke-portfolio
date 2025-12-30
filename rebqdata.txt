@@ -1,0 +1,233 @@
+================================================================================
+          SENARAI KADAR HARGA KERJA ELEKTRIK (RESTUCTURED BQ DATA)
+================================================================================
+
+KOD    | HARGA (RM) | DESKRIPSI LENGKAP
+
+BAHAGIAN 1: KATEGORI 1A, 1B & 1C (Mata Lampu & Soket)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+1A1    | 91.10      | Mata lampu (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A2    | 147.30     | Mata lampu bagi pendawaian dua hala (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan
+1A3    | 159.30     | Mata lampu bagi pendawaian dua hala dan perantaraan (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A4    | 94.80      | Mata lampu (tanpa suis) l/d pemegang mentol jenis beroti atau beroti sudut bakelit menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A5    | 106.70     | Mata lampu (tanpa suis) l/d ros siling dan kabel bulat PVK lentur 3 teras 23/0.16 mm sepanjang 1/2 meter menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A6    | 135.10     | Mata lampu bagi pendawaian dua hala (tanpa suis) , ros siling dan kabel bulat PVK lentur 3 teras 23/0.16 mm sepanjang 1/2 meter menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A7    | 166.30     | Mata lampu bagi pendawaian dua hala dan perantaraan(tanpa suis) l/d ros siling dan kabel bulat PVK lentur 3 teras23/0.16 mm sepanjang 1/2 meter menggunakan kabel 2 x1.5 mm persegi l/d kabel perlindungan.
+1A8    | 79.10      | Mata lampu untuk lampu tanda keluar atau lampu kecemasan (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A9    | 120.20     | Mata lampu (tanpa suis) menggunakan kabel 2 x 2.5 mm persegi l/d kabel perlindungan.
+1A10   | 183.20     | Mata lampu (tanpa suis) menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1A11   | 81.80      | Mata kipas lekapan dinding (tanpa suis) l/d ros siling menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A12   | 98.10      | Mata kipas pelawas (tanpa suis) l/d ros siling (tidak termasuk menyediakan bukaan) menggunakan kabel 2 x1.5 mm persegi l/d kabel perlindungan.
+1A13   | 97.10      | Mata kipas siling (tanpa suis) l/d penyambung 10A 3 hala menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A14   | 105.50     | Mata kipas siling (tanpa suis) l/d penyambung 10A 3 hala dan cangkuk penggantung menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A15   | 105.50     | Mata kipas ayun (tanpa suis) l/d penyambung 10A 3 hala dan cangkuk penggantung menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A16   | 0.00       | Mata soket alur keluar kuasa l/d suis soket alur keluar 13A bertebat penuh menggunakan kabel PVK:-
+1A16.1 | 143.20     | 2 x 2.5 mm persegi l/d kabel perlindungan.
+1A16.2 | 159.30     | 2 x 4 mm persegi l/d kabel perlindungan.
+1A17   | 0.00       | Mata soket alur keluar kuasa l/d suis soket alur keluar 13A terlitup logam menggunakan kabel PVK:-
+1A17.1 | 151.90     | 2 x 2.5 mm persegi l/d kabel perlindungan.
+1A17.2 | 214.90     | 2 x 4 mm persegi l/d kabel perlindungan.
+1A18   | 384.00     | Mata soket alur keluar kuasa l/d suis soket alur keluar 13A terlitup logam jenis kalis cuaca menggunakan kabel 2 x 2.5 mm persegi l/d kabel perlindungan.
+1A19   | 237.30     | Mata soket alur keluar kuasa l/d suis soket alur keluar 15A menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1A20   | 237.30     | Mata soket alur keluar kuasa l/d suis soket alur keluar 15A terlitup logam menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1A21   | 237.30     | Mata soket alur keluar kuasa l/d suis soket alur keluar 15A dipermukaan lantai l/d kotak pedestal terlitup logam menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1A22   | 271.10     | Mata pemanas air sehingga 3.6 kW l/d suis dua kutub 20A dengan lampu penunjuk dan suis soket alur keluar 15A menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1A23   | 201.80     | Mata pemasak l/d unit kawalan pemasak dua kutub 45A dengan lampu penunjuk dan suis soket alur keluar bantuan 13A dengan lampu penunjuk menggunakan kabel 2 x 2.5 mm persegi l/d kabel perlindungan.
+1A24   | 0.00       | Mata penyaman udara sehingga 2 kuasa kuda l/d soket alur keluar 15A, suis dua kutub 30A dengan lampu penunjuk :-
+1A24.1 | 217.60     | Untuk jarak yang tidak lebih dari 15 meter daripada papan agihan yang berkenaan menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1A24.2 | 308.80     | Untuk jarak diantara 15 meter hingga 30 meter daripada papan agihan yang berkenaan menggunakan kabel 2 x 6 mm persegi l/d kabel perlindungan.
+1A24.3 | 659.40     | Untuk jarak diantara 30 meter hingga 60 meter daripada papan agihan yang berkenaan menggunakan kabel 2 x 6 mm persegi l/d kabel perlindungan.
+1A25   | 101.20     | Untuk jarak diantara 30 meter hingga 60 meter daripada papan agihan yang berkenaan menggunakan kabel 2 x 6 mm persegi l/d kabel perlindungan.
+1A26   | 96.80      | Mata bekalan utama kepada pengubah loceng / pembaz / chime dan papan penunjuk l/d suis kutub tunggal 10A menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1A27   | 101.20     | Mata loceng tekan/pembaz/chime l/d suis tekan loceng / pembaz / chime 10A menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+KATEGORI 1B: (Pendawaian dalam Konduit Keluli Bergalvani)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+1B1    | 133.00     | Mata lampu (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B2    | 189.20     | Mata lampu bagi pendawaian dua hala (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B3    | 201.20     | Mata lampu bagi pendawaian dua hala dan perantaraan (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B4    | 136.70     | Mata lampu (tanpa suis) l/d pemegang mentol jenis beroti atau beroti sudut bakelit menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B5    | 143.30     | Mata lampu (tanpa suis) l/d ros siling dan kabel bulat PVK lentur 3 teras 23/0.16 mm sepanjang 1/2 meter menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B6    | 199.50     | Mata lampu bagi pendawaian dua hala (tanpa suis) , ros siling dan kabel bulat PVK lentur 3 teras 23/0.16 mm sepanjang 1/2 meter menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B7    | 211.50     | Mata lampu bagi pendawaian dua hala dan perantaraan satu 211.50 (tanpa suis) l/d ros siling dan kabel bulat PVK lentur 3 teras 23/0.16 mm sepanjang 1/2 meter menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B8    | 121.00     | Mata lampu untuk lampu tanda keluar atau lampu kecemasan (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B9    | 205.80     | Mata lampu (tanpa suis) menggunakan kabel 2 x 2.5 mm persegi l/d kabel perlindungan.
+1B10   | 341.50     | Mata lampu (tanpa suis) menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1B11   | 140.00     | Mata kipas lekapan dinding (tanpa suis) l/d ros siling menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B12   | 140.00     | Mata kipas pelawas (tanpa suis) l/d ros siling menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B13   | 139.00     | Mata kipas siling (tanpa suis) l/d penyambung 10A 3 hala menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B14   | 147.40     | Mata kipas siling (tanpa suis) l/d penyambung 10A 3 hala dan cangkuk penggantung menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B15   | 147.40     | Mata kipas ayun (tanpa suis) l/d penyambung 10A 3 hala dan cangkuk penggantung menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1B16.1 | 228.80     | Mata soket alur keluar 13A bertebat penuh (2 x 2.5 mm persegi).
+1B16.2 | 364.60     | Mata soket alur keluar 13A bertebat penuh (2 x 4 mm persegi).
+1B17.1 | 237.50     | Mata soket alur keluar 13A terlitup logam (2 x 2.5 mm persegi).
+1B17.2 | 373.30     | Mata soket alur keluar 13A terlitup logam (2 x 4 mm persegi).
+1B18   | 469.60     | Mata soket alur keluar 13A terlitup logam jenis kalis cuaca (2 x 2.5 mm persegi).
+1B19   | 395.60     | Mata soket alur keluar 15A menggunakan kabel 2 x 4 mm persegi.
+1B20   | 395.60     | Mata soket alur keluar 15A terlitup logam (2 x 4 mm persegi).
+1B22   | 429.40     | Mata pemanas air sehingga 3.6kW l/d suis 20A & soket 15A (2 x 4 mm persegi).
+1B24.1 | 375.90     | Mata penyaman udara sehingga 2 k.k (<15m) menggunakan kabel 2 x 4 mm persegi.
+1B24.2 | 691.20     | Mata penyaman udara sehingga 2 k.k (15-30m) menggunakan kabel 2 x 6 mm persegi.
+1B24.3 | 963.20     | Mata penyaman udara sehingga 2 k.k (30-60m) menggunakan kabel 2 x 6 mm persegi.
+1B28   | 402.10     | Mata pengasing l/d suis pengasing 20A KTN (2 x 4 mm persegi).
+1B29   | 652.90     | Mata pengasing l/d suis pengasing 30A KTN (2 x 6 mm persegi).
+1B30   | 159.30     | Mata pengasing l/d suis pengasing 60A KTN (2 x 16 mm persegi).
+1B31   | 467.00     | Mata pengasing l/d suis pengasing 20A TKN (4 x 4 mm persegi).
+1B32   | 682.00     | Mata pengasing l/d suis pengasing 30A TKN (4 x 6 mm persegi).
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+KATEGORI 1C: (Pendawaian dalam Konduit uPVC)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+1C1    | 116.20     | Mata lampu (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1C2    | 172.40     | Mata lampu bagi pendawaian dua hala (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1C3    | 184.40     | Mata lampu bagi pendawaian dua hala dan perantaraan (tanpa suis) menggunakan kabel 2 x 1.5 mm persegi l/d kabel perlindungan.
+1C10   | 257.20     | Mata lampu (tanpa suis) menggunakan kabel 2 x 4 mm persegi l/d kabel perlindungan.
+1C16.1 | 186.70     | Mata soket alur keluar 13A bertebat penuh (2 x 2.5 mm persegi).
+1C16.2 | 280.30     | Mata soket alur keluar 13A bertebat penuh (2 x 4 mm persegi).
+1C20   | 286.90     | Mata soket alur keluar 15A menggunakan kabel 2 x 4 mm persegi.
+1C25.1 | 291.60     | Mata penyaman udara sehingga 2 k.k (<15m) menggunakan kabel 2 x 4 mm persegi.
+1C25.2 | 421.00     | Mata penyaman udara sehingga 2 k.k (15-30m) menggunakan kabel 2 x 6 mm persegi.
+1C25.3 | 591.40     | Mata penyaman udara sehingga 2 k.k (30-60m) menggunakan kabel 2 x 6 mm persegi.
+1C29   | 348.40     | Mata pengasing l/d suis pengasing 20A KTN (2 x 4 mm persegi).
+1C30   | 484.30     | Mata pengasing l/d suis pengasing 30A KTN (2 x 6 mm persegi).
+1C33   | 682.00     | Mata pengasing l/d suis pengasing 30A TKN (4 x 6 mm persegi).
+1C34   | 1788.00    | Mata pengasing l/d suis pengasing 60A TKN (4 x 25 mm persegi).
+
+BAHAGIAN 2: KATEGORI 1D, 1E, 1F & 1G (Kabel Sub-main)
+(Bahagian ini menyenaraikan saiz kabel dari 1.5mm sehingga 300mm.)
+KOD    | HARGA (RM) | DESKRIPSI (KABEL PVK/PVK, PVK & FR)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+1D1    | 14.50      | Kabel PVK/PVK 1 x 6 mm persegi.
+1D2    | 18.20      | Kabel PVK/PVK 1 x 10 mm persegi.
+1D3    | 21.60      | Kabel PVK/PVK 1 x 16 mm persegi.
+1D4    | 27.90      | Kabel PVK/PVK 1 x 25 mm persegi.
+1D5    | 33.50      | Kabel PVK/PVK 1 x 35 mm persegi.
+1D6    | 42.00      | Kabel PVK/PVK 1 x 50 mm persegi.
+1D7    | 54.80      | Kabel PVK/PVK 1 x 70 mm persegi.
+1D8    | 71.00      | Kabel PVK/PVK 1 x 95 mm persegi.
+1D9    | 86.70      | Kabel PVK/PVK 1 x 120 mm persegi.
+1D10   | 105.00     | Kabel PVK/PVK 1 x 150 mm persegi.
+1D11   | 127.20     | Kabel PVK/PVK 1 x 185 mm persegi.
+1D12   | 163.90     | Kabel PVK/PVK 1 x 240 mm persegi.
+1D13   | 203.50     | Kabel PVK/PVK 1 x 300 mm persegi.
+1D14   | 20.10      | Kabel PVK/PVK 2 x 1.5 mm persegi l/d pengalir perlindungan.
+1D15   | 21.80      | Kabel PVK/PVK 2 x 2.5 mm persegi l/d pengalir perlindungan.
+1D20   | 63.30      | Kabel PVK/PVK 2 x 25 mm persegi l/d pengalir perlindungan.
+1D25   | 31.40      | Kabel PVK/PVK 4 x 4 mm persegi l/d pengalir perlindungan.
+1D33   | 293.10     | Kabel PVK/PVK 4 x 95 mm persegi l/d pengalir perlindungan.
+1D38   | 886.20     | Kabel PVK/PVK 4 x 300 mm persegi l/d pengalir perlindungan.
+1G1    | 16.30      | Kabel FR (Fire Resistance) 1 x 1.5 mm persegi.
+1G4    | 21.20      | Kabel FR 1 x 6 mm persegi.
+1G7    | 41.90      | Kabel FR 1 x 25 mm persegi.
+1G10   | 83.60      | Kabel FR 1 x 70 mm persegi.
+1G13   | 138.60     | Kabel FR 1 x 150 mm persegi.
+1G16   | 311.80     | Kabel FR 1 x 300 mm persegi.
+1G33   | 250.70     | Kabel FR 4 x 25 mm persegi l/d pengalir perlindungan.
+1G38   | 584.20     | Kabel FR 4 x 95 mm persegi l/d pengalir perlindungan.
+1G44   | 1375.00    | Kabel FR 4 x 300 mm persegi l/d pengalir perlindungan.
+
+BAHAGIAN 3: Papan Agihan (DB) & Isolator (2A & 2B)
+(Kategori 2A: Pengasing | Kategori 2B: Distribution Board Metalclad & Bertebat Penuh)
+KOD        | HARGA (RM) | DESKRIPSI (DETAIL SAIZ & KUTUB)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+2A1        | 73.40      | Pengasing, dwi kutub jenis satu fasa, bertebat penuh: 20A
+2A2        | 77.00      | Pengasing, dwi kutub jenis satu fasa, bertebat penuh: 32A
+2A3        | 99.20      | Pengasing, dwi kutub jenis satu fasa, bertebat penuh: 63A
+2A4        | 139.10     | Pengasing, tiga kutub, jenis tiga fasa, bertebat penuh: 20A
+2A5        | 184.80     | Pengasing, tiga kutub, jenis tiga fasa, bertebat penuh: 32A
+2A6        | 263.60     | Pengasing, tiga kutub, jenis tiga fasa, bertebat penuh: 63A
+2A7        | 545.00     | Pengasing, tiga kutub, jenis tiga fasa, bertebat penuh: 100A
+2A8        | 182.80     | Pengasing, empat kutub, jenis tiga fasa, bertebat penuh: 20A
+2A9        | 254.90     | Pengasing, empat kutub, jenis tiga fasa, bertebat penuh: 32A
+2A10       | 347.60     | Pengasing, empat kutub, jenis tiga fasa, bertebat penuh: 63A
+2A11       | 726.80     | Pengasing, empat kutub, jenis tiga fasa, bertebat penuh: 100A
+2B1        | 825.60     | DB Metalclad (EG Steel), 1-Fasa & Neutral l/d MCB (6 kA): 4 Hala
+2B2        | 891.70     | DB Metalclad (EG Steel), 1-Fasa & Neutral l/d MCB (6 kA): 6 Hala
+2B3        | 1001.40    | DB Metalclad (EG Steel), 1-Fasa & Neutral l/d MCB (6 kA): 8 Hala
+2B4        | 1179.90    | DB Metalclad (EG Steel), 1-Fasa & Neutral l/d MCB (6 kA): 10 Hala
+2B5        | 1198.80    | DB Metalclad (EG Steel), 1-Fasa & Neutral l/d MCB (6 kA): 12 Hala
+2B6        | 1266.90    | DB Metalclad (EG Steel), 1-Fasa & Neutral l/d MCB (6 kA): 14 Hala
+2B7        | 1360.90    | DB Metalclad (EG Steel), 3-Fasa & Neutral l/d MCB (6 kA): 4 Hala
+2B8        | 1515.90    | DB Metalclad (EG Steel), 3-Fasa & Neutral l/d MCB (6 kA): 6 Hala
+2B9        | 1775.70    | DB Metalclad (EG Steel), 3-Fasa & Neutral l/d MCB (6 kA): 8 Hala
+2B10       | 1917.40    | DB Metalclad (EG Steel), 3-Fasa & Neutral l/d MCB (6 kA): 10 Hala
+2B11       | 2128.90    | DB Metalclad (EG Steel), 3-Fasa & Neutral l/d MCB (6 kA): 12 Hala
+2B12       | 2368.50    | DB Metalclad (EG Steel), 3-Fasa & Neutral l/d MCB (6 kA): 14 Hala
+2B26       | 425.70     | DB Unit Pengguna (Bertebat Penuh) 1-Fasa l/d MCB (6kA), RCCB 100mA & 30mA: 8 Hala
+2B27       | 527.40     | DB Unit Pengguna (Bertebat Penuh) 1-Fasa l/d MCB (6kA), RCCB 100mA & 30mA: 14 Hala
+
+BAHAGIAN 4: Pemutus Litar (2C - MCB, RCCB, MCCB)
+(Kategori 2C: Lengkap dengan kadaran arus A dan kapasiti memutus kA)
+KOD        | HARGA (RM) | DESKRIPSI (MCB, RCCB, RCBO, MCCB)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+2C1        | 32.10      | MCB Kutub Tunggal sehingga 32A (6 kA)
+2C2        | 58.80      | MCB Tiga Kutub sehingga 45A / 63A (6 kA)
+2C3        | 48.20      | MCB Dwi Kutub sehingga 45A / 63A (10 kA)
+2C4        | 67.50      | MCB Empat Kutub sehingga 45A / 63A (10 kA)
+2C5        | 100.50     | RCCB 25A (Kepekaan 10 mA)
+2C6        | 104.80     | RCCB 40A (Kepekaan 30 mA)
+2C7        | 82.00      | RCCB 40A (Kepekaan 100 mA)
+2C10       | 140.80     | RCCB Empat Kutub (3-Fasa) 40A (Kepekaan 30 mA)
+2C16       | 124.00     | RCBO 6 kA Dwi-Kutub (1-Fasa), 10A - 40A (Kepekaan 30 mA)
+2C18       | 378.40     | MCCB Dwi Kutub & Neutral (30 kA, Ics:100%Icu) 30A - 60A
+2C20       | 572.80     | MCCB Tiga Kutub & Neutral (25 kA - 35 kA) 30A - 100A
+2C21       | 781.90     | MCCB Tiga Kutub & Neutral (25 kA - 35 kA) 125A - 160A
+2C22       | 1107.80    | MCCB Tiga Kutub & Neutral (25 kA - 35 kA) 200A
+2C23       | 1323.00    | MCCB Tiga Kutub & Neutral (25 kA - 35 kA) 225A - 250A
+2C24       | 1828.50    | MCCB Tiga Kutub & Neutral (25 kA - 35 kA) 300A - 400A
+2C25       | 726.60     | MCCB Tiga Kutub & Neutral (50 kA) 30A - 100A
+2C26       | 999.40     | MCCB Tiga Kutub & Neutral (50 kA) 125A - 160A
+2C29       | 2108.10    | MCCB Tiga Kutub & Neutral (50 kA) 300A - 400A
+2C40       | 974.80     | MCCB Empat Kutub (25 kA - 35 kA) 30A - 100A
+2C49       | 3901.00    | MCCB Empat Kutub (50 kA, Ics:100%Icu) 300A - 400A
+2C59       | 5714.80    | MCCB Empat Kutub (50 kA, Ics:50%Icu) 300A - 400A
+
+BAHAGIAN 5: Suis & PAK (3A - 3E)
+(Aksesori bertebat penuh, metalclad, dan kalis cuaca)
+KOD        | HARGA (RM) | DESKRIPSI (SUIS & SOCKET)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+3A1        | 18.50      | Suis Pelit Leper (1 Gang 1 Hala) 10A
+3A2        | 21.50      | Suis Pelit Leper (2 Gang 1 Hala) 10A
+3A5        | 22.60      | Suis Pelit Leper (1 Gang 2 Hala) 10A
+3A11       | 34.60      | Suis Dwi-Kutub dengan Lampu Penunjuk 20A
+3A19       | 188.30     | Suis Masa 20A (Simpanan 24 Jam)
+3A22       | 63.80      | Suis Kawalan Cahaya (Photocell) 10A 230V
+3B1        | 32.20      | Suis Metalclad (1 Gang 1 Hala) 10A
+3B9        | 52.60      | Suis Kalis Cuaca (1 Hala) 10A
+3C1        | 20.10      | PAK (Socket) 13A (1 Gang) Bertebat Penuh
+3C2        | 38.50      | PAK (Socket) 13A (2 Gang) Bertebat Penuh
+3C5        | 27.70      | PAK 15A Tanpa Suis (Leper)
+3D1        | 34.00      | PAK 13A Metalclad (1 Gang)
+3D17       | 264.60     | PAK 13A Kalis Cuaca
+
+BAHAGIAN 6: Konduit, Trunking & Tray (3F)
+(Peralatan saluran kabel lengkap mengikut diameter & saiz)
+KOD        | HARGA (RM) | DESKRIPSI (DETAIL DIAMETER & LEBAR)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+3F1        | 10.00      | Konduit Galvani (20 mm diameter)
+3F2        | 13.50      | Konduit Galvani (25 mm diameter)
+3F3        | 24.30      | Konduit Galvani (32 mm diameter)
+3F5        | 47.70      | Konduit Galvani (50 mm diameter)
+3F51       | 5.30       | Konduit uPVC (Rigid High Impact) 20 mm diameter
+3F52       | 6.40       | Konduit uPVC (Rigid High Impact) 25 mm diameter
+3F66       | 31.60      | Trunking Keluli Galvani (50 mm x 50 mm)
+3F71       | 65.80      | Trunking Keluli Galvani (100 mm x 100 mm)
+3F80       | 187.80     | Trunking Keluli Galvani (150 mm x 300 mm)
+3F123      | 13.40      | Talam Penatang (Cable Tray) Galvani Lebar 50 mm (1.6mm)
+3F125      | 21.10      | Talam Penatang (Cable Tray) Galvani Lebar 100 mm (1.6mm)
+3F130      | 54.70      | Talam Penatang (Cable Tray) Galvani Lebar 300 mm (1.6mm)
+3F134      | 93.40      | Talam Penatang (Cable Tray) Galvani Lebar 600 mm (1.6mm)
+3F151      | 40.00      | Paip HDPE (PN 10) 100 mm diameter
+
+BAHAGIAN 7: Lampu & Perlindungan Kilat (4A & 1H)
+(Item pencahayaan dan sistem pembumian)
+KOD        | HARGA (RM) | DESKRIPSI (DETAIL LAMPU & GROUNDING)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+4A1        | 186.70     | Mentol Spotlight PAR 38 (100W / 150W)
+4A11       | 234.20     | Tiub Pendarfluor (T8) 18W, 600 mm
+4A16       | 23.60      | Mentol Compact Fluorescent (SL) 9W - 25W
+4A22       | 24.80      | Mentol LED 7W / 10W / 13W
+1H1        | 66.20      | Pita Kuprum (25 mm x 3 mm)
+1H3        | 760.90     | Elektrod Bumi Kuprum (16mm x 1500mm) l/d Welding & Box
+1H13       | 696.80     | Main Earthing Bar (50mm x 6mm) Copper
