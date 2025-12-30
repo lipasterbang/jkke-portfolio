@@ -5,312 +5,340 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aliif Najmi | Facilities System Analyst Portfolio</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --primary: #1e3a8a; /* Navy Blue (JKR/Corporate) */
-      --secondary: #fbbf24; /* Gold (Accents) */
-      --bg-light: #f8fafc;
+      --primary: #1e3a8a; /* Mulia Navy Blue */
+      --secondary: #fbbf24; /* Gold Accent */
+      --mulia-mint: #4ade80; /* Mulia Mint/Green */
+      --dark-bg: #0f172a;
+      --light-bg: #f8fafc;
       --text-dark: #1e293b;
+      --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg-light);
+      margin: 0; padding: 0;
+      background: var(--light-bg);
       color: var(--text-dark);
       line-height: 1.6;
     }
 
-    /* --- HERO SECTION --- */
+    /* --- HEADER --- */
     header {
       background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
       color: white;
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
+      position: relative;
     }
     
     .profile-img {
-      width: 150px;
-      height: 150px;
+      width: 160px; height: 160px;
       border-radius: 50%;
       border: 4px solid var(--secondary);
       object-fit: cover;
-      margin-bottom: 20px;
       background-color: white;
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
     }
 
-    header h1 {
-      margin: 10px 0 5px;
-      font-size: 2.2rem;
-      font-weight: 700;
-    }
+    header h1 { margin: 15px 0 5px; font-size: 2.5rem; font-weight: 700; letter-spacing: -1px; }
+    header p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto 25px; font-weight: 300; }
 
-    header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto 20px;
+    .btn-group a {
+      display: inline-block; padding: 12px 30px; margin: 5px;
+      border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s;
     }
-
-    .btn-cta {
-      display: inline-block;
-      padding: 10px 25px;
-      background-color: var(--secondary);
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-      border-radius: 50px;
-      transition: transform 0.2s;
-    }
-    .btn-cta:hover { transform: translateY(-3px); }
+    .btn-primary { background: var(--secondary); color: var(--primary); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4); }
+    .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: white; }
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
 
     /* --- MAIN CONTENT --- */
-    main {
-      padding: 40px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    section { margin-bottom: 60px; }
+    main { padding: 50px 20px; max-width: 1200px; margin: auto; }
+    section { margin-bottom: 90px; }
     
     h2 {
       color: var(--primary);
-      border-left: 5px solid var(--secondary);
-      padding-left: 15px;
-      margin-bottom: 30px;
-      font-size: 1.8rem;
+      border-left: 6px solid var(--secondary);
+      padding-left: 20px; margin-bottom: 40px;
+      font-size: 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
     }
 
-    /* --- ABOUT ME CARD --- */
+    /* --- ABOUT CARD --- */
     .about-card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      border: 1px solid #e2e8f0;
+      background: white; padding: 40px; border-radius: 20px;
+      box-shadow: var(--card-shadow); border: 1px solid #e2e8f0;
+      font-size: 1.05rem; color: #475569;
     }
 
-    /* --- PROJECT SHOWCASE --- */
-    .project-showcase {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      align-items: center;
+    /* --- PROJECTS GRID (WITH QR) --- */
+    .project-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px;
     }
-    .project-text { flex: 1; min-width: 300px; }
-    .project-links { 
-      flex: 1; 
-      min-width: 300px; 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-      gap: 15px; 
+    .project-card {
+      background: white; border-radius: 16px; overflow: hidden;
+      box-shadow: var(--card-shadow); border: 1px solid #e2e8f0;
+      transition: transform 0.3s; display: flex; flex-direction: column;
     }
-
-    .link-card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--primary);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s;
-    }
-    .link-card:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-5px);
-    }
-    .link-card i { font-size: 2rem; margin-bottom: 10px; display: block; }
-
-    /* --- DOCUMENTATION GRID --- */
-    .doc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .doc-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-      border: 1px solid #e2e8f0;
-      transition: transform 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-    .doc-card:hover { transform: translateY(-5px); }
-
-    .doc-thumb {
-      height: 180px;
-      background: #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .doc-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .doc-thumb i { font-size: 4rem; color: #cbd5e1; }
-
-    .doc-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-    .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 10px; }
-    .doc-desc { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; flex-grow: 1; }
+    .project-card:hover { transform: translateY(-8px); border-color: var(--primary); }
     
-    .btn-download {
-      display: block;
-      text-align: center;
-      padding: 10px;
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.2s;
+    .project-header {
+      background: var(--primary); color: white; padding: 20px;
+      display: flex; align-items: center; gap: 15px;
     }
-    .btn-download:hover { background: var(--primary); color: white; }
-
-    /* --- QR SECTION --- */
-    .qr-section {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    
+    /* Layout khas untuk Project Info + QR */
+    .project-body { 
+      padding: 25px; flex-grow: 1; 
+      display: flex; gap: 20px; /* Jarak antara teks dan QR */
     }
+    
+    .project-info { flex: 1; display: flex; flex-direction: column; }
+    
     .qr-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .qr-item img { width: 140px; height: 140px; border: 1px solid #ddd; padding: 5px; border-radius: 8px; }
-
-    footer {
-      background: var(--primary);
-      color: white;
+      width: 100px; 
+      flex-shrink: 0; 
       text-align: center;
-      padding: 20px;
-      margin-top: 60px;
-      font-size: 0.9rem;
+      display: flex; flex-direction: column; align-items: center;
     }
+    .qr-img { 
+      width: 100px; height: 100px; 
+      border: 2px solid #e2e8f0; padding: 5px; border-radius: 8px;
+    }
+    .qr-label { font-size: 0.7rem; color: #94a3b8; margin-top: 5px; }
+
+    .tech-tag { background: #f1f5f9; color: #475569; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; display: inline-block; margin-bottom: 5px;}
+    
+    .btn-project {
+      display: block; text-align: center; padding: 10px; margin-top: 15px;
+      background: var(--light-bg); color: var(--primary); border-radius: 8px;
+      text-decoration: none; font-weight: 600; border: 1px solid #cbd5e1; transition: 0.2s;
+    }
+    .btn-project:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* --- DASHBOARD IFRAME SECTION --- */
+    .dashboard-frame-container {
+      width: 100%;
+      height: 650px; /* Tinggi Dashboard */
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      border: 1px solid #334155;
+      background: #0f172a;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* --- HOVER DOC CARDS --- */
+    .doc-grid { 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; 
+    }
+    
+    .doc-card {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #e2e8f0;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    
+    .doc-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+      border-color: var(--secondary);
+    }
+
+    /* Thumbnail Area */
+    .doc-preview {
+      height: 180px;
+      background-color: #f1f5f9;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    
+    .doc-preview i { font-size: 4rem; color: #cbd5e1; transition: 0.3s; }
+    
+    /* Overlay effect on hover */
+    .doc-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(30, 58, 138, 0.8); /* Navy overlay */
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    
+    .doc-card:hover .doc-overlay { opacity: 1; }
+    
+    .btn-preview {
+      padding: 10px 20px; background: var(--secondary); color: var(--primary);
+      font-weight: 700; border-radius: 30px; transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    .doc-card:hover .btn-preview { transform: translateY(0); }
+
+    .doc-info { padding: 25px; }
+    .doc-title { font-weight: 700; font-size: 1.1rem; color: var(--primary); margin-bottom: 5px; }
+    .doc-sub { font-size: 0.85rem; color: #64748b; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-body { flex-direction: column; }
+      .qr-container { width: 100%; flex-direction: row; justify-content: flex-start; gap: 15px; margin-top: 15px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
+      .qr-img { width: 80px; height: 80px; }
+      .dashboard-frame-container { height: 500px; }
+    }
+
+    footer { background: var(--dark-bg); color: #94a3b8; text-align: center; padding: 40px; margin-top: 60px; }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="https://placehold.co/150x150/e2e8f0/1e3a8a?text=AN" alt="Aliif Najmi" class="profile-img">
+    <img src="https://placehold.co/160x160/e2e8f0/1e3a8a?text=AN" alt="Aliif Najmi" class="profile-img">
+    
     <h1>AHMAD ALIIF NAJMI</h1>
-    <p>Facilities System Analyst | Digitalizing Operations & Maintenance</p>
-    <a href="Aliif Resume.pdf" target="_blank" class="btn-cta"><i class="fa-solid fa-download"></i> Download Resume</a>
+    <p>Facilities System Analyst | Digitalizing Operations for High-Rise Assets</p>
+    
+    <div class="btn-group">
+      <a href="Aliif Resume.pdf" target="_blank" class="btn-primary"><i class="fa-solid fa-file-arrow-down"></i> Download Resume</a>
+      <a href="https://linkedin.com" target="_blank" class="btn-outline"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    </div>
   </header>
 
   <main>
+    
     <section>
       <h2>👨‍💻 Professional Profile</h2>
       <div class="about-card">
         <p>
-          Highly disciplined Engineering graduate with distinct expertise in <strong>digitalizing operational workflows</strong> and <strong>cost management systems</strong>. 
-          Proven track record in developing automated estimation tools (JKKE) that reduced administrative processing time by <strong>50%</strong> and ensured budget accuracy. 
-          Eager to leverage data analytics and system automation skills to uphold the <strong>world-class maintenance standards</strong> of Exchange 106.
+          Highly disciplined Engineering graduate with a focus on <strong>Integrated Building Management Systems (IBMS)</strong>. 
+          I specialize in translating physical asset layouts into digital monitoring tools. 
+          My goal is to leverage my experience in <strong>Cost Automation (JKKE)</strong> and <strong>Data Visualization</strong> 
+          to support the in-house operations of <strong>The Exchange 106</strong>, ensuring seamless tenant experience and efficient asset lifecycle management.
         </p>
       </div>
     </section>
 
     <section>
-      <h2>🚀 Automated Maintenance Budgeting System (JKKE)</h2>
-      <p style="margin-bottom: 20px;">
-        A specialized web-based tool designed to standardize maintenance rates, automate Bill of Quantities (BQ) generation, and provide instant technical data for Facilities Teams.
-      </p>
-      
-      <div class="project-showcase">
-        <div class="project-text">
-          <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary);"></i> <strong>Standardized Rate Database:</strong> Eliminates vendor overcharging by centralizing approved JKR rates.</li>
-            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary);"></i> <strong>Smart Estimator:</strong> Automatically calculates electrical load and quantity based on room area (sqft).</li>
-            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary);"></i> <strong>AI Integration:</strong> Built-in 24/7 Chatbot (Dify) for instant technical code retrieval.</li>
-          </ul>
-        </div>
+      <h2>🚀 Proven Implementations</h2>
+      <div class="project-grid">
         
-        <div class="project-links">
-          <a href="jkke.html" target="_blank" class="link-card">
-            <i class="fa-solid fa-laptop-code"></i>
-            <div>Live System</div>
-          </a>
-          <a href="generateJKKE.html" target="_blank" class="link-card">
-            <i class="fa-solid fa-file-invoice-dollar"></i>
-            <div>Auto-Quotation</div>
-          </a>
-          <a href="semuajkke.html" target="_blank" class="link-card">
-            <i class="fa-solid fa-database"></i>
-            <div>Rate Database</div>
-          </a>
+        <div class="project-card">
+          <div class="project-header">
+            <i class="fa-solid fa-calculator" style="font-size:1.5rem; color:var(--secondary);"></i>
+            <div style="font-weight:700; margin-left:10px;">Automated Budgeting System (JKKE)</div>
+          </div>
+          <div class="project-body">
+            <div class="project-info">
+              <div style="margin-bottom:10px;">
+                <span class="tech-tag">Cost Control</span><span class="tech-tag">AI Chatbot</span>
+              </div>
+              <p style="color:#64748b; font-size:0.9rem; flex-grow:1;">
+                Automated the JKR Bill of Quantities (BQ) process. Reduced administrative calculation time by 50% and eliminated human error in vendor rate checking.
+              </p>
+              <a href="jkke.html" target="_blank" class="btn-project"><i class="fa-solid fa-play"></i> Live Demo</a>
+            </div>
+            
+            <div class="qr-container">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/jkke.html&size=150x150" alt="QR JKKE" class="qr-img">
+              <span class="qr-label">Scan to View</span>
+            </div>
+          </div>
         </div>
+
+        <div class="project-card">
+          <div class="project-header" style="background:#059669;">
+            <i class="fa-solid fa-server" style="font-size:1.5rem; color:white;"></i>
+            <div style="font-weight:700; margin-left:10px;">JPS Digital Admin Portal</div>
+          </div>
+          <div class="project-body">
+            <div class="project-info">
+              <div style="margin-bottom:10px;">
+                <span class="tech-tag">Admin</span><span class="tech-tag">Data Entry</span>
+              </div>
+              <p style="color:#64748b; font-size:0.9rem; flex-grow:1;">
+                Centralized project documentation for JPS Kuala Nerus. Streamlined data retrieval for management reporting and public transparency.
+              </p>
+              <a href="https://lipasterbang.github.io/jpskn-website/" target="_blank" class="btn-project"><i class="fa-solid fa-globe"></i> Official Site</a>
+            </div>
+            
+            <div class="qr-container">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jpskn-website/&size=150x150" alt="QR JPS" class="qr-img">
+              <span class="qr-label">Scan to View</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <section>
-      <h2>📂 Strategic Analysis & Documentation</h2>
-      <p>Demonstrating a system-thinking approach to solving facilities management challenges.</p>
-      
+      <h2>📊 Future Concept: Exchange 106 Digital Twin</h2>
+      <p style="margin-bottom:20px;">
+        A fully interactive dashboard prototype reflecting the <strong>Vertical Transport Zones</strong> and <strong>Level 45 Layout</strong> of Exchange 106.
+      </p>
+
+      <div class="dashboard-frame-container">
+        <iframe src="dashboard.html" title="Exchange 106 Dashboard"></iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2>📂 Strategic Documentation</h2>
       <div class="doc-grid">
         
-        <div class="doc-card">
-          <div class="doc-thumb">
-            <img src="empathy_map.png" alt="Empathy Map" onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=Empathy+Map'">
+        <a href="Aliif Resume.pdf" target="_blank" class="doc-card">
+          <div class="doc-preview">
+            <i class="fa-solid fa-file-user"></i>
+            <div class="doc-overlay">
+              <div class="btn-preview"><i class="fa-regular fa-eye"></i> View Resume</div>
+            </div>
           </div>
-          <div class="doc-content">
-            <div class="doc-title">User Empathy Analysis</div>
-            <div class="doc-desc">Understanding the pain points of Maintenance Engineers in manual budgeting workflows.</div>
-            <a href="empathy_map.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> View Diagram</a>
+          <div class="doc-info">
+            <div class="doc-title">Professional Resume</div>
+            <div class="doc-sub">Updated for Facilities Management Role</div>
           </div>
-        </div>
+        </a>
 
-        <div class="doc-card">
-          <div class="doc-thumb">
-            <img src="vpc.png" alt="Value Prop" onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=Value+Prop'">
+        <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="doc-card">
+          <div class="doc-preview">
+            <i class="fa-solid fa-file-powerpoint"></i>
+            <div class="doc-overlay">
+              <div class="btn-preview"><i class="fa-regular fa-eye"></i> View Slides</div>
+            </div>
           </div>
-          <div class="doc-content">
-            <div class="doc-title">Value Proposition Canvas</div>
-            <div class="doc-desc">Mapping system features directly to operational efficiency gains and cost reduction.</div>
-            <a href="vpc.png" target="_blank" class="btn-download"><i class="fa-solid fa-eye"></i> View Diagram</a>
-          </div>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-thumb">
-            <img src="slide_thumb.png" alt="Slide Preview" onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=Slide+Deck'">
-          </div>
-          <div class="doc-content">
+          <div class="doc-info">
             <div class="doc-title">Project Presentation</div>
-            <div class="doc-desc">Full breakdown of system architecture, problem statement, and ROI analysis.</div>
-            <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="btn-download"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
+            <div class="doc-sub">JKKE System Architecture & ROI</div>
           </div>
-        </div>
+        </a>
 
-      </div>
-    </section>
+        <a href="vpc.png" target="_blank" class="doc-card">
+          <div class="doc-preview">
+            <i class="fa-solid fa-gem"></i>
+            <div class="doc-overlay">
+              <div class="btn-preview"><i class="fa-regular fa-eye"></i> View Canvas</div>
+            </div>
+          </div>
+          <div class="doc-info">
+            <div class="doc-title">Value Proposition</div>
+            <div class="doc-sub">Strategy Alignment for Mulia Group</div>
+          </div>
+        </a>
 
-    <section>
-      <h2>📱 Quick Access</h2>
-      <div class="qr-section">
-        <p>Scan to view the Live System or Chat with the AI Assistant on mobile.</p>
-        <div class="qr-container">
-          <div class="qr-item">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/jkke.html&size=150x150" alt="Web QR">
-            <p style="font-weight:600; font-size:0.9rem; margin-top:10px;">System Dashboard</p>
-          </div>
-          <div class="qr-item">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://udify.app/chat/PdcFvdGc8pYYuCXY&size=150x150" alt="AI QR">
-            <p style="font-weight:600; font-size:0.9rem; margin-top:10px;">AI Assistant</p>
-          </div>
-        </div>
       </div>
     </section>
 
