@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aliif Najmi | Facilities System Analyst Portfolio</title>
+  <title>Aliif Najmi | Digital CV & Portfolio</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,7 +12,7 @@
     :root {
       --primary: #1e3a8a; /* Mulia Navy Blue */
       --secondary: #fbbf24; /* Gold Accent */
-      --mulia-mint: #4ade80; /* Mulia Mint/Green */
+      --mulia-mint: #4ade80; 
       --dark-bg: #0f172a;
       --light-bg: #f8fafc;
       --text-dark: #1e293b;
@@ -27,26 +27,26 @@
       line-height: 1.6;
     }
 
-    /* --- HEADER --- */
+    /* --- HEADER (CV STYLE) --- */
     header {
       background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
       color: white;
-      padding: 80px 20px;
+      padding: 80px 20px 60px;
       text-align: center;
-      position: relative;
     }
     
     .profile-img {
-      width: 160px; height: 160px;
+      width: 170px; height: 170px;
       border-radius: 50%;
       border: 4px solid var(--secondary);
       object-fit: cover;
       background-color: white;
-      box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+      box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+      margin-bottom: 20px;
     }
 
-    header h1 { margin: 15px 0 5px; font-size: 2.5rem; font-weight: 700; letter-spacing: -1px; }
-    header p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto 25px; font-weight: 300; }
+    header h1 { margin: 10px 0 5px; font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 25px; font-weight: 300; color: #cbd5e1; }
 
     .btn-group a {
       display: inline-block; padding: 12px 30px; margin: 5px;
@@ -57,28 +57,29 @@
     .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: white; }
     .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
 
-    /* --- MAIN CONTENT --- */
-    main { padding: 50px 20px; max-width: 1200px; margin: auto; }
-    section { margin-bottom: 90px; }
+    /* --- MAIN LAYOUT --- */
+    main { padding: 60px 20px; max-width: 1200px; margin: auto; }
+    section { margin-bottom: 100px; }
     
-    h2 {
-      color: var(--primary);
-      border-left: 6px solid var(--secondary);
-      padding-left: 20px; margin-bottom: 40px;
+    .section-title {
+      display: flex; align-items: center; gap: 15px;
+      margin-bottom: 40px;
+    }
+    .section-title h2 {
+      color: var(--primary); margin: 0;
       font-size: 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
     }
+    .title-line { height: 4px; background: var(--secondary); flex-grow: 1; border-radius: 2px; opacity: 0.5; }
 
     /* --- ABOUT CARD --- */
     .about-card {
-      background: white; padding: 40px; border-radius: 20px;
-      box-shadow: var(--card-shadow); border: 1px solid #e2e8f0;
+      background: white; padding: 40px; border-radius: 16px;
+      box-shadow: var(--card-shadow); border-left: 5px solid var(--primary);
       font-size: 1.05rem; color: #475569;
     }
 
-    /* --- PROJECTS GRID (WITH QR) --- */
-    .project-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px;
-    }
+    /* --- PROJECTS GRID --- */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
     .project-card {
       background: white; border-radius: 16px; overflow: hidden;
       box-shadow: var(--card-shadow); border: 1px solid #e2e8f0;
@@ -86,33 +87,18 @@
     }
     .project-card:hover { transform: translateY(-8px); border-color: var(--primary); }
     
-    .project-header {
-      background: var(--primary); color: white; padding: 20px;
-      display: flex; align-items: center; gap: 15px;
-    }
-    
-    /* Layout khas untuk Project Info + QR */
-    .project-body { 
-      padding: 25px; flex-grow: 1; 
-      display: flex; gap: 20px; /* Jarak antara teks dan QR */
-    }
-    
+    .project-header { background: var(--primary); color: white; padding: 20px; display: flex; align-items: center; gap: 15px; }
+    .project-body { padding: 25px; flex-grow: 1; display: flex; gap: 20px; }
     .project-info { flex: 1; display: flex; flex-direction: column; }
     
     .qr-container {
-      width: 100px; 
-      flex-shrink: 0; 
-      text-align: center;
+      width: 100px; flex-shrink: 0; text-align: center;
       display: flex; flex-direction: column; align-items: center;
     }
-    .qr-img { 
-      width: 100px; height: 100px; 
-      border: 2px solid #e2e8f0; padding: 5px; border-radius: 8px;
-    }
+    .qr-img { width: 100px; height: 100px; border: 2px solid #e2e8f0; padding: 5px; border-radius: 8px; }
     .qr-label { font-size: 0.7rem; color: #94a3b8; margin-top: 5px; }
 
-    .tech-tag { background: #f1f5f9; color: #475569; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; display: inline-block; margin-bottom: 5px;}
-    
+    .tech-tag { background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; display: inline-block; margin-bottom: 5px;}
     .btn-project {
       display: block; text-align: center; padding: 10px; margin-top: 15px;
       background: var(--light-bg); color: var(--primary); border-radius: 8px;
@@ -120,138 +106,114 @@
     }
     .btn-project:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* --- DASHBOARD IFRAME SECTION --- */
+    /* --- DASHBOARD IFRAME --- */
     .dashboard-frame-container {
-      width: 100%;
-      height: 650px; /* Tinggi Dashboard */
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-      border: 1px solid #334155;
-      background: #0f172a;
+      width: 100%; height: 650px; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid #334155; background: #0f172a;
     }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    iframe { width: 100%; height: 100%; border: none; }
+
+    /* --- CERTIFICATE GALLERY (NEW CV FEATURE) --- */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    /* --- HOVER DOC CARDS --- */
-    .doc-grid { 
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; 
+    .cert-card {
+      background: white; border-radius: 12px; overflow: hidden;
+      box-shadow: var(--card-shadow); border: 1px solid #e2e8f0;
+      transition: all 0.3s ease; cursor: pointer; position: relative;
     }
-    
-    .doc-card {
-      position: relative;
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      border: 1px solid #e2e8f0;
-      transition: all 0.4s ease;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-      color: inherit;
-    }
-    
-    .doc-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
-      border-color: var(--secondary);
-    }
+    .cert-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-color: var(--secondary); }
 
-    /* Thumbnail Area */
-    .doc-preview {
-      height: 180px;
-      background-color: #f1f5f9;
-      position: relative;
+    .cert-img-container {
+      height: 200px; background: #f1f5f9; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
+      border-bottom: 1px solid #e2e8f0;
     }
-    
-    .doc-preview i { font-size: 4rem; color: #cbd5e1; transition: 0.3s; }
-    
-    /* Overlay effect on hover */
-    .doc-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(30, 58, 138, 0.8); /* Navy overlay */
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.3s ease;
-    }
-    
-    .doc-card:hover .doc-overlay { opacity: 1; }
-    
-    .btn-preview {
-      padding: 10px 20px; background: var(--secondary); color: var(--primary);
-      font-weight: 700; border-radius: 30px; transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-    .doc-card:hover .btn-preview { transform: translateY(0); }
+    .cert-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .cert-card:hover .cert-img { transform: scale(1.05); }
 
-    .doc-info { padding: 25px; }
-    .doc-title { font-weight: 700; font-size: 1.1rem; color: var(--primary); margin-bottom: 5px; }
-    .doc-sub { font-size: 0.85rem; color: #64748b; }
+    .cert-info { padding: 20px; }
+    .cert-title { font-weight: 700; color: var(--text-dark); margin-bottom: 5px; line-height: 1.3; }
+    .cert-issuer { font-size: 0.85rem; color: #64748b; display: flex; align-items: center; gap: 5px; }
+    .cert-icon { color: var(--secondary); }
+
+    /* --- STRATEGIC DOCS --- */
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .doc-link {
+      display: flex; align-items: center; gap: 15px; padding: 20px;
+      background: white; border-radius: 12px; text-decoration: none;
+      color: var(--primary); border: 1px solid #e2e8f0; transition: 0.3s;
+    }
+    .doc-link:hover { transform: translateX(5px); border-color: var(--secondary); box-shadow: var(--card-shadow); }
+    .doc-icon-box { width: 50px; height: 50px; background: #e0f2fe; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--primary); }
 
     /* Responsive */
     @media (max-width: 768px) {
       .project-body { flex-direction: column; }
       .qr-container { width: 100%; flex-direction: row; justify-content: flex-start; gap: 15px; margin-top: 15px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
-      .qr-img { width: 80px; height: 80px; }
       .dashboard-frame-container { height: 500px; }
     }
 
-    footer { background: var(--dark-bg); color: #94a3b8; text-align: center; padding: 40px; margin-top: 60px; }
+    footer { background: var(--dark-bg); color: #94a3b8; text-align: center; padding: 40px; border-top: 4px solid var(--secondary); }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="https://placehold.co/160x160/e2e8f0/1e3a8a?text=AN" alt="Aliif Najmi" class="profile-img">
+    <img src="https://placehold.co/170x170/e2e8f0/1e3a8a?text=AN" alt="Aliif Najmi" class="profile-img">
     
     <h1>AHMAD ALIIF NAJMI</h1>
-    <p>Facilities System Analyst | Digitalizing Operations for High-Rise Assets</p>
+    <p>System Analyst & Technician | Bridging Engineering Discipline with Digital Efficiency</p>
     
     <div class="btn-group">
-      <a href="Aliif Resume.pdf" target="_blank" class="btn-primary"><i class="fa-solid fa-file-arrow-down"></i> Download Resume</a>
-      <a href="https://linkedin.com" target="_blank" class="btn-outline"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <a href="Aliif Resume.pdf" target="_blank" class="btn-primary"><i class="fa-solid fa-file-arrow-down"></i> Download CV</a>
+      <a href="#projects" class="btn-outline"><i class="fa-solid fa-eye"></i> View Work</a>
     </div>
   </header>
 
   <main>
     
     <section>
-      <h2>👨‍💻 Professional Profile</h2>
+      <div class="section-title">
+        <h2>Professional Profile</h2>
+        <div class="title-line"></div>
+      </div>
       <div class="about-card">
         <p>
-          Highly disciplined Engineering graduate with a focus on <strong>Integrated Building Management Systems (IBMS)</strong>. 
-          I specialize in translating physical asset layouts into digital monitoring tools. 
-          My goal is to leverage my experience in <strong>Cost Automation (JKKE)</strong> and <strong>Data Visualization</strong> 
-          to support the in-house operations of <strong>The Exchange 106</strong>, ensuring seamless tenant experience and efficient asset lifecycle management.
+          <strong>Hybrid Technical Professional</strong> with a unique blend of <strong>Electronics Engineering</strong> (Diploma) and <strong>Software Engineering</strong> (Degree). 
+          Specializing in <strong>Facilities Systems (BMS)</strong> and <strong>Inventory Logic Automation</strong>.
+          <br><br>
+          I offer the hands-on capability to troubleshoot physical assets (Electrical/M&E) combined with the analytical skill to build digital monitoring dashboards. 
+          Ready to deploy "Smart Technician" strategies to uphold the Six-Star operational standards of <strong>Mulia Group</strong>.
         </p>
       </div>
     </section>
 
-    <section>
-      <h2>🚀 Proven Implementations</h2>
+    <section id="projects">
+      <div class="section-title">
+        <h2>Proven Implementations</h2>
+        <div class="title-line"></div>
+      </div>
       <div class="project-grid">
         
         <div class="project-card">
           <div class="project-header">
             <i class="fa-solid fa-calculator" style="font-size:1.5rem; color:var(--secondary);"></i>
-            <div style="font-weight:700; margin-left:10px;">Automated Budgeting System (JKKE)</div>
+            <div style="font-weight:700; margin-left:10px;">JKKE Automated Costing</div>
           </div>
           <div class="project-body">
             <div class="project-info">
               <div style="margin-bottom:10px;">
-                <span class="tech-tag">Cost Control</span><span class="tech-tag">AI Chatbot</span>
+                <span class="tech-tag">Logic Engine</span><span class="tech-tag">Cost Control</span>
               </div>
               <p style="color:#64748b; font-size:0.9rem; flex-grow:1;">
-                Automated the JKR Bill of Quantities (BQ) process. Reduced administrative calculation time by 50% and eliminated human error in vendor rate checking.
+                Web-based calculator automating JKR's Bill of Quantities (BQ). Logic adaptable for <strong>Spare Part Inventory Costing</strong>.
               </p>
               <a href="jkke.html" target="_blank" class="btn-project"><i class="fa-solid fa-play"></i> Live Demo</a>
             </div>
-            
             <div class="qr-container">
               <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jkke-portfolio/jkke.html&size=150x150" alt="QR JKKE" class="qr-img">
               <span class="qr-label">Scan to View</span>
@@ -261,20 +223,19 @@
 
         <div class="project-card">
           <div class="project-header" style="background:#059669;">
-            <i class="fa-solid fa-server" style="font-size:1.5rem; color:white;"></i>
-            <div style="font-weight:700; margin-left:10px;">JPS Digital Admin Portal</div>
+            <i class="fa-solid fa-database" style="font-size:1.5rem; color:white;"></i>
+            <div style="font-weight:700; margin-left:10px;">JPS Admin Portal</div>
           </div>
           <div class="project-body">
             <div class="project-info">
               <div style="margin-bottom:10px;">
-                <span class="tech-tag">Admin</span><span class="tech-tag">Data Entry</span>
+                <span class="tech-tag">Digital Logbook</span><span class="tech-tag">Admin</span>
               </div>
               <p style="color:#64748b; font-size:0.9rem; flex-grow:1;">
-                Centralized project documentation for JPS Kuala Nerus. Streamlined data retrieval for management reporting and public transparency.
+                Centralized asset documentation system. Demonstrates capability to digitize <strong>SOPs & Manuals</strong> for easy access.
               </p>
-              <a href="https://lipasterbang.github.io/jpskn-website/" target="_blank" class="btn-project"><i class="fa-solid fa-globe"></i> Official Site</a>
+              <a href="https://lipasterbang.github.io/jpskn-website/" target="_blank" class="btn-project"><i class="fa-solid fa-globe"></i> Visit Site</a>
             </div>
-            
             <div class="qr-container">
               <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://lipasterbang.github.io/jpskn-website/&size=150x150" alt="QR JPS" class="qr-img">
               <span class="qr-label">Scan to View</span>
@@ -286,66 +247,107 @@
     </section>
 
     <section>
-      <h2>📊 Future Concept: Exchange 106 Digital Twin</h2>
-      <p style="margin-bottom:20px;">
-        A fully interactive dashboard prototype reflecting the <strong>Vertical Transport Zones</strong> and <strong>Level 45 Layout</strong> of Exchange 106.
+      <div class="section-title">
+        <h2>Future Concept: Exchange 106 Digital Twin</h2>
+        <div class="title-line"></div>
+      </div>
+      <p style="margin-bottom:20px; color:#64748b;">
+        A prototype <strong>Building Management System (BMS) Interface</strong> visualizing real-time Lift Zones and M&E Health.
       </p>
-
       <div class="dashboard-frame-container">
         <iframe src="dashboard.html" title="Exchange 106 Dashboard"></iframe>
       </div>
     </section>
 
     <section>
-      <h2>📂 Strategic Documentation</h2>
-      <div class="doc-grid">
+      <div class="section-title">
+        <h2>📜 Certifications & Achievements</h2>
+        <div class="title-line"></div>
+      </div>
+      
+      <div class="cert-grid">
         
-        <a href="Aliif Resume.pdf" target="_blank" class="doc-card">
-          <div class="doc-preview">
-            <i class="fa-solid fa-file-user"></i>
-            <div class="doc-overlay">
-              <div class="btn-preview"><i class="fa-regular fa-eye"></i> View Resume</div>
-            </div>
+        <div class="cert-card" onclick="window.open('degree.jpg', '_blank')">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Bachelor+Degree+Scroll" alt="Degree" class="cert-img">
           </div>
-          <div class="doc-info">
-            <div class="doc-title">Professional Resume</div>
-            <div class="doc-sub">Updated for Facilities Management Role</div>
+          <div class="cert-info">
+            <div class="cert-title">Bachelor of Software Engineering (Hons)</div>
+            <div class="cert-issuer"><i class="fa-solid fa-university cert-icon"></i> UCYP University</div>
+          </div>
+        </div>
+
+        <div class="cert-card" onclick="window.open('diploma.jpg', '_blank')">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Diploma+Electronics" alt="Diploma" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Diploma in Electronics Engineering</div>
+            <div class="cert-issuer"><i class="fa-solid fa-school cert-icon"></i> Politeknik Ungku Omar</div>
+          </div>
+        </div>
+
+        <div class="cert-card" onclick="window.open('award.jpg', '_blank')">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/fffbeb/fbbf24?text=Dean+List+Award" alt="Award" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Dean's List Award</div>
+            <div class="cert-issuer"><i class="fa-solid fa-medal cert-icon"></i> Academic Excellence</div>
+          </div>
+        </div>
+
+        <div class="cert-card" onclick="window.open('course.jpg', '_blank')">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f0fdf4/16a34a?text=Technical+Course" alt="Course" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Safety & Wiring Course</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate cert-icon"></i> CIDB / NIOSH (Example)</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Strategic Documentation</h2>
+        <div class="title-line"></div>
+      </div>
+      <div class="doc-grid">
+        <a href="Aliif Resume.pdf" target="_blank" class="doc-link">
+          <div class="doc-icon-box"><i class="fa-solid fa-file-user"></i></div>
+          <div>
+            <div style="font-weight:700;">Full Resume (PDF)</div>
+            <div style="font-size:0.85rem; color:#64748b;">Detailed Experience</div>
           </div>
         </a>
-
-        <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="doc-card">
-          <div class="doc-preview">
-            <i class="fa-solid fa-file-powerpoint"></i>
-            <div class="doc-overlay">
-              <div class="btn-preview"><i class="fa-regular fa-eye"></i> View Slides</div>
-            </div>
-          </div>
-          <div class="doc-info">
-            <div class="doc-title">Project Presentation</div>
-            <div class="doc-sub">JKKE System Architecture & ROI</div>
+        <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="doc-link">
+          <div class="doc-icon-box"><i class="fa-solid fa-file-powerpoint"></i></div>
+          <div>
+            <div style="font-weight:700;">Project Slides</div>
+            <div style="font-size:0.85rem; color:#64748b;">Presentation Deck</div>
           </div>
         </a>
-
-        <a href="vpc.png" target="_blank" class="doc-card">
-          <div class="doc-preview">
-            <i class="fa-solid fa-gem"></i>
-            <div class="doc-overlay">
-              <div class="btn-preview"><i class="fa-regular fa-eye"></i> View Canvas</div>
-            </div>
-          </div>
-          <div class="doc-info">
-            <div class="doc-title">Value Proposition</div>
-            <div class="doc-sub">Strategy Alignment for Mulia Group</div>
+        <a href="vpc.png" target="_blank" class="doc-link">
+          <div class="doc-icon-box"><i class="fa-solid fa-gem"></i></div>
+          <div>
+            <div style="font-weight:700;">Value Proposition</div>
+            <div style="font-size:0.85rem; color:#64748b;">Strategy Canvas</div>
           </div>
         </a>
-
       </div>
     </section>
 
   </main>
 
   <footer>
-    <p>&copy; 2025 Ahmad Aliif Najmi. Ready to serve Exchange 106.</p>
+    <p>&copy; 2026 Ahmad Aliif Najmi. Ready to serve Exchange 106.</p>
+    <div style="margin-top:15px; font-size:1.5rem;">
+      <a href="https://linkedin.com" style="color:#94a3b8; margin:0 10px;"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="mailto:aliifnajmi12@gmail.com" style="color:#94a3b8; margin:0 10px;"><i class="fa-solid fa-envelope"></i></a>
+    </div>
   </footer>
 
 </body>
