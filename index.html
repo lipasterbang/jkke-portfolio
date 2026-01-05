@@ -129,42 +129,66 @@
     }
     iframe { width: 100%; height: 100%; border: none; }
 
-    /* --- CERTIFICATE GALLERY --- */
-    .cert-grid {
+    /* --- SHARED GRID STYLES (Certificates & Docs) --- */
+    /* Kita gabungkan .cert-grid dan .doc-grid supaya seragam */
+    .cert-grid, .doc-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+      gap: 20px;
     }
 
+    /* --- CARD STYLES (Reused for Both) --- */
+    /* Nota: Kita guna class .cert-card untuk kedua-dua seksyen supaya efek sama */
     .cert-card {
       background: white; border-radius: 12px; overflow: hidden;
-      box-shadow: var(--card-shadow); border: 1px solid #e2e8f0;
-      transition: all 0.3s ease; cursor: pointer; position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;
+      transition: all 0.3s ease; position: relative; display: block;
+      text-decoration: none;
     }
-    .cert-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-color: var(--secondary); }
+
+    .cert-card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+      border-color: #fbbf24; /* Gold */
+    }
 
     .cert-img-container {
-      height: 200px; background: #f1f5f9; overflow: hidden;
+      height: 160px; /* Saiz standard untuk thumbnail */
+      background: #f1f5f9; overflow: hidden; position: relative;
       display: flex; align-items: center; justify-content: center;
       border-bottom: 1px solid #e2e8f0;
     }
-    .cert-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-    .cert-card:hover .cert-img { transform: scale(1.05); }
 
-    .cert-info { padding: 20px; }
-    .cert-title { font-weight: 700; color: var(--text-dark); margin-bottom: 5px; line-height: 1.3; }
-    .cert-issuer { font-size: 0.85rem; color: #64748b; display: flex; align-items: center; gap: 5px; }
-    .cert-icon { color: var(--secondary); }
-
-    /* --- STRATEGIC DOCS --- */
-    .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .doc-link {
-      display: flex; align-items: center; gap: 15px; padding: 20px;
-      background: white; border-radius: 12px; text-decoration: none;
-      color: var(--primary); border: 1px solid #e2e8f0; transition: 0.3s;
+    .cert-img { 
+      width: 100%; height: 100%; object-fit: cover; /* Cover: Penuhkan kotak */
+      object-position: top; /* Fokus bahagian atas (penting untuk resume) */
+      transition: transform 0.5s ease; 
     }
-    .doc-link:hover { transform: translateX(5px); border-color: var(--secondary); box-shadow: var(--card-shadow); }
-    .doc-icon-box { width: 50px; height: 50px; background: #e0f2fe; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--primary); }
+
+    /* Zoom Effect */
+    .cert-card:hover .cert-img { transform: scale(1.1); }
+
+    /* Overlay Effect (Eye Icon) */
+    .cert-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(30, 58, 138, 0.6); 
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .cert-card:hover .cert-overlay { opacity: 1; }
+    .cert-overlay i { color: white; font-size: 2rem; }
+
+    .cert-info { padding: 15px; }
+    .cert-title { 
+      font-weight: 700; font-size: 0.95rem; color: #1e293b; 
+      margin-bottom: 5px; line-height: 1.3; 
+    }
+    .cert-issuer { 
+      font-size: 0.8rem; color: #64748b; 
+      display: flex; align-items: center; gap: 5px; 
+    }
+    .cert-desc { font-size: 0.7rem; color: #94a3b8; margin-top: 5px; line-height: 1.4; }
+    .doc-link:hover .doc-icon-box { background: #fbbf24; color: white; }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -291,50 +315,160 @@
       
       <div class="cert-grid">
         
-        <div class="cert-card" onclick="window.open('sijil-fca.jpg', '_blank')">
+        <a href="sijil-fca.jpg" target="_blank" class="cert-card">
           <div class="cert-img-container">
-            <img src="sijil-fca.jpg" alt="Sijil FCA JKR" class="cert-img">
+            <img src="sijil-fca.jpg" alt="FCA JKR" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
           </div>
           <div class="cert-info">
-            <div class="cert-title">Certified Facility Condition Assessor (FCA)</div>
-            <div class="cert-issuer">
-              <i class="fa-solid fa-building-circle-check cert-icon"></i> JKR Terengganu
-            </div>
-            <div style="font-size:0.75rem; color:#94a3b8; margin-top:5px;">
-              Qualified inspector for Ministry of Education (KPM) building assets.
-            </div>
+            <div class="cert-title">Certified Facility Condition Assessor</div>
+            <div class="cert-issuer"><i class="fa-solid fa-building-circle-check"></i> JKR Terengganu</div>
+            <div class="cert-desc">Qualified inspector for KPM building assets.</div>
           </div>
-        </div>
+        </a>
 
-        <div class="cert-card" onclick="window.open('degree.jpg', '_blank')">
+        <a href="degree.jpg" target="_blank" class="cert-card">
           <div class="cert-img-container">
-            <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Bachelor+Degree+Scroll" alt="Degree" class="cert-img">
+            <img src="degree.jpg" alt="Degree" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
           </div>
           <div class="cert-info">
             <div class="cert-title">Bachelor of Software Engineering (Hons)</div>
-            <div class="cert-issuer"><i class="fa-solid fa-university cert-icon"></i> UCYP University</div>
+            <div class="cert-issuer"><i class="fa-solid fa-university"></i> UCYP University</div>
           </div>
-        </div>
+        </a>
 
-        <div class="cert-card" onclick="window.open('diploma.jpg', '_blank')">
+        <a href="diploma.jpg" target="_blank" class="cert-card">
           <div class="cert-img-container">
-            <img src="https://placehold.co/600x400/e2e8f0/1e3a8a?text=Diploma+Electronics" alt="Diploma" class="cert-img">
+            <img src="diploma.jpg" alt="Diploma" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
           </div>
           <div class="cert-info">
             <div class="cert-title">Diploma in Electronics Engineering</div>
-            <div class="cert-issuer"><i class="fa-solid fa-school cert-icon"></i> Politeknik Ungku Omar</div>
+            <div class="cert-issuer"><i class="fa-solid fa-school"></i> Politeknik Ungku Omar</div>
           </div>
-        </div>
+        </a>
 
-        <div class="cert-card" onclick="window.open('award.jpg', '_blank')">
+        <a href="award.jpg" target="_blank" class="cert-card">
           <div class="cert-img-container">
-            <img src="https://placehold.co/600x400/fffbeb/fbbf24?text=Dean+List+Award" alt="Award" class="cert-img">
+            <img src="award.jpg" alt="Dean List" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
           </div>
           <div class="cert-info">
             <div class="cert-title">Dean's List Award</div>
-            <div class="cert-issuer"><i class="fa-solid fa-medal cert-icon"></i> Academic Excellence</div>
+            <div class="cert-issuer"><i class="fa-solid fa-medal"></i> Academic Excellence</div>
           </div>
-        </div>
+        </a>
+
+        <a href="cidb.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f0fdf4/16a34a?text=CIDB+Card" alt="CIDB" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">CIDB Green Card</div>
+            <div class="cert-issuer"><i class="fa-solid fa-id-card"></i> Construction Personnel</div>
+          </div>
+        </a>
+
+        <a href="niosh.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/fff7ed/ea580c?text=NIOSH+Safety" alt="NIOSH" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Safety Passport (OGSP/AESP)</div>
+            <div class="cert-issuer"><i class="fa-solid fa-helmet-safety"></i> NIOSH / Safety</div>
+          </div>
+        </a>
+
+        <a href="wiring.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/e0f2fe/0284c7?text=Wiring+Course" alt="Wiring" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Electrical Wiring Level 1</div>
+            <div class="cert-issuer"><i class="fa-solid fa-plug"></i> Technical Training</div>
+          </div>
+        </a>
+
+        <a href="cert8.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+08" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
+
+        <a href="cert9.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+09" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
+
+        <a href="cert10.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+10" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
+
+        <a href="cert11.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+11" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
+
+        <a href="cert12.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+12" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
+
+        <a href="cert13.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+13" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
+
+        <a href="cert14.jpg" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="https://placehold.co/600x400/f1f5f9/64748b?text=Certificate+14" alt="Cert" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Certificate Title Here</div>
+            <div class="cert-issuer"><i class="fa-solid fa-certificate"></i> Issuer Name</div>
+          </div>
+        </a>
 
       </div>
     </section>
@@ -344,28 +478,45 @@
         <h2>Strategic Documentation</h2>
         <div class="title-line"></div>
       </div>
+      
       <div class="doc-grid">
-        <a href="Aliif Resume.pdf" target="_blank" class="doc-link">
-          <div class="doc-icon-box"><i class="fa-solid fa-file-user"></i></div>
-          <div>
-            <div style="font-weight:700;">Full Resume (PDF)</div>
-            <div style="font-size:0.85rem; color:#64748b;">Detailed Experience</div>
+        
+        <a href="Aliif Resume.pdf" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="thumb-resume.jpg" alt="Resume Preview" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Professional Resume</div>
+            <div class="cert-issuer"><i class="fa-solid fa-file-pdf"></i> PDF Document</div>
+            <div class="cert-desc">Comprehensive detailed experience & skills.</div>
           </div>
         </a>
-        <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="doc-link">
-          <div class="doc-icon-box"><i class="fa-solid fa-file-powerpoint"></i></div>
-          <div>
-            <div style="font-weight:700;">Project Slides</div>
-            <div style="font-size:0.85rem; color:#64748b;">Presentation Deck</div>
+
+        <a href="Aliif Najmi (Slide Deck JKKE).pdf" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="thumb-slides.jpg" alt="Slides Preview" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Project Presentation Deck</div>
+            <div class="cert-issuer"><i class="fa-solid fa-file-powerpoint"></i> Slide Deck</div>
+            <div class="cert-desc">Technical breakdown of JKKE & JPS Projects.</div>
           </div>
         </a>
-        <a href="VP for Mulia.png" target="_blank" class="doc-link">
-          <div class="doc-icon-box"><i class="fa-solid fa-gem"></i></div>
-          <div>
-            <div style="font-weight:700;">Value Proposition</div>
-            <div style="font-size:0.85rem; color:#64748b;">Strategy Canvas</div>
+
+        <a href="VP for Mulia.png" target="_blank" class="cert-card">
+          <div class="cert-img-container">
+            <img src="VP for Mulia.png" alt="VP Preview" class="cert-img" loading="lazy">
+            <div class="cert-overlay"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="cert-info">
+            <div class="cert-title">Value Proposition Canvas</div>
+            <div class="cert-issuer"><i class="fa-solid fa-gem"></i> Strategic Strategy</div>
+            <div class="cert-desc">My strategic fit for Mulia Group Technician Role.</div>
           </div>
         </a>
+
       </div>
     </section>
 
