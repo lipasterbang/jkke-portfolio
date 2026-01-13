@@ -3,286 +3,440 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exchange 106 | Integrated Building Monitor</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>Mulia Group | TRX Exchange 106 BMS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-  :root {
-    --bg-dark: #0b1120; /* Deep Navy */
-    --card-bg: #1e293b;
+:root {
+    /* --- MULIA PALETTE --- */
+    --bg-dark: #0b1120;       
+    --card-bg: #1e293b;       
     --text-primary: #f8fafc;
     --text-muted: #94a3b8;
-    --mulia-mint: #4ade80; /* Warna Identiti Mulia */
-    --mulia-gold: #fbbf24;
-    --danger: #ef4444;
-    --success: #10b981;
-  }
+    
+    --mulia-mint: #4ade80;    
+    --mulia-gold: #fbbf24;    
+    
+    --danger: #ef4444;        
+    --success: #10b981;       
+    
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
 
-  * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-  body {
-    background-color: var(--bg-dark);
+body {
+    margin: 0; font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark); 
     color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    margin: 0; padding: 20px;
-    height: 100vh;
-    overflow: hidden; /* Full screen dashboard feel */
-  }
+    display: flex; height: 100vh; overflow: hidden;
+}
 
-  /* --- HEADER BAR --- */
-  .top-bar {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .brand h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; font-weight: 700; }
-  .brand span { color: var(--mulia-mint); font-weight: 300; }
-  .meta-info { text-align: right; font-size: 0.85rem; color: var(--text-muted); }
-  .status-badge {
-    background: rgba(16, 185, 129, 0.1); color: var(--success);
-    padding: 5px 10px; border-radius: 4px; border: 1px solid var(--success);
-    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .blink { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+/* SIDEBAR */
+.sidebar {
+    width: 250px; 
+    background: var(--bg-dark);
+    border-right: var(--glass-border);
+    display: flex; flex-direction: column; padding: 24px; z-index: 10;
+}
+.brand { 
+    font-size: 18px; font-weight: 700; color: var(--text-primary); 
+    margin-bottom: 40px; display: flex; align-items: center; gap: 12px; 
+}
+.brand-logo { height: 35px; width: auto; display: block; }
 
-  /* --- GRID LAYOUT --- */
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr 300px; /* Sidebar | Main | Side Panel */
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
-    height: calc(100vh - 100px);
-  }
+.nav-item {
+    padding: 12px 14px; color: var(--text-muted); border-radius: 8px; margin-bottom: 6px;
+    font-size: 13px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.2s;
+    font-weight: 500;
+}
+.nav-item:hover, .nav-item.active { 
+    background: rgba(74, 222, 128, 0.1); 
+    color: var(--mulia-mint); 
+}
 
-  .card {
-    background: var(--card-bg); border-radius: 12px; padding: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
+/* MAIN LAYOUT */
+.main-content { 
+    flex: 1; display: flex; flex-direction: column; 
+    background: radial-gradient(circle at 60% 0%, #1e293b 0%, var(--bg-dark) 80%); 
+    position: relative; 
+}
+
+/* HEADER */
+.top-bar {
+    padding: 20px 30px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    background: rgba(11, 17, 32, 0.8); backdrop-filter: blur(10px);
+}
+.page-title h1 { margin: 0; font-size: 20px; font-weight: 600; color: var(--text-primary); }
+.page-title p { margin: 2px 0 0; color: var(--text-muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+
+/* SCROLL AREA & GRIDS */
+.page-view { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+.page-view.active-view { display: flex; }
+.scroll-area { flex: 1; overflow-y: auto; padding: 30px; }
+
+.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 30px; }
+.zones-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 24px; }
+
+/* CARDS */
+.card {
+    background: var(--card-bg); 
+    border: var(--glass-border); 
+    border-radius: 12px; 
+    padding: 24px;
+    position: relative; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     display: flex; flex-direction: column;
-    position: relative; overflow: hidden;
-  }
-  .card-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 15px; font-size: 0.85rem; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
-  }
+}
+.card:hover { transform: translateY(-2px); transition: transform 0.2s; }
+.card.WARNING { border: 1px solid rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.05); }
 
-  /* --- MODULE: VERTICAL TRANSPORT (LIFTS) --- */
-  .lift-module { overflow-y: auto; padding-right: 5px; }
-  .lift-group { margin-bottom: 15px; }
-  .lift-label { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
-  .progress-bg { height: 6px; background: #334155; border-radius: 3px; }
-  .progress-fill { height: 100%; background: var(--mulia-mint); border-radius: 3px; position: relative; }
-  .progress-fill::after { content: ''; position: absolute; right: 0; top: 0; width: 2px; height: 100%; background: white; box-shadow: 0 0 5px white; }
-  .maintenance { background: var(--mulia-gold); }
-  
-  /* --- MODULE: FLOOR TWIN (VISUAL) --- */
-  .floor-monitor {
-    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-  }
-  /* The Exchange 106 Shape (Squircle-ish) */
-  .building-shape {
-    width: 300px; height: 300px;
-    border: 2px dashed rgba(74, 222, 128, 0.3);
-    border-radius: 40px; /* The curve */
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    animation: scan 4s infinite linear;
-  }
-  .core {
-    width: 80px; height: 80px; border: 2px solid var(--mulia-mint);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px;
-    background: rgba(74, 222, 128, 0.1);
-  }
-  .core-cell { background: rgba(74, 222, 128, 0.4); }
-  
-  /* Sensors */
-  .sensor { width: 10px; height: 10px; border-radius: 50%; position: absolute; }
-  .s-temp { top: 20px; left: 50%; background: var(--mulia-mint); box-shadow: 0 0 10px var(--mulia-mint); }
-  .s-fcu { bottom: 40px; right: 30px; background: var(--success); }
-  .s-lux { top: 60px; left: 30px; background: var(--mulia-gold); }
+/* Typography */
+.card h2 { font-size: 14px; margin: 0 0 15px 0; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+.card h2 i { color: var(--mulia-mint); }
 
-  .floor-data {
-    position: absolute; bottom: 20px; left: 20px;
-    background: rgba(15, 23, 42, 0.9); padding: 15px; border-radius: 8px;
-    border: 1px solid #334155; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
-  }
+.big-stat { font-size: 28px; font-weight: 700; margin-bottom: 5px; color: var(--text-primary); }
+.sub-stat { font-size: 12px; color: var(--text-muted); }
+.status-pill { position: absolute; top: 24px; right: 24px; font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: 700; }
 
-  /* --- MODULE: VMS & M&E --- */
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; text-align: center; }
-  .stat-val { font-size: 1.8rem; font-weight: 700; color: white; }
-  .stat-label { font-size: 0.75rem; color: var(--text-muted); }
-  
-  .vms-btn {
-    display: block; width: 100%; padding: 12px; margin-top: 15px;
-    background: rgba(74, 222, 128, 0.1); color: var(--mulia-mint);
-    text-align: center; text-decoration: none; border-radius: 6px;
-    font-size: 0.85rem; font-weight: 600; transition: 0.2s;
-    border: 1px solid rgba(74, 222, 128, 0.2);
-  }
-  .vms-btn:hover { background: var(--mulia-mint); color: #0b1120; }
+.chart-wrapper { flex: 1; position: relative; width: 100%; min-height: 0; }
+.section-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: 600; }
+.card-chart { height: 320px; }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    body { overflow-y: auto; height: auto; }
-    .dashboard-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
-  }
+/* LIFT VISUALS */
+.lift-dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; height: 100%; }
+.lift-bank { background: var(--card-bg); border: var(--glass-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; }
+.bank-title { font-size: 13px; color: var(--mulia-gold); margin-bottom: 15px; text-align: center; font-weight: 600; }
+.shafts-container { display: flex; justify-content: space-around; flex: 1; align-items: flex-end; padding-bottom: 10px; }
+.shaft { width: 30px; height: 100%; background: rgba(255,255,255,0.03); border-radius: 4px; position: relative; display: flex; justify-content: center; }
+.elevator-car { width: 24px; height: 30px; background: var(--mulia-mint); border-radius: 2px; position: absolute; bottom: 0; transition: bottom 0.5s linear; color: #0b1120; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.elevator-car.MAINT { background: var(--danger); color: white; }
+.elevator-car.IDLE { background: var(--text-muted); opacity: 0.3; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 </style>
 </head>
 <body>
 
-  <div class="top-bar">
+<aside class="sidebar">
     <div class="brand">
-      <h1>EXCHANGE 106 <span>DIGITAL TWIN</span></h1>
+        <img src="mulia_logo.png" alt="Mulia Group" class="brand-logo">
+        <span>MULIA GROUP</span>
     </div>
-    <div style="display:flex; gap:20px; align-items:center;">
-      <div class="meta-info">
-        <div>Lingkaran TRX, Kuala Lumpur</div>
-        <div>GBI CERTIFIED | MSC STATUS</div>
-      </div>
-      <div class="status-badge">
-        <div class="blink"></div> SYSTEM ONLINE
-      </div>
-    </div>
-  </div>
+    <nav>
+        <div class="nav-item active" onclick="switchPage('overview')"><i class="fa-solid fa-gauge-high"></i> Overview</div>
+        <div class="nav-item" onclick="switchPage('lifts')"><i class="fa-solid fa-elevator"></i> Lift Systems</div>
+        <div class="nav-item" onclick="switchPage('energy')"><i class="fa-solid fa-leaf"></i> Energy Efficiency</div>
+    </nav>
+</aside>
 
-  <div class="dashboard-grid">
-
-    <div class="card lift-module" style="grid-row: span 2;">
-      <div class="card-header">
-        <span>Vertical Transport</span>
-        <i class="fa-solid fa-elevator"></i>
-      </div>
-
-      <div class="lift-group">
-        <div class="lift-label"><span>Low Zone (L1-15)</span> <span style="color:var(--success)">8/8</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
-      </div>
-
-      <div class="lift-group">
-        <div class="lift-label"><span>Mid Zone (L16-37)</span> <span style="color:var(--success)">8/8</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
-      </div>
-
-      <div class="lift-group">
-        <div class="lift-label"><span>High Zone (L38-55)</span> <span style="color:var(--mulia-gold)">7/8</span></div>
-        <div class="progress-bg"><div class="progress-fill maintenance" style="width: 87%;"></div></div>
-        <small style="color:var(--mulia-gold); font-size:0.7rem;">Lift H-3: Preventive Maint.</small>
-      </div>
-
-      <div class="lift-group">
-        <div class="lift-label"><span>Sky Lobby (L56-57)</span> <span style="color:var(--success)">8/8</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
-      </div>
-
-      <div class="lift-group">
-        <div class="lift-label"><span>Zone 1 & 2 (L58-98)</span> <span style="color:var(--success)">16/16</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
-      </div>
-
-      <div class="lift-group">
-        <div class="lift-label"><span>Sky Floors (L99-106)</span> <span style="color:var(--success)">2/2</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
-      </div>
-      
-      <div style="margin-top:20px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.1);">
-         <div class="lift-label"><span>Service Lifts</span> <span>4/4 OK</span></div>
-         <div class="lift-label"><span>Car Park Lifts</span> <span>4/4 OK</span></div>
-      </div>
+<main class="main-content">
+    
+    <div id="page-overview" class="page-view active-view">
+        <div class="top-bar">
+            <div class="page-title">
+                <h1>Exchange 106</h1>
+                <p>Enterprise BMS Dashboard</p>
+            </div>
+        </div>
+        <div class="scroll-area">
+            <div class="section-label">System Performance</div>
+            <div class="charts-grid">
+                <div class="card card-chart">
+                    <h2><i class="fa-solid fa-bolt"></i> Real-Time Power Load</h2>
+                    <div class="chart-wrapper"><canvas id="energyChart"></canvas></div>
+                </div>
+                <div class="card card-chart">
+                    <h2><i class="fa-solid fa-temperature-half"></i> Avg. Internal Temperature</h2>
+                    <div class="chart-wrapper"><canvas id="tempChart"></canvas></div>
+                </div>
+            </div>
+            <div class="section-label">Zone Status Overview</div>
+            <div class="zones-grid" id="zones">
+                </div>
+        </div>
     </div>
 
-    <div class="card floor-monitor" style="grid-row: span 2;">
-       <div style="position:absolute; top:20px; left:20px; color:var(--text-muted); font-size:0.9rem;">
-          <i class="fa-solid fa-layer-group"></i> LEVEL 45 (High Zone)
-          <div style="color:white; font-size:1.5rem; font-weight:700;">2,600 sqm</div>
-          <div style="color:var(--mulia-mint); font-size:0.8rem;">PREMIUM OFFICE LAYOUT</div>
-       </div>
-
-       <div class="building-shape">
-          <div class="sensor s-temp" title="Temp Sensor"></div>
-          <div class="sensor s-fcu" title="FCU Status"></div>
-          <div class="sensor s-lux" title="Lux Sensor"></div>
-          <div class="core">
-             <div class="core-cell"></div><div class="core-cell"></div>
-             <div class="core-cell"></div><div class="core-cell"></div>
-          </div>
-       </div>
-
-       <div class="floor-data">
-          <div style="display:flex; justify-content:space-between; width:200px; margin-bottom:5px;">
-             <span>TEMP (AVG)</span> <span style="color:var(--mulia-mint)">23.5°C</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; width:200px; margin-bottom:5px;">
-             <span>HUMIDITY</span> <span>55%</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; width:200px; margin-bottom:5px;">
-             <span>CO2 LEVEL</span> <span style="color:var(--success)">420 PPM</span>
-          </div>
-          <div style="margin-top:10px; border-top:1px solid #334155; padding-top:5px; color:var(--text-muted);">
-             FCU UNITS: <strong>AUTO MODE</strong>
-          </div>
-       </div>
+    <div id="page-lifts" class="page-view">
+        <div class="top-bar">
+            <div class="page-title">
+                <h1>Vertical Transportation</h1>
+                <p>Live Elevator Position Monitoring</p>
+            </div>
+        </div>
+        <div class="scroll-area">
+            <div class="lift-dashboard" id="lift-container"></div>
+        </div>
     </div>
 
-    <div class="card">
-       <div class="card-header">
-          <span>Visitor Management</span>
-          <i class="fa-solid fa-id-card-clip"></i>
-       </div>
+    <div id="page-energy" class="page-view">
+        <div class="top-bar">
+            <div class="page-title">
+                <h1>Energy Efficiency</h1>
+                <p>Sustainability & Consumption Analytics</p>
+            </div>
+        </div>
+        <div class="scroll-area">
+            <div class="section-label">Sustainability KPIs</div>
+            <div class="kpi-grid">
+                <div class="card">
+                    <h2>Efficiency Score</h2>
+                    <div class="big-stat" style="color:var(--mulia-mint)" id="eff-score">--%</div>
+                    <div class="sub-stat">Target: >90%</div>
+                </div>
+                <div class="card">
+                    <h2>Daily Consumption</h2>
+                    <div class="big-stat" id="daily-kwh">-- kWh</div>
+                    <div class="sub-stat">Total Building Load</div>
+                </div>
+                <div class="card">
+                    <h2>Carbon Saved</h2>
+                    <div class="big-stat" style="color:var(--success)" id="co2-saved">-- kg</div>
+                    <div class="sub-stat">CO2 Emissions Avoided</div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="card card-chart">
+                    <h2><i class="fa-solid fa-chart-pie"></i> Energy Mix Breakdown</h2>
+                    <div class="chart-wrapper"><canvas id="breakdownChart"></canvas></div>
+                </div>
+                <div class="card card-chart">
+                    <h2><i class="fa-solid fa-seedling"></i> Green Index Trend</h2>
+                    <div style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--text-muted);">
+                        <div style="text-align:center;">
+                            <i class="fa-solid fa-chart-line" style="font-size:40px; opacity:0.2; display:block; margin-bottom:10px;"></i>
+                            <span style="font-size:12px;">AI Projection Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script>
+    /* =========================================
+       INTERNAL DATA SIMULATOR (No Backend Needed)
+       ========================================= */
        
-       <div style="text-align:center; margin-bottom:15px;">
-          <div style="font-size:2.5rem; font-weight:700; color:white;">1,240</div>
-          <div style="font-size:0.8rem; color:var(--text-muted);">TOTAL VISITORS TODAY</div>
-       </div>
+    // 1. CHART SETUP
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.color = '#94a3b8';
+    
+    function getGradient(ctx, colorStart, colorEnd) {
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, colorStart);
+        gradient.addColorStop(1, colorEnd);
+        return gradient;
+    }
 
-       <div class="stat-grid">
-          <div class="stat-box">
-             <div class="stat-val" style="font-size:1.2rem;">850</div>
-             <div class="stat-label">Pre-Registered</div>
-          </div>
-          <div class="stat-box">
-             <div class="stat-val" style="font-size:1.2rem;">390</div>
-             <div class="stat-label">Walk-In</div>
-          </div>
-       </div>
+    const energyCtx = document.getElementById("energyChart").getContext('2d');
+    const energyChart = new Chart(energyCtx, {
+        type: 'bar',
+        data: { labels: [], datasets: [{ data: [], borderRadius: 6, barThickness: 40 }] },
+        options: { 
+            responsive: true, maintainAspectRatio: false, 
+            plugins: { legend: { display: false } },
+            scales: { x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#94a3b8' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, border: { display: false } } }
+        }
+    });
 
-       <a href="https://vms.exchange106.my/Account/Login" target="_blank" class="vms-btn">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> OPEN VMS PORTAL
-       </a>
-    </div>
+    const tempCtx = document.getElementById("tempChart").getContext('2d');
+    const tempChart = new Chart(tempCtx, {
+        type: 'line',
+        data: { labels: [], datasets: [{ data: [], borderColor: '#4ade80', borderWidth: 3, pointRadius: 0, fill: true, tension: 0.4 }] },
+        options: { 
+            responsive: true, maintainAspectRatio: false, 
+            plugins: { legend: { display: false } }, 
+            scales: { x: { display: false }, y: { display: true, grid: { color: 'rgba(255,255,255,0.05)' }, border: { display: false } } } 
+        }
+    });
 
-    <div class="card">
-       <div class="card-header">
-          <span>M&E Health</span>
-          <i class="fa-solid fa-bolt"></i>
-       </div>
+    const breakdownCtx = document.getElementById("breakdownChart").getContext('2d');
+    const breakdownChart = new Chart(breakdownCtx, {
+        type: 'doughnut',
+        data: { 
+            labels: ['HVAC', 'Lighting', 'Lifts', 'Plug Load'], 
+            datasets: [{ data: [45, 25, 20, 10], backgroundColor: ['#4ade80', '#fbbf24', '#ef4444', '#94a3b8'], borderWidth: 0 }] 
+        },
+        options: { 
+            responsive: true, maintainAspectRatio: false, 
+            plugins: { legend: { position: 'right', labels: { color: '#94a3b8', boxWidth: 12 } } },
+            cutout: '70%'
+        }
+    });
 
-       <div style="margin-bottom:15px;">
-          <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:5px;">
-             <span>Power Backup (Genset)</span> <span style="color:var(--success)">100% READY</span>
-          </div>
-          <div class="progress-bg"><div class="progress-fill" style="width:100%"></div></div>
-       </div>
+    // 2. DATA GENERATION LOGIC
+    const liftBanks = [
+        { id: "L_LOW", name: "Low Zone", min: 1, max: 15, count: 8 },
+        { id: "L_MID", name: "Mid Zone", min: 16, max: 37, count: 8 },
+        { id: "L_HIGH", name: "High Zone", min: 38, max: 55, count: 8 }, 
+        { id: "L_SKY", name: "Sky Lobby", min: 56, max: 57, count: 8 }
+    ];
 
-       <div style="margin-bottom:15px;">
-          <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:5px;">
-             <span>Central Chill Water</span> <span style="color:var(--success)">OPTIMAL</span>
-          </div>
-          <div class="progress-bg"><div class="progress-fill" style="width:98%"></div></div>
-       </div>
-       
-       <div style="margin-top:auto; background:rgba(239, 68, 68, 0.1); color:var(--danger); padding:10px; border-radius:6px; font-size:0.8rem; display:flex; gap:10px; align-items:center;">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <div>Alert: Zone 3 Fire Panel Test Scheduled 23:00</div>
-       </div>
-    </div>
+    let liftsState = [];
+    liftBanks.forEach(bank => {
+        for(let i=0; i < bank.count; i++) {
+            liftsState.push({
+                id: `${bank.id}_${i}`, bankName: bank.name,
+                floor: Math.floor(Math.random() * (bank.max - bank.min + 1) + bank.min),
+                target: null, status: "IDLE", min: bank.min, max: bank.max
+            });
+        }
+    });
+    // Force 1 Maintenance
+    const brokenLift = liftsState.find(l => l.bankName === "High Zone");
+    if(brokenLift) { brokenLift.status = "MAINT"; brokenLift.floor = 40; }
 
-  </div>
+    function getSimulatedData() {
+        // --- Simulate Zones ---
+        const zones = [
+            { name: "Low Zone (L1-15)", type: "LIFT_GROUP", total: 8, active: 8, energy_kwh: +(120 + Math.random() * 10).toFixed(2), temperature: +(23 + Math.random()).toFixed(1), status: "NORMAL" },
+            { name: "Mid Zone (L16-37)", type: "LIFT_GROUP", total: 8, active: 8, energy_kwh: +(145 + Math.random() * 10).toFixed(2), temperature: +(23.5 + Math.random()).toFixed(1), status: "NORMAL" },
+            { name: "High Zone (L38-55)", type: "LIFT_GROUP", total: 8, active: 7, energy_kwh: +(130 + Math.random() * 10).toFixed(2), temperature: +(24 + Math.random()).toFixed(1), status: "WARNING", alert_msg: "Lift H-3: Preventive Maint." },
+            { name: "Sky Lobby (L56-57)", type: "LOBBY", total: 8, active: 8, energy_kwh: +(90 + Math.random() * 5).toFixed(2), temperature: +(22 + Math.random()).toFixed(1), status: "NORMAL" },
+            { name: "Zone 1 & 2 (L58-98)", type: "OFFICE_TIER", total: 16, active: 16, energy_kwh: +(210 + Math.random() * 15).toFixed(2), temperature: +(23 + Math.random()).toFixed(1), status: "NORMAL" },
+            { name: "Sky Floors (L99-106)", type: "VIP", total: 2, active: 2, energy_kwh: +(50 + Math.random() * 5).toFixed(2), temperature: +(21 + Math.random()).toFixed(1), status: "NORMAL" }
+        ];
 
+        // --- Simulate Lifts ---
+        liftsState.forEach(lift => {
+            if (lift.status === "MAINT") return;
+            if (lift.status === "IDLE" && Math.random() > 0.85) {
+                lift.target = Math.floor(Math.random() * (lift.max - lift.min + 1) + lift.min);
+                lift.status = "MOVING";
+            }
+            if (lift.status === "MOVING") {
+                if (lift.floor < lift.target) lift.floor++;
+                else if (lift.floor > lift.target) lift.floor--;
+                else { lift.status = "IDLE"; lift.target = null; }
+            }
+        });
+
+        // --- Simulate Energy ---
+        const energy = {
+            efficiency_score: Math.floor(85 + Math.random() * 10),
+            daily_kwh: +(4500 + Math.random() * 200).toFixed(0),
+            co2_saved_kg: +(120 + Math.random() * 10).toFixed(1),
+            breakdown: { hvac: 45, lighting: 25, lifts: 20, plugs: 10 }
+        };
+
+        return { zones, lifts: liftsState, energy };
+    }
+
+    // 3. RENDER FUNCTIONS
+    const zonesDiv = document.getElementById("zones");
+    const liftContainer = document.getElementById("lift-container");
+
+    function renderOverview(zones) {
+        zonesDiv.innerHTML = "";
+        zones.forEach(z => {
+            const isAlert = z.status === "WARNING";
+            const color = isAlert ? "#fbbf24" : "#10b981"; 
+            const bg = isAlert ? "rgba(251, 191, 36, 0.15)" : "rgba(16, 185, 129, 0.15)";
+            
+            const card = document.createElement("div");
+            card.className = `card ${z.status}`;
+            card.innerHTML = `
+                <div class="status-pill" style="color:${color}; background:${bg}">${z.status}</div>
+                <h2>${z.name}</h2>
+                <div class="big-stat">${z.active} <span style="font-size:14px; color:#94a3b8; font-weight:400;">/ ${z.total}</span></div>
+                <div class="sub-stat">Active Units</div>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; font-size:12px; color:#94a3b8;">
+                    <span><i class="fa-solid fa-bolt"></i> ${z.energy_kwh} kWh</span>
+                    <span><i class="fa-solid fa-temperature-half"></i> ${z.temperature}°C</span>
+                </div>
+                ${z.alert_msg ? `<div style="margin-top:10px; color:#ef4444; font-size:11px; display:flex; gap:5px; align-items:center;"><i class="fa-solid fa-triangle-exclamation"></i> ${z.alert_msg}</div>` : ''}
+            `;
+            zonesDiv.appendChild(card);
+        });
+
+        // Update Overview Charts
+        const labels = zones.map(z => z.name.split(" ")[0] + " " + z.name.split(" ")[1]);
+        const energyData = zones.map(z => z.energy_kwh);
+        energyChart.data.labels = labels;
+        energyChart.data.datasets[0].data = energyData;
+        energyChart.data.datasets[0].backgroundColor = zones.map(z => z.status==="WARNING" ? getGradient(energyCtx, '#fbbf24', 'rgba(251, 191, 36, 0.2)') : getGradient(energyCtx, '#4ade80', 'rgba(74, 222, 128, 0.2)'));
+        energyChart.update();
+
+        const avgTemp = zones.reduce((a,b)=>a+b.temperature,0) / zones.length;
+        if(tempChart.data.labels.length > 20) { tempChart.data.labels.shift(); tempChart.data.datasets[0].data.shift(); }
+        tempChart.data.labels.push("");
+        tempChart.data.datasets[0].data.push(avgTemp);
+        tempChart.data.datasets[0].backgroundColor = getGradient(tempCtx, 'rgba(74, 222, 128, 0.2)', 'rgba(74, 222, 128, 0)');
+        tempChart.update();
+    }
+
+    function renderLifts(lifts) {
+        const banks = {};
+        lifts.forEach(l => { if(!banks[l.bankName]) banks[l.bankName] = []; banks[l.bankName].push(l); });
+
+        if(liftContainer.innerHTML === "") {
+            for(const [name, liftList] of Object.entries(banks)) {
+                const bankDiv = document.createElement("div");
+                bankDiv.className = "lift-bank";
+                bankDiv.innerHTML = `<div class="bank-title">${name}</div><div class="shafts-container" id="bank-${name.replace(/ /g,'')}"></div>`;
+                liftContainer.appendChild(bankDiv);
+                const shaftsDiv = bankDiv.querySelector(".shafts-container");
+                liftList.forEach(l => {
+                    const shaft = document.createElement("div");
+                    shaft.className = "shaft";
+                    shaft.innerHTML = `<div class="elevator-car" id="lift-${l.id}"></div>`;
+                    shaftsDiv.appendChild(shaft);
+                });
+            }
+        }
+        lifts.forEach(l => {
+            const car = document.getElementById(`lift-${l.id}`);
+            if(car) {
+                const range = l.max - l.min; const current = l.floor - l.min; const percent = (current / range) * 90;
+                car.style.bottom = `${percent}%`; car.innerText = `L${l.floor}`; car.className = `elevator-car ${l.status}`;
+            }
+        });
+    }
+
+    function renderEnergy(energy) {
+        document.getElementById('eff-score').innerText = energy.efficiency_score + "%";
+        document.getElementById('daily-kwh').innerText = energy.daily_kwh + " kWh";
+        document.getElementById('co2-saved').innerText = energy.co2_saved_kg + " kg";
+        breakdownChart.data.datasets[0].data = [energy.breakdown.hvac, energy.breakdown.lighting, energy.breakdown.lifts, energy.breakdown.plugs];
+        breakdownChart.update();
+    }
+
+    // 4. MAIN LOOP (Replaces Socket.io)
+    function updateDashboard() {
+        const data = getSimulatedData();
+        
+        if(document.getElementById('page-overview').classList.contains('active-view')) {
+            renderOverview(data.zones);
+        } else if (document.getElementById('page-lifts').classList.contains('active-view')) {
+            renderLifts(data.lifts);
+        } else if (document.getElementById('page-energy').classList.contains('active-view')) {
+            renderEnergy(data.energy);
+        }
+    }
+
+    // Run every 2 seconds
+    setInterval(updateDashboard, 2000);
+    updateDashboard(); // Initial call
+
+    // --- NAVIGATION ---
+    function switchPage(pageId) {
+        document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active-view'));
+        document.getElementById('page-' + pageId).classList.add('active-view');
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        updateDashboard(); // Refresh immediately on switch
+    }
+</script>
 </body>
 </html>
